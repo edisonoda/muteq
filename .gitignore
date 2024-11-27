@@ -1,0 +1,4 @@
+.angular/
+
+*.log
+node_modules/
