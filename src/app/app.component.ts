@@ -4,7 +4,13 @@ import {Component} from '@angular/core';
   selector: 'app-root',
   imports: [],
   template: `
-    <h1>Default</h1>
+    <main>
+      <header>
+      </header>
+      <section class="content">
+        <!-- <app-home></app-home> -->
+      </section>
+    </main>
   `,
   styleUrls: ['./app.component.css'],
 })
