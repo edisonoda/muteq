@@ -2,7 +2,7 @@
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
-MUTEQ (Modelo Único de Tecnologia Em QR codes) é um sistema com a finalidade de proporcionar a visualização de informações sobre os itens do museu aos visitantes através de dispositivos móveis, enriquecendo a experiência da visita, e apresentar uma forma de registro de acervo à equipe administrativa do MUTEC da UTFPR.
+MUTEQ (Modelo Único de Tecnologia Em QR codes) é um sistema desenvolvido para o MUTEC da UTFPR com a finalidade de proporcionar a visualização de informações sobre os itens, através da leitura de QR Codes, aos visitantes e apresentar uma forma de registro de acervo à equipe administrativa do museu.
 
 <h2>Setup do projeto no VS Code:</h2>
 
