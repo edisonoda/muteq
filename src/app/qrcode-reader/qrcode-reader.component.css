@@ -1,0 +1,13 @@
+.qrcode-reader-button {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+}
+
+.dialog-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--content-padding);
+}

@@ -1,2 +1,10 @@
-<canvas #canvas [height]="height" [width]="width"></canvas>
-Teste do QR Code: <a [href]="url">{{ url }}</a>
+<div class="dialog-title">
+    <h3 mat-dialog-title>Leitor de Código QR</h3>
+    <button mat-icon-button aria-label="Fechar Leitor de Código QR">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <canvas #canvas [height]="height" [width]="width"></canvas>
+    Teste do QR Code: <a [href]="url">{{ url }}</a>
+</mat-dialog-content>

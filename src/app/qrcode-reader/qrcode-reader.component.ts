@@ -1,5 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import jsQR from 'jsqr';
+import { Subscription } from 'rxjs';
 
 enum QRCodeReaderStatus {
   STAND_BY,
@@ -10,13 +14,14 @@ enum QRCodeReaderStatus {
 
 @Component({
   selector: 'app-qrcode-reader',
-  imports: [],
+  imports: [MatDialogModule, MatButtonModule, MatIconModule],
   templateUrl: './qrcode-reader.component.html',
   styleUrls: ['./qrcode-reader.component.css'],
 })
-export class QRCodeReaderComponent implements OnInit {
+export class QRCodeReaderComponent implements OnInit, OnDestroy {
   @ViewChild('canvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   private _video: HTMLVideoElement = document.createElement("video");
+  private _stream: MediaStream = new MediaStream();
 
   private _url: String = "";
   public get url() {
@@ -24,7 +29,6 @@ export class QRCodeReaderComponent implements OnInit {
   }
 
   private _status: QRCodeReaderStatus = QRCodeReaderStatus.STAND_BY;
-  private _open: boolean = false;
 
   private _height: number = 480;
   public get height() {
@@ -36,12 +40,24 @@ export class QRCodeReaderComponent implements OnInit {
     return this._width;
   }
 
+  private readonly _dialogRef = inject(MatDialogRef<QRCodeReaderComponent>);
+  private _closeSub!: Subscription;
+
   constructor() {
     
   }
 
   ngOnInit(): void {
     this.startReading();
+    this._closeSub = this._dialogRef.beforeClosed().subscribe(() => {
+      this._stream.getTracks().forEach(track => {
+        track.stop();
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._closeSub.unsubscribe();
   }
 
   private tickCamera(): void {
@@ -63,7 +79,7 @@ export class QRCodeReaderComponent implements OnInit {
         if (code && code.data) {
           console.log(code);
           this._url = code.data;
-        } else {
+          this._status = QRCodeReaderStatus.FINISHED;
         }
       }
     }
@@ -73,12 +89,17 @@ export class QRCodeReaderComponent implements OnInit {
 
   private startReading(): void {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
-      this._video.srcObject = stream;
+      this._stream = stream;
+      this._video.srcObject = this._stream;
       this._video.play();
       requestAnimationFrame(() => this.tickCamera());
     }).catch(error => {
       console.error("Erro ao acessar câmera: ", error);
       this._status = QRCodeReaderStatus.ERROR;
     });
+  }
+
+  close(): void {
+    this._dialogRef.close();
   }
 }

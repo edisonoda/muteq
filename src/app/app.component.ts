@@ -1,17 +1,17 @@
 import {Component} from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
 import { RouterOutlet } from '@angular/router';
-import { QRCodeReaderComponent } from "./qrcode-reader/qrcode-reader.component";
+import { QRCodeReaderButtonComponent } from "./qrcode-reader/qrcode-reader-button.component";
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, RouterOutlet, QRCodeReaderComponent],
+  imports: [HeaderComponent, RouterOutlet, QRCodeReaderButtonComponent],
   template: `
     <app-header></app-header>
     <main>
       <section class="content">
         <router-outlet></router-outlet>
-        <app-qrcode-reader></app-qrcode-reader>
+        <app-qrcode-reader-button></app-qrcode-reader-button>
         <!-- <app-home></app-home> -->
       </section>
     </main>
