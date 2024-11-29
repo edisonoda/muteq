@@ -23,7 +23,7 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy {
   private _video: HTMLVideoElement = document.createElement("video");
   private _stream: MediaStream = new MediaStream();
 
-  private _url: String = "";
+  private _url: string = "";
   public get url() {
     return this._url;
   }

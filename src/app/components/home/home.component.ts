@@ -7,17 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  private _title: String = "MUTEC";
+  private _title: string = "MUTEC";
   public get title() {
     return this._title;
   }
 
-  private _img: String = "";
+  private _img: string = "";
   public get img() {
     return this._img;
   }
 
-  private _description: String = "O Museu de Tecnologias do Campus Curitiba da UTFPR";
+  private _description: string = "O Museu de Tecnologias do Campus Curitiba da UTFPR";
   public get description() {
     return this._description;
   }

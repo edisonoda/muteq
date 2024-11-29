@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from "./components/header/header.component";
 import { RouterOutlet } from '@angular/router';
-import { QRCodeReaderButtonComponent } from "./qrcode-reader/qrcode-reader-button.component";
+import { QRCodeReaderButtonComponent } from "./components/qrcode-reader/qrcode-reader-button.component";
 
 @Component({
   selector: 'app-root',
