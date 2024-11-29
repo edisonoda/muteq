@@ -1,0 +1,71 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -10px;
+    margin-right: -10px;
+}
+
+.list__element {
+    box-sizing: border-box;
+    display: block;
+    max-width: 50%;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    width: 100%;
+}
+
+.element-card {
+    background-image: url('/assets/img/mutec_logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.element-card__details {
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: var(--content-padding);
+
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.1));
+    color: #faf9fd;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    transition: bottom 0.3s ease-in-out;
+}
+
+.list__element:hover .element-card__details {
+    bottom: 0;
+}
+
+.element-card__title {
+    font-family: var(--mat-card-title-text-font, var(--mat-sys-title-large-font));
+    line-height: var(--mat-card-title-text-line-height, var(--mat-sys-title-large-line-height));
+    font-size: var(--mat-card-title-text-size, var(--mat-sys-title-large-size));
+    letter-spacing: var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));
+    font-weight: var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight));
+
+    margin-bottom: 10px;
+}
+
+.list-element-description {
+    max-height: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+}
+
+@media (min-width: 768px) {
+
+}
