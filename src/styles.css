@@ -14,8 +14,8 @@ body {
   --shadow-color: #E8E8E8;
 
   /* Content Sizes */
-  --header-size: 60px;
-  --content-padding: 10px;
+  --header-size: 135px;
+  --content-padding: 60px;
 
   /* Z-index layers */
   --z-header: 10;

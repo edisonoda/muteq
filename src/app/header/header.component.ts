@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <header>
+      <div>
+        <img src="assets/img/mutec_logo.png" style="padding-bottom: 13px;">
+        <img src="assets/img/utfpr.png" >
+      </div>
     </header>
   `,
   styleUrls: ['./header.component.css'],

@@ -1,0 +1,40 @@
+.mutec-home{
+    padding-bottom: 40px;
+}
+
+.mutec-home p{
+    font-size: 27px;
+}
+
+h1{
+    font-size: 80px;
+}
+
+h2{
+    font-size: 27px;
+    padding-bottom: 5px;
+}
+
+p{
+    font-size: 18px;
+    text-align: justify;
+}
+
+.mutec-objective{
+    display: flex;
+    flex-wrap: nowrap
+}
+
+.mutec-topics{
+    display: flex;
+    padding-bottom: 30px;
+    flex-direction: column;
+}
+
+.mutec-topics p{
+    padding-top: 13px;
+}
+
+.mutec-texts{
+    width: 80%;
+}
