@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  private _title: String = "Bem-vinda(o) ao MUTEQ!";
+  private _title: String = "MUTEC";
   public get title() {
     return this._title;
   }
@@ -17,7 +17,7 @@ export class HomeComponent {
     return this._img;
   }
 
-  private _description: String = "Tenha todos os itens do museu em suas mãos.";
+  private _description: String = "O Museu de Tecnologias do Campus Curitiba da UTFPR";
   public get description() {
     return this._description;
   }

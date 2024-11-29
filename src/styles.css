@@ -15,10 +15,17 @@ body {
 
   /* Content Sizes */
   --header-size: 135px;
-  --content-padding: 60px;
+  --content-padding: 15px;
+  --page-max-width: 100%;
 
   /* Z-index layers */
   --z-header: 10;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-max-width: 80%;
+  }
 }
 
 button.primary {

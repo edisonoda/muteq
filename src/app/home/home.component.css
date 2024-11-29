@@ -1,8 +1,8 @@
-.mutec-home{
+.mutec-title{
     padding-bottom: 40px;
 }
 
-.mutec-home p{
+.mutec-title p{
     font-size: 27px;
 }
 
@@ -12,7 +12,7 @@ h1{
 
 h2{
     font-size: 27px;
-    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 p{
@@ -20,21 +20,24 @@ p{
     text-align: justify;
 }
 
-.mutec-objective{
-    display: flex;
-    flex-wrap: nowrap
+.mutec-home img {
+    display: none;
 }
 
 .mutec-topics{
-    display: flex;
-    padding-bottom: 30px;
-    flex-direction: column;
+    margin-bottom: 30px;
 }
 
 .mutec-topics p{
-    padding-top: 13px;
+    margin-top: 13px;
 }
 
-.mutec-texts{
-    width: 80%;
+@media (min-width: 768px) {
+    .mutec-home img {
+        display: block;
+        float: right;
+        padding-bottom: var(--content-padding);
+        padding-left: var(--content-padding);
+        width: 450px;
+    }
 }

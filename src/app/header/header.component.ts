@@ -5,9 +5,11 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <header>
-      <div>
-        <img src="assets/img/mutec_logo.png" style="padding-bottom: 13px;">
-        <img src="assets/img/utfpr.png" >
+      <div class="header-content">
+        <div class="logos">
+          <img class="logos__mutec" src="assets/img/mutec_logo.png">
+          <img class="logos__utfpr" src="assets/img/utfpr.png" >
+        </div>
       </div>
     </header>
   `,

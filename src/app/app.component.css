@@ -1,4 +1,6 @@
 .content {
+  margin: auto;
+  max-width: var(--page-max-width);
   padding: var(--content-padding);
 }
 
