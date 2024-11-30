@@ -1,0 +1,34 @@
+<div class="dialog-title">
+    <h3 mat-dialog-title>{{ item.name }}</h3>
+    <button mat-icon-button (click)="close()" aria-label="Fechar Visualização de Informações do Item">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="item-content">
+    <img [src]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}">
+    <section>
+        <h4>Descrição</h4>
+        <p>{{ item.description }}</p>
+    </section>
+    <section class="item-details">
+        <h4>Detalhes</h4>
+        <div>
+            <div>
+                <span>Fabricante:</span>
+                <p>{{ item.manufacturer }}</p>
+            </div>
+            <div>
+                <span>Ano:</span>
+                <p>{{ item.year }}</p>
+            </div>
+            <div>
+                <span>Categoria:</span>
+                <p>{{ item.category?.name }}</p>
+            </div>
+            <div>
+                <span>Seção:</span>
+                <p>{{ item.section?.name }}</p>
+            </div>
+        </div>
+    </section>
+</mat-dialog-content>

@@ -1,12 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { ListComponent } from './list.component';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 import { ListElementComponent } from './list-element/list-element.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ItemComponent } from '../item/item.component';
 
 enum ItemGroup {
   NONE,
@@ -30,7 +31,9 @@ export class ItemListComponent extends ListComponent<Item> {
   public get filters() { return this._filters; }
   public set filters(f: ListFilters) { this._filters = f; }
 
-  constructor(@Inject(SearchService) searchService: SearchService, private router: Router) {
+  private readonly dialog = inject(MatDialog);
+
+  constructor(@Inject(SearchService) searchService: SearchService) {
     super(searchService);
   }
 
@@ -58,6 +61,8 @@ export class ItemListComponent extends ListComponent<Item> {
   }
 
   public previewItem(id: number): void {
-    this.router.navigate(['item', id]);
+    const dialogRef = this.dialog.open(ItemComponent, {
+      data: id
+    });
   }
 }
