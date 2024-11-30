@@ -1,0 +1,17 @@
+.login-mutec{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-mutec{
+    h2{
+      margin-bottom: 10px;
+    }
+  }
+
+  .login-mutec{
+    button{
+      margin-top: 10px;
+    }
+  }

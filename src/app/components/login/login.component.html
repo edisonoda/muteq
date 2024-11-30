@@ -1,0 +1,26 @@
+<form class="login-mutec" [formGroup]="loginForm">
+    <h2>Login</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email"
+        matInput
+        placeholder="email@gmail.com"
+        formControlName="email"
+        />
+        @if (loginForm.get('email')?.hasError('required')) {
+            <mat-error>Email obrigatório</mat-error>
+        }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input type="password"
+        matInput
+        formControlName="password"
+        />
+        @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>Senha obrigatória</mat-error>
+        }
+    </mat-form-field>
+
+    <button mat-stroked-button (click)="onSubmit()">Login</button>
+</form>

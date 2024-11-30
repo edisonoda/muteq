@@ -1,6 +1,7 @@
 import {Routes} from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ItemListComponent } from './components/lists/item-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routeConfig: Routes = [
     {
@@ -12,6 +13,11 @@ const routeConfig: Routes = [
         path: 'itens',
         component: ItemListComponent,
         title: 'Itens',
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Login',
     },
 ];
 export default routeConfig;
