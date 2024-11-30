@@ -8,7 +8,7 @@
 .list__element {
     box-sizing: border-box;
     display: block;
-    max-width: 50%;
+    max-width: 100%;
     padding-bottom: 10px;
     padding-right: 10px;
     width: 100%;
@@ -32,16 +32,21 @@
     box-sizing: border-box;
     padding: var(--content-padding);
 
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.1));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
     color: #faf9fd;
     height: 100%;
     width: 100%;
 
     position: absolute;
     transition: bottom 0.3s ease-in-out;
+    bottom: calc(-100% + 70px + var(--content-padding));
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.list__element:hover .element-card__details {
+::ng-deep .list__element:hover .element-card__details {
     bottom: 0;
 }
 
@@ -52,7 +57,7 @@
     letter-spacing: var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));
     font-weight: var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight));
 
-    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .list-element-description {
@@ -66,6 +71,24 @@
     line-clamp: 4;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
+    .list__element {
+        box-sizing: border-box;
+        display: block;
+        max-width: 50%;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        width: 100%;
+    }
+}
 
+@media (min-width: 1280px) {
+    .list__element {
+        box-sizing: border-box;
+        display: block;
+        max-width: 33.33%;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        width: 100%;
+    }
 }

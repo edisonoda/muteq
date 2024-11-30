@@ -11,14 +11,10 @@ import { Listable } from 'src/app/interfaces/listable';
   styleUrls: ['../list.component.css'],
 })
 export class ListElementComponent {
+  private _element: Listable = { id: -1, name: "", description: "" };
+  public get element() { return this._element; }
   @Input()
-  public element: Listable = { id: -1, name: "", description: "" };
+  public set element(e: Listable) { this._element = e; }
 
-  @ViewChild('title', { static: false }) title!: ElementRef;
-
-  public titleHeight: number = 100;
-
-  constructor() {
-
-  }
+  constructor() { }
 }

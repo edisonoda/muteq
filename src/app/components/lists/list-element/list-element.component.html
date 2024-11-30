@@ -1,6 +1,8 @@
 <div class="element-card" [ngStyle]="{ 'background-image': 'url(' + element.img + ')' }">
     <div class="element-card__details">
-        <h3 #title class="element-card__title" id="title-element-{{ element.id }}">{{ element.name }}</h3>
+        <h3 #title class="element-card__title" id="title-element-{{ element.id }}">
+            {{ element.name }}
+        </h3>
         <p class="list-element-description">
             {{ element.description }}
         </p>
