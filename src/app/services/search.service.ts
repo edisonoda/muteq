@@ -203,14 +203,14 @@ export class SearchService {
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.name == name) }).pipe(delay(1000));
+    return of({ status: 200, data: items.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
   }
 
   public getSectionsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Section>>> {
-    return of({ status: 200, data: sections.filter(i => i.name == name) }).pipe(delay(1000));
+    return of({ status: 200, data: sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
   }
 
   public getCategoriesByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Category>>> {
-    return of({ status: 200, data: categories.filter(i => i.name == name) }).pipe(delay(1000));
+    return of({ status: 200, data: categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
   }
 }
