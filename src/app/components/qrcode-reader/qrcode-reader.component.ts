@@ -30,16 +30,6 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy {
 
   private _status: QRCodeReaderStatus = QRCodeReaderStatus.STAND_BY;
 
-  private _height: number = 480;
-  public get height() {
-    return this._height;
-  }
-
-  private _width: number = 640;
-  public get width() {
-    return this._width;
-  }
-
   private readonly _dialogRef = inject(MatDialogRef<QRCodeReaderComponent>);
   private _closeSub!: Subscription;
 

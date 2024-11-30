@@ -22,6 +22,9 @@ export class QRCodeReaderButtonComponent {
   }
 
   public openDialog(): void {
-    const dialogRef = this.dialog.open(QRCodeReaderComponent);
+    const dialogRef = this.dialog.open(QRCodeReaderComponent, {
+      maxHeight: 'unset',
+      maxWidth: 'unset',
+    });
   }
 }
