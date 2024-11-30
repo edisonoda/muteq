@@ -12,6 +12,7 @@ header {
 
     display: flex;
     align-items: center;
+    align-content: center;
 }
 
 .header-content {
@@ -29,16 +30,7 @@ header {
     display: flex;
     align-items: center;
 }
-.header-content > .logos > .logos__utfpr {
-    display: none;
-}
 
 img{
     width: 225px;
-}
-
-@media (min-width: 768px) {
-    .header-content > .logos > .logos__utfpr {
-        display: block;
-    }
 }

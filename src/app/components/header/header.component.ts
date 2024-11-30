@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
+import { Menu } from './menu';  
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [Menu, RouterModule],
   template: `
     <header>
       <div class="header-content">
         <div class="logos">
-          <img class="logos__mutec" src="assets/img/mutec_logo.png">
-          <img class="logos__utfpr" src="assets/img/utfpr.png" >
+          <a routerLink="/"><img class="logos__mutec" src="assets/img/mutec_logo.png"></a>
+        </div>
+        <div>
+          <menu></menu>
         </div>
       </div>
     </header>
