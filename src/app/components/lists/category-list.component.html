@@ -1,0 +1,6 @@
+<ul class="list">
+    <li *ngFor="let item of items" (click)="accessCategory(item.id)" class="list__element"
+        [attr.aria-labelledby]="'title-element-' + item.id">
+        <app-list-element [element]="item"></app-list-element>
+    </li>
+</ul>
