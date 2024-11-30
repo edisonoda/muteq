@@ -1,9 +1,10 @@
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import jsQR from 'jsqr';
 import { Subscription } from 'rxjs';
+import { ItemComponent } from '../item/item.component';
 
 enum QRCodeReaderStatus {
   STAND_BY,
@@ -23,19 +24,14 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy {
   private _video: HTMLVideoElement = document.createElement("video");
   private _stream: MediaStream = new MediaStream();
 
-  private _url: string = "";
-  public get url() {
-    return this._url;
-  }
-
   private _status: QRCodeReaderStatus = QRCodeReaderStatus.STAND_BY;
 
   private readonly _dialogRef = inject(MatDialogRef<QRCodeReaderComponent>);
+  private readonly _dialog = inject(MatDialog);
+
   private _closeSub!: Subscription;
 
-  constructor() {
-    
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.startReading();
@@ -67,9 +63,12 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy {
         });
 
         if (code && code.data) {
-          console.log(code);
-          this._url = code.data;
           this._status = QRCodeReaderStatus.FINISHED;
+          const dialogRef = this._dialog.open(ItemComponent, {
+            data: code.data
+          });
+
+          this.close();
         }
       }
     }
