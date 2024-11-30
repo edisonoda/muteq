@@ -1,10 +1,8 @@
-
 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu button" style="background-color: #FFC30A;">
   <mat-icon style="color: white;">menu</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu">
-  
+<mat-menu #menu="matMenu" xPosition="before" class="header-menu-panel">
   <a mat-menu-item routerLink="/itens">
     <mat-icon>album</mat-icon>
     <span>Itens</span>

@@ -34,3 +34,21 @@ header {
 img{
     width: 225px;
 }
+
+::ng-deep .mat-mdc-menu-panel.header-menu-panel {
+    margin-top: 10px;
+    overflow: visible;
+}
+
+::ng-deep .mat-mdc-menu-panel.header-menu-panel::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 10px;
+
+    border-style: solid;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--mat-menu-container-color, var(--mat-sys-surface-container));
+}
