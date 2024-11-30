@@ -7,6 +7,7 @@
 
 .list__element {
     box-sizing: border-box;
+    cursor: pointer;
     display: block;
     max-width: 100%;
     padding-bottom: 10px;
@@ -38,7 +39,7 @@
     width: 100%;
 
     position: absolute;
-    transition: bottom 0.3s ease-in-out;
+    transition: bottom 0.5s cubic-bezier(0.27, 0.02, 0.09, 1.08);
     bottom: calc(-100% + 70px + var(--content-padding));
 
     display: flex;
