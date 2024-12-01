@@ -199,11 +199,11 @@ export class SearchService {
   }
 
   public getItemsBySection(id: number, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.id == id) }).pipe(delay(1000));
+    return of({ status: 200, data: items.filter(i => i.section?.id == id) }).pipe(delay(1000));
   }
 
   public getItemsByCategory(id: number, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.id == id) }).pipe(delay(1000));
+    return of({ status: 200, data: items.filter(i => i.category?.id == id) }).pipe(delay(1000));
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
