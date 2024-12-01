@@ -3,7 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ItemListComponent } from './components/lists/item-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { CategoryListComponent } from './components/lists/category-list.component';
-import { SectionListComponent } from './components/lists/section-list.component copy';
+import { SectionListComponent } from './components/lists/section-list.component';
 import { CreateItemComponent } from './components/create-item-form/create-item-form';
 import { CreateSectionComponent } from './components/create-section-form/create-section-form';
 import { CreateCategoryComponent } from './components/create-category-form/create-category-form';
