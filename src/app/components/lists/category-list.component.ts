@@ -26,7 +26,6 @@ export class CategoryListComponent extends ListComponent<Category> {
         this.items = res.data ?? [];
     });
   }
-  
 
   public accessCategory(id: number): void {
     //accessCategory navega para a lista de itens

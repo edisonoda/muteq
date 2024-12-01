@@ -1,0 +1,28 @@
+.create-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-section {
+  h2 {
+    margin-bottom: 10px;
+    padding: 20px;
+  }
+}
+
+.create-section {
+  button {
+    margin-top: 10px;
+  }
+}
+
+.add-items-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-items {
+  display: flex;
+}

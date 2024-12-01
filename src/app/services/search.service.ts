@@ -170,7 +170,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  public getItems(page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
+  public getItems(page?: number, size?: number): Observable<DefaultResponse<Array<Item>>> {
     return of({ status: 200, data: items }).pipe(delay(1000));
   }
 
@@ -178,7 +178,7 @@ export class SearchService {
     return of({ status: 200, data: items.find(v => v.id == id) ?? null}).pipe(delay(1000));
   }
 
-  public getSections(page: number, size: number): Observable<DefaultResponse<Array<Section>>> {
+  public getSections(page?: number, size?: number): Observable<DefaultResponse<Array<Section>>> {
     return of({ status: 200, data: sections }).pipe(delay(1000));
   }
 
@@ -186,7 +186,7 @@ export class SearchService {
     return of({ status: 200, data: sections.find(v => v.id == id) ?? null}).pipe(delay(1000));
   }
 
-  public getCategories(page: number, size: number): Observable<DefaultResponse<Array<Category>>> {
+  public getCategories(page?: number, size?: number): Observable<DefaultResponse<Array<Category>>> {
     return of({ status: 200, data: categories }).pipe(delay(1000));
   }
 
