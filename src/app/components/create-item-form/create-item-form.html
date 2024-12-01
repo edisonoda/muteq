@@ -54,14 +54,14 @@
         enctype="multipart/form-data"
         />
         @if (createItemForm.get('photo')?.hasError('required')) {
-            <mat-error>Fabricante obrigatório</mat-error>
+            <mat-error>Foto obrigatória</mat-error>
         }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Categoria</mat-label>
       <mat-select formControlName="category">
-        <mat-option>Nenhuma</mat-option>
+        <mat-option value="None">Nenhuma</mat-option>
         @for (category of categories; track category) {
           <mat-option [value]="category.name">{{category.name}}</mat-option>
         }
@@ -71,7 +71,7 @@
     <mat-form-field appearance="outline">
         <mat-label>Seção</mat-label>
         <mat-select formControlName="section">
-          <mat-option>Nenhuma</mat-option>
+          <mat-option value="None">Nenhuma</mat-option>
           @for (section of sections; track section) {
             <mat-option [value]="section.name">{{section.name}}</mat-option>
           }
