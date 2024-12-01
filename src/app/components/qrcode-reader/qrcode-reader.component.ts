@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ enum QRCodeReaderStatus {
   templateUrl: './qrcode-reader.component.html',
   styleUrls: ['./qrcode-reader.component.css'],
 })
-export class QRCodeReaderComponent implements OnInit, OnDestroy {
+export class QRCodeReaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('canvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   private _video: HTMLVideoElement = document.createElement("video");
   private _stream: MediaStream = new MediaStream();
@@ -40,6 +40,10 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy {
         track.stop();
       });
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.canvasElement.nativeElement?.getContext('2d', { willReadFrequently: true });
   }
 
   ngOnDestroy(): void {
