@@ -9,9 +9,9 @@ import { SearchComponent } from './search/search.component';
   template: `
     <header>
       <div class="header-content">
-        <div class="logos">
-          <a routerLink="/"><img class="logos__mutec" src="assets/img/mutec_logo.png"></a>
-        </div>
+        <a class="logo" routerLink="/" aria-label="Página inicial">
+          <img class="logos__mutec" src="assets/img/mutec_logo.png">
+        </a>
         <app-menu></app-menu>
         <app-search></app-search>
       </div>

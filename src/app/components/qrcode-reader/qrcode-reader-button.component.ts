@@ -9,9 +9,9 @@ import { QRCodeReaderComponent } from './qrcode-reader.component';
   selector: 'app-qrcode-reader-button',
   imports: [MatButtonModule, MatIconModule, MatTooltip],
   template: `
-    <button (click)="openDialog()" class="qrcode-reader-button" mat-fab aria-label="Botão para ler Códigos QR"
+    <button (click)="openDialog()" class="qrcode-reader-button" mat-fab aria-label="Ler Código QR"
       matTooltip="Ler Código QR" matTooltipPosition="left">
-      <mat-icon fontIcon="qr_code_scanner" aria-label="Leitor de Código QR"></mat-icon>
+      <mat-icon fontIcon="qr_code_scanner"></mat-icon>
     </button>
   `,
   styleUrls: ['./qrcode-reader.component.css'],

@@ -1,19 +1,19 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu button" style="background-color: #FFC30A;">
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir navegação" style="background-color: #FFC30A;">
   <mat-icon style="color: white;">menu</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu" xPosition="before" class="header-menu-panel">
-  <a mat-menu-item routerLink="/itens">
+<mat-menu #menu="matMenu" xPosition="before" class="header-menu-panel" role="menu">
+  <a mat-menu-item routerLink="/itens" aria-label="Acessar itens" role="menuitem">
     <mat-icon>album</mat-icon>
     <span>Itens</span>
   </a>
 
-  <a mat-menu-item routerLink="/sections">
+  <a mat-menu-item routerLink="/sections" aria-label="Acessar seções" role="menuitem">
     <mat-icon>label</mat-icon>
     <span>Seções</span>
   </a>
 
-  <a mat-menu-item routerLink="/categories">
+  <a mat-menu-item routerLink="/categories" aria-label="Acessar categorias" role="menuitem">
     <mat-icon>loyalty</mat-icon>
     <span>Categorias</span>
   </a>

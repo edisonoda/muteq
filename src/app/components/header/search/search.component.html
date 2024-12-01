@@ -1,12 +1,13 @@
 <mat-form-field appearance="outline" class="search-bar">
     <mat-label>Pesquisar</mat-label>
-    <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="searchAutocomplete" matAutocompletePosition="below">
+    <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="searchAutocomplete" matAutocompletePosition="below"
+        aria-label="Pesquisar itens, categorias e seções">
     <mat-icon matIconPrefix>search</mat-icon>
     <mat-autocomplete #searchAutocomplete="matAutocomplete" (optionSelected)="navigate()" class="search-results">
         @for (group of searchGroupsOptions | async; track group) {
         <mat-optgroup [label]="groupLabel(group)">
             @for (element of group.elements; track element) {
-            <mat-option [value]="group.type + '-' + element.id">
+            <mat-option [value]="group.type + '-' + element.id" role="link" aria-label="Acessar">
                 <img [src]="element.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ element.name }}" height="25" width="25">
                 {{element.name}}
             </mat-option>
