@@ -19,32 +19,32 @@ footer {
     justify-content: space-between;
 }
 
-.footer-content > .logos {
+.footer-content>.logos {
     display: flex;
     align-items: center;
 }
 
-.footer-content > .info {
+.footer-content>.info {
     display: flex;
     flex-direction: row;
     gap: 75px;
     align-items: center;
 }
 
-.footer-content >.info > .contact {
-    display:flex;
+.footer-content>.info>.contact {
+    display: flex;
     flex-direction: column;
     gap: 13px;
 }
 
-.footer-content >.info > .contact > .contact-container{
-    display:flex;
+.footer-content>.info>.contact>.contact-container {
+    display: flex;
     flex-direction: row;
     gap: 5px;
     align-items: center;
 }
 
-.footer-content >.info > .contact > .contact-container a {
+.footer-content>.info>.contact>.contact-container a {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -54,31 +54,30 @@ footer {
     transition: all 0.4s;
 }
 
-.footer-content >.info > .contact > .contact-container a:hover {
+.footer-content>.info>.contact>.contact-container a:hover {
     color: #ffc10a;
 }
 
-.footer-content >.info > .location {
-    display:flex;
+.footer-content>.info>.location {
+    display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
 }
 
-.footer-content >.info > .location > .location-main {
-    display:flex;
+.footer-content>.info>.location>.location-main {
+    display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
     font-size: 20px;
 }
 
-img{
+img {
     width: 215px;
 }
 
-.footer-copyright
-{
+.footer-copyright {
     background-color: #161615;
     padding-top: 1.5%;
     padding-bottom: 1.5%;
@@ -86,8 +85,7 @@ img{
     justify-content: center;
 }
 
-.footer-copyright p
-{
+.footer-copyright p {
     font-family: Roboto;
     font-size: small;
     color: var(--medium-gray);
@@ -96,7 +94,6 @@ img{
 
 
 @media (max-width: 1209px) {
-
     .footer-content {
         align-items: center;
         display: flex;
@@ -105,21 +102,21 @@ img{
         padding-bottom: 22px;
     }
 
-    .footer-content > .logos{
+    .footer-content>.logos {
         padding-top: 7px;
         padding-bottom: 22px;
     }
 
-    .footer-content >.info {
+    .footer-content>.info {
         gap: 50px;
     }
 
-    .footer-content >.info > .location {
+    .footer-content>.info>.location {
         text-align: center;
     }
 
-    .footer-content >.info > .location > .location-main {
-        display:flex;
+    .footer-content>.info>.location>.location-main {
+        display: flex;
         flex-direction: row;
         gap: 5px;
         align-items: center;
@@ -127,19 +124,18 @@ img{
         padding-right: 10px;
     }
 
-    .footer-content >.info > .contact {
+    .footer-content>.info>.contact {
         gap: 10px;
     }
 
-    .footer-copyright
-    {
+    .footer-copyright {
         padding-top: 2%;
-        padding-bottom: 2%;;
+        padding-bottom: 2%;
+        ;
     }
 }
 
 @media (max-width: 426px) {
-
     .footer-content {
         align-items: center;
         padding: 2px;
@@ -147,45 +143,42 @@ img{
         padding-bottom: 67px;
     }
 
-    .footer-content > .logos{
+    .footer-content>.logos {
         flex-direction: column-reverse;
         padding-bottom: 2.5rem;
     }
 
-    .footer-content > .info{
+    .footer-content>.info {
         justify-content: center;
         flex-wrap: wrap;
         row-gap: 25px;
     }
 
-    img{
+    img {
         width: 250px;
     }
 
-    .footer-copyright p
-    {
+    .footer-copyright p {
         font-family: Roboto;
         font-size: x-small;
         color: var(--medium-gray);
         font-weight: 100;
     }
 
-    .footer-content >.info > .contact {
-        display:flex;
+    .footer-content>.info>.contact {
+        display: flex;
         gap: 10px;
         align-items: center;
     }
-    
-    .footer-copyright
-    {
+
+    .footer-copyright {
         padding-top: 7%;
         padding-bottom: 7%;
     }
 }
 
-@media (min-height: 1093px){
-
-    footer{
+@media (min-height: 1093px) {
+    footer {
         margin-top: 12%;
     }
 
@@ -193,9 +186,8 @@ img{
         padding-bottom: 47px;
     }
 
-    .footer-copyright
-    {
-    padding-top: 5%;
-    padding-bottom: 5%;
+    .footer-copyright {
+        padding-top: 5%;
+        padding-bottom: 5%;
     }
 }
