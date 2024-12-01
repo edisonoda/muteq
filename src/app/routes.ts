@@ -4,6 +4,9 @@ import { ItemListComponent } from './components/lists/item-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { CategoryListComponent } from './components/lists/category-list.component';
 import { SectionListComponent } from './components/lists/section-list.component copy';
+import { CreateItemComponent } from './components/create-item-form/create-item-form';
+import { CreateSectionComponent } from './components/create-section-form/create-section-form';
+import { CreateCategoryComponent } from './components/create-category-form/create-category-form';
 
 const routeConfig: Routes = [
     {
@@ -31,5 +34,20 @@ const routeConfig: Routes = [
         component: SectionListComponent,
         title: 'Seções',
     },
+    {
+        path: 'create-item',
+        component: CreateItemComponent,
+        title: 'Cadastrar Item',
+    },
+    {
+        path: 'create-section',
+        component: CreateSectionComponent,
+        title: 'Criar Seção',
+    },
+    {
+        path: 'create-category',
+        component: CreateCategoryComponent,
+        title: 'Criar Categoria',
+    }
 ];
 export default routeConfig;
