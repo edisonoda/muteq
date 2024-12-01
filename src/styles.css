@@ -12,11 +12,14 @@ body {
   --secondary-color: #8B89E6;
   --accent-color: #e8e7fa;
   --shadow-color: #E8E8E8;
+  --medium-gray: #7a786f;
+  --footer-color: #faecb9;
 
   /* Content Sizes */
   --header-size: 150px;
   --content-padding: 15px;
   --page-max-width: 100%;
+  --footer-content-padding: 10px;
 
   /* Z-index layers */
   --z-header: 10;
