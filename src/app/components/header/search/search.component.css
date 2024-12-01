@@ -26,3 +26,17 @@
 ::ng-deep .search-bar .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
     --mat-mdc-form-field-label-transform: translateY(calc(calc(6.75px + var(--mat-form-field-container-height, 40px) / 2) * -1)) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
 }
+
+/* Results */
+::ng-deep .search-results .mat-mdc-optgroup .mat-mdc-option:not(.mat-mdc-option-multiple) {
+    padding: 0 16px;
+}
+
+::ng-deep .search-results .mat-mdc-optgroup-label {
+    min-height: 20px;
+    margin-top: 15px;
+}
+
+::ng-deep .search-results .mat-mdc-optgroup-label:first-child {
+    margin-top: 0;
+}

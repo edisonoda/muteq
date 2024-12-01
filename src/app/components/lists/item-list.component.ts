@@ -31,7 +31,7 @@ export class ItemListComponent extends ListComponent<Item> {
   public get filters() { return this._filters; }
   public set filters(f: ListFilters) { this._filters = f; }
 
-  private readonly dialog = inject(MatDialog);
+  private readonly _dialog = inject(MatDialog);
 
   constructor(@Inject(SearchService) searchService: SearchService) {
     super(searchService);
@@ -61,7 +61,7 @@ export class ItemListComponent extends ListComponent<Item> {
   }
 
   public previewItem(id: number): void {
-    const dialogRef = this.dialog.open(ItemComponent, {
+    const dialogRef = this._dialog.open(ItemComponent, {
       data: id
     });
   }
