@@ -24,12 +24,12 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .header-content > app-search {
     flex-grow: 1;
-    max-width: 500px;
-    padding: 0 var(--content-padding);
+    min-width: 50vw;
 }
 
 .header-content>.logos {
@@ -57,4 +57,25 @@ img {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid var(--mat-menu-container-color, var(--mat-sys-surface-container));
+}
+
+@media (min-width: 576px) {
+    .header-content {
+        flex-wrap: nowrap;
+    }
+
+    .header-content > .logos {
+        order: 0;
+    }
+
+    .header-content > app-search {
+        order: 1;
+        max-width: 500px;
+        min-width: unset;
+        padding: 0 var(--content-padding);
+    }
+
+    .header-content > app-menu {
+        order: 2;
+    }
 }

@@ -14,12 +14,18 @@ body {
   --shadow-color: #E8E8E8;
 
   /* Content Sizes */
-  --header-size: 110px;
+  --header-size: 150px;
   --content-padding: 15px;
   --page-max-width: 100%;
 
   /* Z-index layers */
   --z-header: 10;
+}
+
+@media (min-width: 576px) {
+  :root {
+    --header-size: 110px;
+  }
 }
 
 @media (min-width: 768px) {

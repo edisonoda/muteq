@@ -12,8 +12,8 @@ import { SearchComponent } from './search/search.component';
         <div class="logos">
           <a routerLink="/"><img class="logos__mutec" src="assets/img/mutec_logo.png"></a>
         </div>
-        <app-search></app-search>
         <app-menu></app-menu>
+        <app-search></app-search>
       </div>
     </header>
   `,
