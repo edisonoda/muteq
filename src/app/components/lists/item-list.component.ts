@@ -82,8 +82,11 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
   private changeFilters(params: Params): void {
     const paramArray = Object.entries(params);
 
-    if (paramArray.length == 0)
+    if (paramArray.length == 0) {
+      this.filters.type = ItemGroup.NONE;
+      this.filters.group = -1;
       return;
+    }
 
     // Aplica apenas o primeiro filtro
     paramArray.find(([k, v]) => {
