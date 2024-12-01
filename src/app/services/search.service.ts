@@ -19,7 +19,7 @@ const items: Array<Item> = [
       id: 1,
       name: "Calculadoras",
       description: "",
-      items: [1, 2]
+      items: [1, 2],
     },
     section: {
       id: 1,
@@ -105,7 +105,7 @@ const items: Array<Item> = [
       id: 2,
       name: "2",
       description: "",
-      items: [5]
+      items: [5],
     },
   },
 ];
@@ -140,25 +140,29 @@ const categories: Array<Category> = [
     id: 1,
     name: "Calculadoras",
     description: "",
-    items: [1, 2]
+    items: [1, 2],
+    img: "https://mutec.curitiba.br/wp-content/uploads/2023/11/acervo-105-1.png"
   },
   {
     id: 2,
     name: "Arquitetura e Desenho Técnico",
     description: "",
-    items: [5]
+    items: [5],
+    img: "https://mutec.curitiba.br/wp-content/uploads/2024/09/img_20240924_111123-150x150.jpg"
   },
   {
     id: 3,
     name: "Computadores",
     description: "",
-    items: [3]
+    items: [3],
+    img: "https://mutec.curitiba.br/wp-content/uploads/2023/11/920-150x150.jpg"
   },
   {
     id: 4,
     name: "Dispositivos de armazenamento de dados",
     description: "",
-    items: [4]
+    items: [4],
+    img: "https://mutec.curitiba.br/wp-content/uploads/2020/01/TU77-01.jpg"
   },
 ];
 
