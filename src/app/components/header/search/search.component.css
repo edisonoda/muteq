@@ -1,0 +1,28 @@
+.search-bar {
+    width: 100%;
+}
+
+::ng-deep .search-bar .mat-mdc-form-field-icon-prefix>.mat-icon {
+    padding: 0 5px;
+}
+
+::ng-deep .search-bar .mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding: 10px 0;
+    min-height: 40px;
+}
+
+::ng-deep .search-bar .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+}
+
+::ng-deep .search-bar .mat-mdc-text-field-wrapper .mdc-floating-label.mat-mdc-floating-label {
+    --mat-mdc-form-field-label-offset-x: -30px;
+}
+
+::ng-deep .search-bar .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: calc(var(--mat-form-field-container-height, 40px)/2);
+}
+
+::ng-deep .search-bar .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+    --mat-mdc-form-field-label-transform: translateY(calc(calc(6.75px + var(--mat-form-field-container-height, 40px) / 2) * -1)) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+}

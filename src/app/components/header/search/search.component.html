@@ -1,6 +1,7 @@
-<mat-form-field appearance="outline">
+<mat-form-field appearance="outline" class="search-bar">
     <mat-label>Pesquisar</mat-label>
     <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="searchAutocomplete">
+    <mat-icon matIconPrefix>search</mat-icon>
     <mat-autocomplete #searchAutocomplete="matAutocomplete">
         @for (group of searchGroupsOptions | async; track group) {
         <mat-optgroup [label]="group.type">

@@ -11,7 +11,7 @@ import { Item } from 'src/app/interfaces/item';
 import { Category } from 'src/app/interfaces/category';
 import { Section } from 'src/app/interfaces/section';
 import { SearchService } from 'src/app/services/search.service';
-import { debounce, delayWhen, forkJoin, interval, map, Observable, pairwise, repeat, shareReplay, skipUntil, skipWhile, startWith, Subject, Subscription, switchMap, tap, timeInterval, timer } from 'rxjs';
+import { debounce, delayWhen, forkJoin, interval, map, Observable, of, pairwise, repeat, shareReplay, skipUntil, skipWhile, startWith, Subject, Subscription, switchMap, tap, timeInterval, timer } from 'rxjs';
 
 interface SearchGroup {
   type: string;
@@ -20,7 +20,6 @@ interface SearchGroup {
 
 @Component({
   selector: 'app-search',
-  templateUrl: 'search.component.html',
   imports: [
     MatAutocompleteModule,
     MatFormFieldModule,
@@ -31,6 +30,8 @@ interface SearchGroup {
     RouterModule,
     AsyncPipe
   ],
+  templateUrl: 'search.component.html',
+  styleUrl: 'search.component.css'
 })
 export class SearchComponent {
   private _searchControl: FormControl = new FormControl('');
@@ -84,7 +85,6 @@ export class SearchComponent {
     var lastValue: string = '';
 
     this._searchGroupsOptions = this._searchControl.valueChanges.pipe(
-      startWith(''),
       debounce(() => interval(this._searchDelay)),
       // tap(val => {
       //   this._typing = true;
@@ -102,6 +102,9 @@ export class SearchComponent {
   }
 
   private search(string: string): Observable<any> {
+    if (!string)
+      return of();
+
     return forkJoin([
       this.searchService.getItemsByName(string, 1, 5),
       this.searchService.getCategoriesByName(string, 1, 5),
