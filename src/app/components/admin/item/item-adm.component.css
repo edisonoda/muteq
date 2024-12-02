@@ -1,5 +1,31 @@
-h1 {
+.adm-title {
     margin-bottom: var(--content-padding);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.adm-title button {
+    background-color: yellowgreen;
+    color: white;
+    box-shadow: none;
+}
+
+.adm-responsive {
+    display: block;
+    overflow: auto;
+}
+
+.adm-table .adm-actions-header {
+    text-align: center;
+}
+
+.adm-table .adm-row-actions {
+    display: flex;
+    align-items: center;
 }
 
 .adm-table .row-with-details:not(.expanded-row):hover {

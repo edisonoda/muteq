@@ -29,8 +29,8 @@ export class ItemAdmComponent extends ListComponent<Item> {
   private _columnsToDisplay: Array<string> = ['id', 'name', 'manufacturer', 'year', 'section', 'category'];
   public get columnsToDisplay() { return this._columnsToDisplay }
 
-  private _columnsToDisplayWithExpand: Array<string> = [ ...this.columnsToDisplay, 'expand' ];
-  public get columnsToDisplayWithExpand() { return this._columnsToDisplayWithExpand }
+  private _columnsToDisplayWithActions: Array<string> = [ ...this.columnsToDisplay, 'actions' ];
+  public get columnsToDisplayWithActions() { return this._columnsToDisplayWithActions }
 
   private _expandedElement: Item | null = null;
   public get expandedElement() { return this._expandedElement }
