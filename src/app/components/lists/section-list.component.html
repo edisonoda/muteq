@@ -1,6 +1,8 @@
+<h1>Seções</h1>
+
 <ul class="list">
-    <li *ngFor="let item of items" (click)="accessSection(item.id)" class="list__element"
-        [attr.aria-labelledby]="'title-element-' + item.id">
-        <app-list-element [element]="item"></app-list-element>
+    <li *ngFor="let el of elements" (click)="accessSection(el.id)" class="list__element"
+        [attr.aria-labelledby]="'title-element-' + el.id">
+        <app-list-element [element]="el"></app-list-element>
     </li>
 </ul>

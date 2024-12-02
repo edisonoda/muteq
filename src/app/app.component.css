@@ -7,4 +7,6 @@
 main {
   background-color: var(--mat-sys-background);
   margin-top: var(--header-size);
+
+  min-height: 100vh;
 }

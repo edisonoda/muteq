@@ -23,7 +23,7 @@ export class CategoryListComponent extends ListComponent<Category> {
   protected override getList(): void {
     this.searchService.getCategories(this.page, this.sampleSize).subscribe(res => {
       if (res.status == 200)
-        this.items = res.data ?? [];
+        this.elements = res.data ?? [];
     });
   }
 

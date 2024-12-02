@@ -14,9 +14,9 @@ enum SampleSize {
   template: '',
 })
 export abstract class ListComponent<T = Listable> implements OnInit {
-  private _items: Array<T> = [];
-  public get items() { return this._items; }
-  public set items(i: Array<T>) { this._items = i; }
+  private _elements: Array<T> = [];
+  public get elements() { return this._elements; }
+  public set elements(i: Array<T>) { this._elements = i; }
 
   private _count: number = 0;
   public get count() { return this._count; }

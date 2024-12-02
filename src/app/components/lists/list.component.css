@@ -1,3 +1,7 @@
+h1 {
+    margin-bottom: var(--content-padding);
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;

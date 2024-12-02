@@ -33,6 +33,10 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
   public get filters() { return this._filters; }
   public set filters(f: ListFilters) { this._filters = f; }
 
+  private _title: string = 'Itens';
+  public get title() { return this._title; }
+  public set title(t: string) { this._title = t; }
+
   private readonly _dialog = inject(MatDialog);
   private _subs: Array<Subscription> = [];
 
@@ -60,20 +64,26 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
     switch (this.filters.type) {
       case ItemGroup.NONE:
         this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200)
-            this.items = res.data ?? [];
+          if (res.status == 200) {
+            this.elements = res.data ?? [];
+            this.title = 'Itens';
+          }
         });
         break;
       case ItemGroup.SECTION:
         this.searchService.getItemsBySection(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200)
-            this.items = res.data ?? [];
+          if (res.status == 200) {
+            this.elements = res.data?.items ?? [];
+            this.title = res.data?.section + ' / Itens';
+          }
         });
         break;
       case ItemGroup.CATEGORY:
         this.searchService.getItemsByCategory(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200)
-            this.items = res.data ?? [];
+          if (res.status == 200) {
+            this.elements = res.data?.items ?? [];
+            this.title = res.data?.category + ' / Itens';
+          }
         });
         break;
     }

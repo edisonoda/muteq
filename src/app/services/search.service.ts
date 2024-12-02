@@ -198,12 +198,18 @@ export class SearchService {
     return of({ status: 200, data: categories.find(i => i.id == id) ?? null }).pipe(delay(1000));
   }
 
-  public getItemsBySection(id: number, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.section?.id == id) }).pipe(delay(1000));
+  public getItemsBySection(id: number, page: number, size: number): Observable<DefaultResponse<{ section: string, items: Array<Item> }>> {
+    return of({ status: 200, data: {
+      section: sections.find(s => s.id == id)?.name ?? '',
+      items: items.filter(i => i.section?.id == id)
+    }}).pipe(delay(1000));
   }
 
-  public getItemsByCategory(id: number, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.category?.id == id) }).pipe(delay(1000));
+  public getItemsByCategory(id: number, page: number, size: number): Observable<DefaultResponse<{ category: string, items: Array<Item> }>> {
+    return of({ status: 200, data: {
+      category: categories.find(s => s.id == id)?.name ?? '',
+      items: items.filter(i => i.category?.id == id)
+    }}).pipe(delay(1000));
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
