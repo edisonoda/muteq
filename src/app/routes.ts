@@ -7,6 +7,7 @@ import { SectionListComponent } from './components/lists/section-list.component'
 import { CreateItemComponent } from './components/create-item-form/create-item-form';
 import { CreateSectionComponent } from './components/create-section-form/create-section-form';
 import { CreateCategoryComponent } from './components/create-category-form/create-category-form';
+import { ItemAdmComponent } from './components/admin/item/item-adm.component';
 
 const routeConfig: Routes = [
     {
@@ -15,7 +16,7 @@ const routeConfig: Routes = [
         title: 'Página Inicial',
     },
     {
-        path: 'itens',
+        path: 'items',
         component: ItemListComponent,
         title: 'Itens',
     },
@@ -33,6 +34,17 @@ const routeConfig: Routes = [
         path: 'sections',
         component: SectionListComponent,
         title: 'Seções',
+    },
+    {
+        path: 'adm',
+        title: 'Adm',
+        children: [
+            {
+                path: 'items',
+                component: ItemAdmComponent,
+                title: 'Itens'
+            }
+        ]
     },
     {
         path: 'create-item',

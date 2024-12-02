@@ -29,6 +29,6 @@ export class CategoryListComponent extends ListComponent<Category> {
 
   public accessCategory(id: number): void {
     //accessCategory navega para a lista de itens
-    this.router.navigate(['itens'], { queryParams: { category: id }});
+    this.router.navigate(['items'], { queryParams: { category: id }});
   }
 }

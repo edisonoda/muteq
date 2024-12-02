@@ -148,10 +148,10 @@ export class SearchComponent {
         this._dialog.open(ItemComponent, { data: id });
         break;
       case 'category':
-        this.router.navigate(['itens'], { queryParams: { category: id } });
+        this.router.navigate(['items'], { queryParams: { category: id } });
         break
       case 'section':
-        this.router.navigate(['itens'], { queryParams: { section: id } });
+        this.router.navigate(['items'], { queryParams: { section: id } });
         break
       default:
         this._snackBar.open('Ocorreu um erro ao acessar essa página!', 'Fechar', { duration: 3000 });

@@ -1,0 +1,45 @@
+h1 {
+    margin-bottom: var(--content-padding);
+}
+
+.adm-table .row-with-details:not(.expanded-row):hover {
+    background: #E8E8E8;
+}
+
+.adm-table .row-with-details td {
+    border-bottom: none;
+}
+
+.adm-table .detail-row {
+    height: 0;
+}
+
+.adm-table .element-detail {
+    overflow: hidden;
+}
+
+/* .adm-table .element-detail.expanded-detail {
+
+} */
+
+.adm-table .element-detail .img-frame {
+    border-color: #FFC30A;
+    border-radius: 5px;
+    border-width: 5px;
+    border-style: double;
+
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    width: 120px;
+    min-height: 120px;
+    float: left;
+
+    display: flex;
+    align-items: center;
+}
+
+.adm-table .element-detail .img-frame img {
+    max-width: 100%;
+    height: auto;
+}

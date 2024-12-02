@@ -30,6 +30,6 @@ export class SectionListComponent extends ListComponent<Section> {
 
   public accessSection(id: number): void {
     //accessSection navega para a lista de itens
-    this.router.navigate(['itens'], { queryParams: { section: id }});
+    this.router.navigate(['items'], { queryParams: { section: id }});
   }
 }
