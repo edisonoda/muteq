@@ -6,7 +6,8 @@
 </div>
 
 <div class="adm-responsive">
-    <table mat-table matSort [dataSource]="elements" multiTemplateDataRows class="adm-table">
+    <table mat-table [dataSource]="sortedData" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
+        class="adm-table">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
             <td mat-cell *matCellDef="let item">{{item.id}}</td>
