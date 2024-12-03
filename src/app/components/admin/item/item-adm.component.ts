@@ -1,4 +1,4 @@
-import { Component, Inject, SecurityContext, ViewChild } from '@angular/core';
+import { Component, inject, Inject, SecurityContext, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
@@ -12,6 +12,9 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-item-adm',
@@ -57,7 +60,13 @@ export class ItemAdmComponent extends ListComponent<Item> {
   public get qrCode() { return this._qrCode }
   public set qrCode(q: { name: string, url: string }) { this._qrCode = q }
 
-  constructor(@Inject(SearchService) searchService: SearchService, private sanitizer: DomSanitizer) {
+  private readonly dialog = inject(MatDialog);
+
+  constructor(
+    @Inject(SearchService) searchService: SearchService,
+    private sanitizer: DomSanitizer,
+    private router: Router
+  ) {
     super(searchService);
   }
 
@@ -122,12 +131,22 @@ export class ItemAdmComponent extends ListComponent<Item> {
     document.body.removeChild(a);
   }
 
-  public edit(id: number): void {
-    
+  public createItem(): void {
+    this.router.navigate(['adm', 'item']);
   }
 
-  public delete(id: number): void {
-    
+  public editItem(id: number): void {
+    this.router.navigate(['adm', 'item', id]);
+  }
+
+  public deleteItem(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(confirm => {
+      // TODO: excluir
+    });
   }
 }
 

@@ -1,0 +1,8 @@
+.delete-button,
+.delete-button.mat-mdc-button:not(:disabled) {
+    color: var(--mat-sys-error);
+}
+
+::ng-deep .delete-button.mat-mdc-button .mat-mdc-button-persistent-ripple::before {
+    background-color: var(--mat-sys-error);
+}

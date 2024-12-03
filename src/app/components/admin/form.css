@@ -19,5 +19,14 @@ h1 {
         button {
             width: unset;
         }
+
+        .cancel-button {
+            order: 0;
+            margin-right: 10px;
+        }
+
+        .save-button {
+            order: 1;
+        }
     }
 }

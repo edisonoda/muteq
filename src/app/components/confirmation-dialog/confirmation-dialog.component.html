@@ -3,6 +3,6 @@
   Atenção: essa ação é irreversível. Deseja mesmo excluir?
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
-  <button mat-button mat-dialog-close style="color: red">Excluir</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button cdkFocusInitial (click)="confirm()" class="delete-button">Excluir</button>
 </mat-dialog-actions>

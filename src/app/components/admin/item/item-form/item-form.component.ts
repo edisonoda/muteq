@@ -110,6 +110,10 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  public cancel(): void {
+    this.router.navigate(['adm', 'items']);
+  }
+
   // public onFileSelected(): void {
   //   if (typeof (FileReader) !== 'undefined') {
   //     const reader = new FileReader();
