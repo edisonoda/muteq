@@ -15,38 +15,38 @@ export class AdmService {
   constructor(private http: HttpClient) { }
 
   public createItem(i: Item): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public editItem(id: number, i: Item): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public deleteItem(id: number): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public createSection(i: Section): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public editSection(id: number, i: Section): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public deleteSection(id: number): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public createCategory(i: Category): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public editCategory(id: number, i: Category): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 
   public deleteCategory(id: number): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true }).pipe(delay(1000));
+    return of({ status: 200, data: true });
   }
 }

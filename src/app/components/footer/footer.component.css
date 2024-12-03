@@ -8,6 +8,7 @@ footer {
 }
 
 .footer-content {
+    box-sizing: border-box;
     margin: auto;
     max-width: var(--page-max-width);
     padding: var(--footer-content-padding);

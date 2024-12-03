@@ -175,52 +175,52 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   public getItems(page?: number, size?: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items }).pipe(delay(1000));
+    return of({ status: 200, data: items });
   }
 
   public getItem(id: number): Observable<DefaultResponse<Item>> {
-    return of({ status: 200, data: items.find(v => v.id == id) ?? null}).pipe(delay(1000));
+    return of({ status: 200, data: items.find(v => v.id == id) ?? null});
   }
 
   public getSections(page?: number, size?: number): Observable<DefaultResponse<Array<Section>>> {
-    return of({ status: 200, data: sections }).pipe(delay(1000));
+    return of({ status: 200, data: sections });
   }
 
   public getSection(id: number): Observable<DefaultResponse<Section>> {
-    return of({ status: 200, data: sections.find(v => v.id == id) ?? null}).pipe(delay(1000));
+    return of({ status: 200, data: sections.find(v => v.id == id) ?? null});
   }
 
   public getCategories(page?: number, size?: number): Observable<DefaultResponse<Array<Category>>> {
-    return of({ status: 200, data: categories }).pipe(delay(1000));
+    return of({ status: 200, data: categories });
   }
 
   public getCategory(id: number): Observable<DefaultResponse<Category>> {
-    return of({ status: 200, data: categories.find(i => i.id == id) ?? null }).pipe(delay(1000));
+    return of({ status: 200, data: categories.find(i => i.id == id) ?? null });
   }
 
   public getItemsBySection(id: number, page: number, size: number): Observable<DefaultResponse<{ section: string, items: Array<Item> }>> {
     return of({ status: 200, data: {
       section: sections.find(s => s.id == id)?.name ?? '',
       items: items.filter(i => i.section?.id == id)
-    }}).pipe(delay(1000));
+    }});
   }
 
   public getItemsByCategory(id: number, page: number, size: number): Observable<DefaultResponse<{ category: string, items: Array<Item> }>> {
     return of({ status: 200, data: {
       category: categories.find(s => s.id == id)?.name ?? '',
       items: items.filter(i => i.category?.id == id)
-    }}).pipe(delay(1000));
+    }});
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
+    return of({ status: 200, data: items.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
   }
 
   public getSectionsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Section>>> {
-    return of({ status: 200, data: sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
+    return of({ status: 200, data: sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
   }
 
   public getCategoriesByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Category>>> {
-    return of({ status: 200, data: categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) }).pipe(delay(1000));
+    return of({ status: 200, data: categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
   }
 }
