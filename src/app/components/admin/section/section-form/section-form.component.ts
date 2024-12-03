@@ -1,39 +1,64 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
+import { Subscription } from 'rxjs';
+import { AdmService } from 'src/app/services/adm.service';
 
 @Component({
   selector: 'app-section-form',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
   templateUrl: './section-form.component.html',
-  styleUrls: ['../../form.css', './section-form.component.css']
+  styleUrls: ['../../form.css']
 })
-export class SectionFormComponent implements OnInit{
-  private _snackBar = inject(MatSnackBar);
+export class SectionFormComponent implements OnInit, OnDestroy {
+  private readonly _snackBar = inject(MatSnackBar);
 
-  selectFormControl = new FormControl('', Validators.required);
+  private _title: string = 'Cadastrar Seção';
+  public get title() { return this._title; }
+  public set title(t: string) { this._title = t; }
 
-  private _createSectionForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-  });
-  public get createSectionForm() {
-    return this._createSectionForm;
+  private _form: FormGroup = this.blankForm();
+  public get form() {
+    return this._form;
   }
 
-  items: Item[] = [
+  private _items: Array<Item> = [];
+  public get items() { return this._items; }
+  public set items(i: Array<Item>) { this._items = i; }
 
-  ]
+  private _subs: Array<Subscription> = [];
 
-  constructor(private router: Router, private searchService: SearchService) { }
+  constructor(
+    private searchService: SearchService,
+    private admService: AdmService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this._subs.push(
+      // Verifica se vai editar alguma seção (possui id na url)
+      this.route.params.subscribe(params => {
+        const id = parseInt(params['id']);
+
+        if (!isNaN(id))
+          this._form = this.blankForm(id);
+        else
+          this._form = this.blankForm();
+      }),
+      // Verifica se alterou os filtros, pois não altera instancia um novo ao mudar de rota
+      this.router.events.subscribe(ev => {
+        if (ev instanceof NavigationEnd && this.form.get('id')?.value)
+          this.getSection();
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.searchService.getItems().subscribe(res => {
@@ -42,13 +67,58 @@ export class SectionFormComponent implements OnInit{
     });
   }
 
+  private blankForm(id?: number): FormGroup {
+    this.title = id ? 'Editar Seção' : 'Cadastrar Seção';
+
+    return new FormGroup({
+      id: new FormControl(id ?? null),
+      description: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      img: new FormControl('', [Validators.required]),
+      items: new FormControl([])
+    });
+  }
+
+  private getSection(): void {
+    this.searchService.getSection(this.form.get('id')?.value).subscribe(res => {
+      if (res.status == 200 && res.data) {
+        Object.entries(res.data).forEach(([k, v]) => {
+          this.form.get(k)?.setValue(v);
+        });
+      }
+    });
+  }
+
   onSubmit() {
-    if (this.createSectionForm.invalid) {
+    if (this.form.invalid) {
       this._snackBar.open('Preencha todos os campos do formulário de criação de seção!', 'Close', {
         duration: 3000
       });
     } else {
-      this.router.navigate(['']);
+      if (this.form.get('id')?.value)
+        this.admService.editSection(this.form.get('id')?.value, this.form.value).subscribe(res => {
+          if (res.status == 200) {
+            this._snackBar.open('Seção editada com sucesso!', 'Fechar', { duration: 3000 });
+            this.router.navigate(['adm', 'sections']);
+          }
+        });
+      else
+        this.admService.createSection(this.form.value).subscribe(res => {
+          if (res.status == 200) {
+            this._snackBar.open('Seção criada com sucesso!', 'Fechar', { duration: 3000 });
+            this.router.navigate(['adm', 'sections']);
+          }
+        });
     }
+  }
+
+  public cancel(): void {
+    this.router.navigate(['adm', 'sections']);
+  }
+
+  ngOnDestroy(): void {
+    this._subs.forEach(sub => {
+      sub?.unsubscribe();
+    });
   }
 }

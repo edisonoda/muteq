@@ -5,6 +5,7 @@ import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -12,11 +13,11 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdmService } from 'src/app/services/adm.service';
-import { Category } from 'src/app/interfaces/category';
+import { Section } from 'src/app/interfaces/section';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-category-adm',
+  selector: 'app-section-adm',
   imports: [
     MatTableModule,
     MatSortModule,
@@ -26,21 +27,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatTooltipModule,
     CommonModule
   ],
-  templateUrl: './category-adm.component.html',
+  templateUrl: './section-adm.component.html',
   styleUrls: ['../list.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*', padding: 'var(--content-padding) 0'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class CategoryAdmComponent extends ListComponent<Category> {
-  @ViewChild(MatTable) table!: MatTable<Category>;
+export class SectionAdmComponent extends ListComponent<Section> {
+  @ViewChild(MatTable) table!: MatTable<Section>;
 
-  private _sortedData: Array<Category> = [];
+  private _sortedData: Array<Section> = [];
   public get sortedData() { return this._sortedData; }
-  public set sortedData(i: Array<Category>) { this._sortedData = i; }
+  public set sortedData(i: Array<Section>) { this._sortedData = i; }
 
   private _columnsToDisplay: Array<string> = ['id', 'name', 'items'];
   public get columnsToDisplay() { return this._columnsToDisplay }
 
   private _columnsToDisplayWithActions: Array<string> = [ ...this.columnsToDisplay, 'actions' ];
   public get columnsToDisplayWithActions() { return this._columnsToDisplayWithActions }
+
+  private _expandedElement: Section | null = null;
+  public get expandedElement() { return this._expandedElement }
+  public set expandedElement(e: Section | null) { this._expandedElement = e; }
 
   private readonly _dialog = inject(MatDialog);
   private readonly _snackBar = inject(MatSnackBar);
@@ -56,7 +68,7 @@ export class CategoryAdmComponent extends ListComponent<Category> {
   protected override getList(): void {
     this.sortedData = [];
 
-    this.searchService.getCategories(this.page, this.sampleSize).subscribe(res => {
+    this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
       if (res.status == 200) {
         this.elements = res.data ?? [];
         this.sortedData = this.elements;
@@ -89,28 +101,28 @@ export class CategoryAdmComponent extends ListComponent<Category> {
     });
   }
 
-  public createCategory(): void {
-    this.router.navigate(['adm', 'category']);
+  public createSection(): void {
+    this.router.navigate(['adm', 'section']);
   }
 
-  public editCategory(id: number): void {
-    this.router.navigate(['adm', 'category', id]);
+  public editSection(id: number): void {
+    this.router.navigate(['adm', 'section', id]);
   }
 
-  public deleteCategory(id: number): void {
+  public deleteSection(id: number): void {
     const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
       width: '250px',
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
-        this.admService.deleteCategory(id).subscribe(res => {
+        this.admService.deleteSection(id).subscribe(res => {
           if (res.status == 200 && res.data)
-            this._snackBar.open('Categoria excluída com sucesso', 'Fechar', {
+            this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
               duration: 3000
             });
           else
-            this._snackBar.open('Ocorreu um erro ao excluir categoria', 'Fechar', {
+            this._snackBar.open('Ocorreu um erro ao excluir seção', 'Fechar', {
               duration: 3000
             });
         });

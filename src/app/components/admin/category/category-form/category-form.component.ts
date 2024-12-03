@@ -16,7 +16,7 @@ import { AdmService } from 'src/app/services/adm.service';
   selector: 'app-category-form',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
   templateUrl: './category-form.component.html',
-  styleUrls: ['../../form.css', './category-form.component.css']
+  styleUrls: ['../../form.css']
 })
 export class CategoryFormComponent implements OnInit, OnDestroy {
   private readonly _snackBar = inject(MatSnackBar);
@@ -43,7 +43,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {
     this._subs.push(
-      // Verifica se vai editar algum item (possui id na url)
+      // Verifica se vai editar alguma categoria (possui id na url)
       this.route.params.subscribe(params => {
         const id = parseInt(params['id']);
 
