@@ -1,12 +1,12 @@
-<h1>Cadastrar Item</h1>
+<h1>{{ title }}</h1>
 
-<form class="adm-form" [formGroup]="createItemForm">
+<form class="adm-form" [formGroup]="form">
   <div class="row">
     <div class="col-12 col-lg-8">
       <mat-form-field appearance="outline">
         <mat-label>Nome</mat-label>
         <input type="text" matInput placeholder="Nome" formControlName="name" />
-        @if (createItemForm.get('name')?.hasError('required')) {
+        @if (form.get('name')?.hasError('required')) {
         <mat-error>Nome obrigatório</mat-error>
         }
       </mat-form-field>
@@ -16,7 +16,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Ano</mat-label>
         <input type="number" min="1000" max="2099" matInput formControlName="year" />
-        @if (createItemForm.get('year')?.hasError('required')) {
+        @if (form.get('year')?.hasError('required')) {
         <mat-error>Ano obrigatório</mat-error>
         }
       </mat-form-field>
@@ -26,7 +26,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Fabricante</mat-label>
         <input type="text" matInput placeholder="Fabricante" formControlName="manufacturer" />
-        @if (createItemForm.get('manufacturer')?.hasError('required')) {
+        @if (form.get('manufacturer')?.hasError('required')) {
         <mat-error>Fabricante obrigatório</mat-error>
         }
       </mat-form-field>
@@ -35,8 +35,8 @@
 
   <mat-form-field class="example-full-width" appearance="outline">
     <mat-label>Descrição</mat-label>
-    <textarea matInput placeholder="Descrição do item" formControlName="description"></textarea>
-    @if (createItemForm.get('description')?.hasError('required')) {
+    <textarea matInput placeholder="Descrição do item" formControlName="description" rows="4"></textarea>
+    @if (form.get('description')?.hasError('required')) {
     <mat-error>Descrição obrigatória</mat-error>
     }
   </mat-form-field>
@@ -44,7 +44,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Foto</mat-label>
     <input type="text" matInput formControlName="img"/>
-    @if (createItemForm.get('img')?.hasError('required')) {
+    @if (form.get('img')?.hasError('required')) {
     <mat-error>Foto obrigatória</mat-error>
     }
   </mat-form-field>
@@ -59,7 +59,7 @@
         <mat-select formControlName="category">
           <mat-option value="None">Nenhuma</mat-option>
           @for (category of categories; track category) {
-          <mat-option [value]="category.name">{{category.name}}</mat-option>
+          <mat-option [value]="category.id">{{category.name}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -71,7 +71,7 @@
         <mat-select formControlName="section">
           <mat-option value="None">Nenhuma</mat-option>
           @for (section of sections; track section) {
-          <mat-option [value]="section.name">{{section.name}}</mat-option>
+          <mat-option [value]="section.id">{{section.name}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -79,6 +79,6 @@
   </div>
 
   <div class="d-flex justify-content-end">
-    <button mat-flat-button (click)="onSubmit()" class="">Cadastrar</button>
+    <button mat-flat-button (click)="onSubmit()" class="">Salvar</button>
   </div>
 </form>

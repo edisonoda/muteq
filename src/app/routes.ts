@@ -43,13 +43,18 @@ const routeConfig: Routes = [
                 path: 'items',
                 component: ItemAdmComponent,
                 title: 'Itens'
-            }
+            },
+            {
+                path: 'item',
+                component: ItemFormComponent,
+                title: 'Cadastrar Item',
+            },
+            {
+                path: 'item/:id',
+                component: ItemFormComponent,
+                title: 'Editar Item',
+            },
         ]
-    },
-    {
-        path: 'create-item',
-        component: ItemFormComponent,
-        title: 'Cadastrar Item',
     },
     {
         path: 'create-section',
