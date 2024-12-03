@@ -50,6 +50,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/assets/css/bootstrap-grid.css",
               "src/styles.css"
             ],
             "scripts": []

@@ -1,0 +1,9 @@
+.add-items-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-items {
+  display: flex;
+}

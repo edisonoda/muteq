@@ -1,0 +1,23 @@
+h1 {
+    margin-bottom: var(--content-padding);
+}
+
+.adm-form {
+    button {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    mat-form-field {
+        margin-bottom: 5px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .adm-form {
+        button {
+            width: unset;
+        }
+    }
+}

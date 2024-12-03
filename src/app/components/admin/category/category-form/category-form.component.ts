@@ -6,27 +6,26 @@ import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'create-section-form',
+  selector: 'app-category-form',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
-  templateUrl: 'create-section-form.html',
-  styleUrls: ['create-section-form.css']
+  templateUrl: './category-form.component.html',
+  styleUrls: ['../../form.css', './category-form.component.css']
 })
-export class CreateSectionComponent implements OnInit{
+export class CategoryFormComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
 
   selectFormControl = new FormControl('', Validators.required);
 
-  private _createSectionForm: FormGroup = new FormGroup({
+  private _createCategoryForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
   });
-  public get createSectionForm() {
-    return this._createSectionForm;
+  public get createCategoryForm() {
+    return this._createCategoryForm;
   }
 
   items: Item[] = [
@@ -43,8 +42,8 @@ export class CreateSectionComponent implements OnInit{
   }
 
   onSubmit() {
-    if (this.createSectionForm.invalid) {
-      this._snackBar.open('Preencha todos os campos do formulário de criação de seção!', 'Close', {
+    if (this.createCategoryForm.invalid) {
+      this._snackBar.open('Preencha todos os campos do formulário de criação de categoria!', 'Close', {
         duration: 3000
       });
     } else {

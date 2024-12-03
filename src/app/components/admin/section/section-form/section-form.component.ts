@@ -11,21 +11,22 @@ import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'create-category-form',
+  selector: 'app-section-form',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
-  templateUrl: 'create-category-form.html',
-  styleUrls: ['create-category-form.css']
+  templateUrl: './section-form.component.html',
+  styleUrls: ['../../form.css', './section-form.component.css']
 })
-export class CreateCategoryComponent implements OnInit {
+export class SectionFormComponent implements OnInit{
   private _snackBar = inject(MatSnackBar);
 
   selectFormControl = new FormControl('', Validators.required);
 
-  private _createCategoryForm: FormGroup = new FormGroup({
+  private _createSectionForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
   });
-  public get createCategoryForm() {
-    return this._createCategoryForm;
+  public get createSectionForm() {
+    return this._createSectionForm;
   }
 
   items: Item[] = [
@@ -42,8 +43,8 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.createCategoryForm.invalid) {
-      this._snackBar.open('Preencha todos os campos do formulário de criação de categoria!', 'Close', {
+    if (this.createSectionForm.invalid) {
+      this._snackBar.open('Preencha todos os campos do formulário de criação de seção!', 'Close', {
         duration: 3000
       });
     } else {
