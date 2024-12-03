@@ -11,12 +11,13 @@ import { Section } from 'src/app/interfaces/section';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchService } from 'src/app/services/search.service';
 import { Subscription } from 'rxjs';
+import { AdmService } from 'src/app/services/adm.service';
 
 @Component({
   selector: 'app-item-form',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
   templateUrl: './item-form.component.html',
-  styleUrls: ['../../form.css', './item-form.component.css']
+  styleUrls: ['../../form.css']
 })
 export class ItemFormComponent implements OnInit, OnDestroy {
   // @ViewChild('imgInput') imgInput!: ElementRef<HTMLInputElement>;
@@ -41,7 +42,12 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   private _subs: Array<Subscription> = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private searchService: SearchService) {
+  constructor(
+    private searchService: SearchService,
+    private admService: AdmService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this._subs.push(
       // Verifica se vai editar algum item (possui id na url)
       this.route.params.subscribe(params => {
@@ -106,7 +112,20 @@ export class ItemFormComponent implements OnInit, OnDestroy {
         duration: 3000
       });
     } else {
-      this.router.navigate(['adm', 'items']);
+      if (this.form.get('id')?.value)
+        this.admService.editItem(this.form.get('id')?.value, this.form.value).subscribe(res => {
+          if (res.status == 200) {
+            this._snackBar.open('Item editado com sucesso!', 'Fechar', { duration: 3000 });
+            this.router.navigate(['adm', 'items']);
+          }
+        });
+      else
+        this.admService.createItem(this.form.value).subscribe(res => {
+          if (res.status == 200) {
+            this._snackBar.open('Item criado com sucesso!', 'Fechar', { duration: 3000 });
+            this.router.navigate(['adm', 'items']);
+          }
+        });
     }
   }
 

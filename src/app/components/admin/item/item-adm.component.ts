@@ -15,6 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { AdmService } from 'src/app/services/adm.service';
 
 @Component({
   selector: 'app-item-adm',
@@ -29,7 +30,7 @@ import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmat
     QRCodeComponent
   ],
   templateUrl: './item-adm.component.html',
-  styleUrls: ['./item-adm.component.css'],
+  styleUrls: ['../list.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),
@@ -64,6 +65,7 @@ export class ItemAdmComponent extends ListComponent<Item> {
 
   constructor(
     @Inject(SearchService) searchService: SearchService,
+    private admService: AdmService,
     private sanitizer: DomSanitizer,
     private router: Router
   ) {
@@ -145,7 +147,8 @@ export class ItemAdmComponent extends ListComponent<Item> {
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
-      // TODO: excluir
+      if (confirm)
+        this.admService.deleteItem(id);
     });
   }
 }
