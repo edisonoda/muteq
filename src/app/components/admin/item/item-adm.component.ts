@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdmService } from 'src/app/services/adm.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-item-adm',
@@ -61,7 +62,8 @@ export class ItemAdmComponent extends ListComponent<Item> {
   public get qrCode() { return this._qrCode }
   public set qrCode(q: { name: string, url: string }) { this._qrCode = q }
 
-  private readonly dialog = inject(MatDialog);
+  private readonly _dialog = inject(MatDialog);
+  private readonly _snackBar = inject(MatSnackBar);
 
   constructor(
     @Inject(SearchService) searchService: SearchService,
@@ -142,13 +144,22 @@ export class ItemAdmComponent extends ListComponent<Item> {
   }
 
   public deleteItem(id: number): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
       width: '250px',
     });
 
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
-        this.admService.deleteItem(id);
+        this.admService.deleteItem(id).subscribe(res => {
+          if (res.status == 200 && res.data)
+            this._snackBar.open('Item excluído com sucesso', 'Fechar', {
+              duration: 3000
+            });
+          else
+            this._snackBar.open('Ocorreu um erro ao excluir item', 'Fechar', {
+              duration: 3000
+            });
+        });
     });
   }
 }

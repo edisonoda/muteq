@@ -9,6 +9,7 @@ import { SectionFormComponent } from './components/admin/section/section-form/se
 import { CategoryFormComponent } from './components/admin/category/category-form/category-form.component';
 import { ItemAdmComponent } from './components/admin/item/item-adm.component';
 import { authGuard } from './guards/auth.guard';
+import { CategoryAdmComponent } from './components/admin/category/category-adm.component';
 
 const routeConfig: Routes = [
     {
@@ -55,6 +56,21 @@ const routeConfig: Routes = [
                 path: 'item/:id',
                 component: ItemFormComponent,
                 title: 'Editar Item',
+            },
+            {
+                path: 'categories',
+                component: CategoryAdmComponent,
+                title: 'Categorias'
+            },
+            {
+                path: 'category',
+                component: CategoryFormComponent,
+                title: 'Cadastrar Categoria',
+            },
+            {
+                path: 'category/:id',
+                component: CategoryFormComponent,
+                title: 'Editar Categoria',
             },
         ]
     },

@@ -1,0 +1,45 @@
+<div class="adm-title">
+    <h1>Gestão de Categorias</h1>
+    <button mat-mini-fab (click)="createCategory()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+<div class="adm-responsive">
+    <table mat-table [dataSource]="sortedData" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
+        class="adm-table">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let category">{{category.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let category">{{category.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="items">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Itens</th>
+            <td mat-cell *matCellDef="let category">{{category.items.length}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef aria-label="Expandir" class="adm-actions-header">Ações</th>
+            <td mat-cell *matCellDef="let element">
+                <div class="adm-col-actions">
+                    <button mat-icon-button aria-label="Editar" matTooltip="Editar"
+                        (click)="$event.stopPropagation(); editCategory(element.id)">
+                        <mat-icon style="color: cornflowerblue;">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="Excluir" matTooltip="Excluir"
+                        (click)="$event.stopPropagation(); deleteCategory(element.id)">
+                        <mat-icon style="color: tomato;">delete</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithActions"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithActions;"></tr>
+    </table>
+</div>
