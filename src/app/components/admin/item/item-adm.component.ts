@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, SecurityContext, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
@@ -9,10 +9,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { QRCodeComponent } from 'angularx-qrcode';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-item-adm',
-  imports: [MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule, CommonModule],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    CommonModule,
+    QRCodeComponent
+  ],
   templateUrl: './item-adm.component.html',
   styleUrls: ['./item-adm.component.css'],
   animations: [
@@ -40,11 +52,16 @@ export class ItemAdmComponent extends ListComponent<Item> {
   public get expandedElement() { return this._expandedElement }
   public set expandedElement(e: Item | null) { this._expandedElement = e; }
 
-  constructor(@Inject(SearchService) searchService: SearchService) {
+  // QRCode string
+  private _qrCode: { name: string, url: string } = { name: '', url: '' };
+  public get qrCode() { return this._qrCode }
+  public set qrCode(q: { name: string, url: string }) { this._qrCode = q }
+
+  constructor(@Inject(SearchService) searchService: SearchService, private sanitizer: DomSanitizer) {
     super(searchService);
   }
 
-  public override getList(): void {
+  protected override getList(): void {
     this.sortedData = [];
 
     this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
@@ -57,7 +74,7 @@ export class ItemAdmComponent extends ListComponent<Item> {
     });
   }
 
-  sortData(sort: Sort) {
+  public sortData(sort: Sort): void {
     const data = this.elements.slice();
 
     if (!sort.active || sort.direction === '') {
@@ -84,6 +101,33 @@ export class ItemAdmComponent extends ListComponent<Item> {
           return 0;
       }
     });
+  }
+
+  public generateQRCode(item: Item): void {
+    this.qrCode = { name: item.name, url: String(item.id) };
+  }
+
+  public onChangeQRCode(url: SafeUrl): void {
+    if (!this.qrCode.url)
+      return;
+
+    const date = new Date();
+    const link = this.sanitizer.sanitize(SecurityContext.URL, url) ?? '';
+    const a = document.createElement('a');
+    a.href = link;
+    a.target = "_blank";
+    a.download = `(QRCode) ${this.qrCode.name ?? ''} (${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()})`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  public edit(id: number): void {
+    
+  }
+
+  public delete(id: number): void {
+    
   }
 }
 

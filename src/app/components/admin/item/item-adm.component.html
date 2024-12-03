@@ -55,10 +55,14 @@
             <th mat-header-cell *matHeaderCellDef aria-label="Expandir" class="adm-actions-header">Ações</th>
             <td mat-cell *matCellDef="let element">
                 <div class="adm-col-actions">
-                    <button mat-icon-button aria-label="Editar">
+                    <button mat-icon-button aria-label="Gerar Código QR" matTooltip="Gerar Código QR"
+                        (click)="$event.stopPropagation(); generateQRCode(element)">
+                        <mat-icon style="color: #FFC30A;">qr_code</mat-icon>
+                    </button>
+                    <button mat-icon-button aria-label="Editar" matTooltip="Editar">
                         <mat-icon style="color: cornflowerblue;">edit</mat-icon>
                     </button>
-                    <button mat-icon-button aria-label="Excluir">
+                    <button mat-icon-button aria-label="Excluir" matTooltip="Excluir">
                         <mat-icon style="color: tomato;">delete</mat-icon>
                     </button>
                 </div>
@@ -87,3 +91,6 @@
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
 </div>
+
+<qrcode elementType="svg" [qrdata]="qrCode.url" [width]="256" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
+    (qrCodeURL)="onChangeQRCode($event)" class="d-none"></qrcode>
