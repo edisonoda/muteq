@@ -53,7 +53,10 @@ export class HeaderComponent implements OnDestroy {
   }
 
   public logout(): void {
-    this.authService.logout();
+    this.authService.logout().subscribe(res => {
+      if (res.status == 200 && res.data)
+        location.reload();
+    });
   }
 
   ngOnDestroy(): void {
