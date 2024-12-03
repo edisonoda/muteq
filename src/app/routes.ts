@@ -8,6 +8,7 @@ import { ItemFormComponent } from './components/admin/item/item-form/item-form.c
 import { SectionFormComponent } from './components/admin/section/section-form/section-form.component';
 import { CategoryFormComponent } from './components/admin/category/category-form/category-form.component';
 import { ItemAdmComponent } from './components/admin/item/item-adm.component';
+import { authGuard } from './guards/auth.guard';
 
 const routeConfig: Routes = [
     {
@@ -38,6 +39,7 @@ const routeConfig: Routes = [
     {
         path: 'adm',
         title: 'Adm',
+        canActivate: [authGuard],
         children: [
             {
                 path: 'items',

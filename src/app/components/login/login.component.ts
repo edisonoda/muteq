@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private _snackBar = inject(MatSnackBar);
+  private readonly _snackBar = inject(MatSnackBar);
 
   private _loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email]),
@@ -24,15 +25,35 @@ export class LoginComponent {
     return this._loginForm;
   }
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this._snackBar.open('Email ou senha incorretos!', 'Close', {
+      this._snackBar.open('Email ou senha incorretos!', 'Fechar', {
         duration: 3000
       });
     } else {
-      this.router.navigate(['']);
+      this.authService.login(this._loginForm.get('email')?.value, this._loginForm.get('password')?.value).subscribe(res => {
+        if (res.status == 200) {
+          if (res.data) {
+            this._snackBar.open('Login realizado com sucesso', 'Fechar', {
+              duration: 3000
+            });
+            localStorage.setItem('token', 'adm');
+            this.authService.changeAuth();
+            
+            this.router.navigate(['']);
+          } else {
+            this._snackBar.open('Email ou senha incorretos!', 'Fechar', {
+              duration: 3000
+            });
+          }
+        } else {
+          this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
+            duration: 3000
+          });
+        }
+      });
     }
   }
 }

@@ -3,18 +3,56 @@
 </button>
 
 <mat-menu #menu="matMenu" xPosition="before" class="header-menu-panel" role="menu">
-  <a mat-menu-item routerLink="/items" aria-label="Acessar itens" role="menuitem">
-    <mat-icon>album</mat-icon>
-    <span>Itens</span>
-  </a>
+  @if (loggedIn) {
+    <button mat-menu-item [matMenuTriggerFor]="admin">Admin</button>
+    <button mat-menu-item [matMenuTriggerFor]="user">Visualização</button>
 
-  <a mat-menu-item routerLink="/sections" aria-label="Acessar seções" role="menuitem">
-    <mat-icon>label</mat-icon>
-    <span>Seções</span>
-  </a>
-
-  <a mat-menu-item routerLink="/categories" aria-label="Acessar categorias" role="menuitem">
-    <mat-icon>loyalty</mat-icon>
-    <span>Categorias</span>
-  </a>
+    <mat-menu #admin="matMenu">
+      <a mat-menu-item routerLink="/adm/items" aria-label="Acessar edição de itens" role="menuitem">
+        <mat-icon>album</mat-icon>
+        <span>Itens</span>
+      </a>
+    
+      <a mat-menu-item routerLink="/adm/sections" aria-label="Acessar edição de seções" role="menuitem">
+        <mat-icon>label</mat-icon>
+        <span>Seções</span>
+      </a>
+    
+      <a mat-menu-item routerLink="/adm/categories" aria-label="Acessar edição de categorias" role="menuitem">
+        <mat-icon>loyalty</mat-icon>
+        <span>Categorias</span>
+      </a>
+    </mat-menu>
+    <mat-menu #user="matMenu">
+      <a mat-menu-item routerLink="/items" aria-label="Acessar itens" role="menuitem">
+        <mat-icon>album</mat-icon>
+        <span>Itens</span>
+      </a>
+    
+      <a mat-menu-item routerLink="/sections" aria-label="Acessar seções" role="menuitem">
+        <mat-icon>label</mat-icon>
+        <span>Seções</span>
+      </a>
+    
+      <a mat-menu-item routerLink="/categories" aria-label="Acessar categorias" role="menuitem">
+        <mat-icon>loyalty</mat-icon>
+        <span>Categorias</span>
+      </a>
+    </mat-menu>
+  } @else {
+    <a mat-menu-item routerLink="/items" aria-label="Acessar itens" role="menuitem">
+      <mat-icon>album</mat-icon>
+      <span>Itens</span>
+    </a>
+  
+    <a mat-menu-item routerLink="/sections" aria-label="Acessar seções" role="menuitem">
+      <mat-icon>label</mat-icon>
+      <span>Seções</span>
+    </a>
+  
+    <a mat-menu-item routerLink="/categories" aria-label="Acessar categorias" role="menuitem">
+      <mat-icon>loyalty</mat-icon>
+      <span>Categorias</span>
+    </a>
+  }
 </mat-menu>

@@ -32,6 +32,10 @@ header {
     min-width: 50vw;
 }
 
+.header-content > .actions > * ~ * {
+    margin-left: 10px;
+}
+
 img {
     width: 200px;
 }
@@ -65,12 +69,12 @@ img {
 
     .header-content > app-search {
         order: 1;
-        max-width: 500px;
+        max-width: 400px;
         min-width: unset;
         padding: 0 var(--content-padding);
     }
 
-    .header-content > app-menu {
+    .header-content > .actions {
         order: 2;
     }
 }
