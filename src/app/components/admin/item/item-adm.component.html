@@ -8,6 +8,19 @@
 <div class="adm-responsive">
     <table mat-table [dataSource]="sortedData" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
         class="adm-table">
+        <ng-container matColumnDef="expand">
+            <th mat-header-cell *matHeaderCellDef aria-label="Expandir">&nbsp;</th>
+            <td mat-cell *matCellDef="let element" class="expand-col">
+                <div>
+                    @if (expandedElement === element) {
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                    } @else {
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                    }
+                </div>
+            </td>
+        </ng-container>
+
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
             <td mat-cell *matCellDef="let item">{{item.id}}</td>
@@ -41,15 +54,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef aria-label="Expandir" class="adm-actions-header">Ações</th>
             <td mat-cell *matCellDef="let element">
-                <div class="adm-row-actions">
-                    <button mat-icon-button aria-label="Expandir"
-                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-                        @if (expandedElement === element) {
-                        <mat-icon>keyboard_arrow_up</mat-icon>
-                        } @else {
-                        <mat-icon>keyboard_arrow_down</mat-icon>
-                        }
-                    </button>
+                <div class="adm-col-actions">
                     <button mat-icon-button aria-label="Editar">
                         <mat-icon style="color: cornflowerblue;">edit</mat-icon>
                     </button>

@@ -19,13 +19,24 @@
     overflow: auto;
 }
 
+.adm-table .expand-col {
+    padding: 0;
+}
+
+.adm-table .expand-col > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .adm-table .adm-actions-header {
     text-align: center;
 }
 
-.adm-table .adm-row-actions {
+.adm-table .adm-col-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .adm-table .row-with-details:not(.expanded-row):hover {

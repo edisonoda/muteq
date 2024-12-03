@@ -106,7 +106,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
         duration: 3000
       });
     } else {
-      this.router.navigate(['admin', 'items']);
+      this.router.navigate(['adm', 'items']);
     }
   }
 
