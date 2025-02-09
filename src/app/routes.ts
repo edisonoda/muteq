@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {RouterStateSnapshot, Routes, TitleStrategy} from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ItemListComponent } from './components/lists/item-list.component';
 import { LoginComponent } from './components/login/login.component';
@@ -11,6 +11,21 @@ import { ItemAdmComponent } from './components/admin/item/item-adm.component';
 import { authGuard } from './guards/auth.guard';
 import { CategoryAdmComponent } from './components/admin/category/category-adm.component';
 import { SectionAdmComponent } from './components/admin/section/section-adm.component';
+import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+
+@Injectable({ providedIn: 'root' })
+export class BaseTitleStrategy extends TitleStrategy {
+  constructor(private readonly title: Title) {
+    super();
+  }
+  override updateTitle(routerState: RouterStateSnapshot) {
+    const title = this.buildTitle(routerState);
+    if (title !== undefined) {
+      this.title.setTitle(`MUTEC | ${title}`);
+    }
+  }
+}
 
 const routeConfig: Routes = [
     {
