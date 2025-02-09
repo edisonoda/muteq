@@ -1,14 +1,17 @@
-<div class="adm-title">
-    <h1>Gestão de Itens</h1>
+<h1>Gestão de Itens</h1>
+
+<div class="adm-table-header">
+    <mat-form-field appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="search($event)" placeholder="Ex. Calculadora" #input>
+    </mat-form-field>
     <button mat-mini-fab (click)="createItem()">
         <mat-icon>add</mat-icon>
     </button>
 </div>
 
-<app-paginator [list]="this"></app-paginator>
-
 <div class="adm-responsive">
-    <table mat-table [dataSource]="sortedData" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
         class="adm-table">
         <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef aria-label="Expandir">&nbsp;</th>
@@ -53,7 +56,7 @@
             <td mat-cell *matCellDef="let item">{{item.category.name}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <ng-container matColumnDef="actions" stickyEnd>
             <th mat-header-cell *matHeaderCellDef aria-label="Expandir" class="adm-actions-header">Ações</th>
             <td mat-cell *matCellDef="let element">
                 <div class="adm-col-actions">
@@ -93,12 +96,16 @@
             class="row-with-details">
         </tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+                <div class="no-results">Nenhum resultado para "{{input.value}}"</div>
+            </td>
+        </tr>
     </table>
 </div>
 
-@if (sampleSize > 20 && count > 20) {
-    <app-paginator [list]="this"></app-paginator>
-}
+<app-paginator [list]="this"></app-paginator>
 
 <qrcode elementType="svg" [qrdata]="qrCode.url" [width]="256" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
     (qrCodeURL)="onChangeQRCode($event)" class="d-none"></qrcode>

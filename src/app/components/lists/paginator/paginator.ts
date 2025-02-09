@@ -1,5 +1,5 @@
-import { Component, Injectable, Input } from '@angular/core';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { Component, Injectable, Input, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { ListComponent } from '../list.component';
 
@@ -36,6 +36,9 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
 })
 export class PaginatorComponent {
+  @ViewChild(MatPaginator)
+  public paginator!: MatPaginator;
+
   @Input()
   public list!: ListComponent;
 

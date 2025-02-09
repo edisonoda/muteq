@@ -1,6 +1,6 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
-import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -13,6 +13,10 @@ import { AdmService } from 'src/app/services/adm.service';
 import { Section } from 'src/app/interfaces/section';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaginatorComponent } from '../../lists/paginator/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { Category } from 'src/app/interfaces/category';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-section-adm',
@@ -22,6 +26,8 @@ import { PaginatorComponent } from '../../lists/paginator/paginator';
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
     CommonModule,
     PaginatorComponent
   ],
@@ -35,12 +41,12 @@ import { PaginatorComponent } from '../../lists/paginator/paginator';
     ]),
   ],
 })
-export class SectionAdmComponent extends ListComponent<Section> {
-  @ViewChild(MatTable) table!: MatTable<Section>;
+export class SectionAdmComponent extends ListComponent<Section> implements AfterViewInit {
+  @ViewChild(MatTable) table!: MatTable<Category>;
+  @ViewChild(PaginatorComponent) paginator!: PaginatorComponent;
 
-  private _sortedData: Array<Section> = [];
-  public get sortedData() { return this._sortedData; }
-  public set sortedData(i: Array<Section>) { this._sortedData = i; }
+  private _dataSource: MatTableDataSource<Category> = new MatTableDataSource();
+  public get dataSource() { return this._dataSource; }
 
   private _columnsToDisplay: Array<string> = ['id', 'name', 'items'];
   public get columnsToDisplay() { return this._columnsToDisplay }
@@ -59,13 +65,17 @@ export class SectionAdmComponent extends ListComponent<Section> {
     super();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator.paginator;
+  }
+
   protected override getList(): void {
-    this.sortedData = [];
+    this.dataSource.data = [];
 
     this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
       if (res.status == 200 && res.data) {
         this.elements = res.data.elements;
-        this.sortedData = this.elements;
+        this.dataSource.data = this.elements;
         this.count = res.data.count;
       }
 
@@ -77,11 +87,11 @@ export class SectionAdmComponent extends ListComponent<Section> {
     const data = this.elements.slice();
 
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.dataSource.data = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'id':
@@ -94,6 +104,28 @@ export class SectionAdmComponent extends ListComponent<Section> {
           return 0;
       }
     });
+
+    this.dataSource.paginator?.firstPage();
+  }
+
+  public search(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    this.dataSource.paginator?.firstPage();
+  }
+
+  public override pageChanged(ev: PageEvent): void {
+    if (ev.pageIndex != this.page)
+      this.page = ev.pageIndex;
+
+    if (ev.pageSize != this.sampleSize)
+      this.sampleSize = ev.pageSize;
+
+    setTimeout(() => window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    }));
   }
 
   public createSection(): void {
