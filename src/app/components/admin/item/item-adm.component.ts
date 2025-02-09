@@ -1,10 +1,8 @@
-import { Component, inject, Inject, SecurityContext, ViewChild } from '@angular/core';
+import { Component, inject, SecurityContext, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
 import { Item } from 'src/app/interfaces/item';
-import { SearchService } from 'src/app/services/search.service';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,23 +10,23 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdmService } from 'src/app/services/adm.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaginatorComponent } from '../../lists/paginator/paginator';
 
 @Component({
   selector: 'app-item-adm',
   imports: [
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
     CommonModule,
-    QRCodeComponent
+    QRCodeComponent,
+    PaginatorComponent
   ],
   templateUrl: './item-adm.component.html',
   styleUrls: ['../list.css'],
@@ -66,24 +64,23 @@ export class ItemAdmComponent extends ListComponent<Item> {
   private readonly _snackBar = inject(MatSnackBar);
 
   constructor(
-    @Inject(SearchService) searchService: SearchService,
     private admService: AdmService,
-    private sanitizer: DomSanitizer,
-    private router: Router
+    private sanitizer: DomSanitizer
   ) {
-    super(searchService);
+    super();
   }
 
   protected override getList(): void {
     this.sortedData = [];
 
     this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200) {
-        this.elements = res.data ?? [];
+      if (res.status == 200 && res.data) {
+        this.elements = res.data.elements;
         this.sortedData = this.elements;
+        this.count = res.data.count;
       }
 
-      this.table.renderRows();
+      this.table?.renderRows();
     });
   }
 

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Listable } from '../../interfaces/listable';
 import { SearchService } from 'src/app/services/search.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 enum SampleSize {
   S = 5,
@@ -11,9 +14,13 @@ enum SampleSize {
 }
 
 @Component({
-  template: '',
+  template: ''
 })
-export abstract class ListComponent<T = Listable> implements OnInit {
+export abstract class ListComponent<T = Listable> implements OnInit, OnDestroy {
+  protected searchService: SearchService = inject(SearchService);
+  protected route: ActivatedRoute = inject(ActivatedRoute);
+  protected router: Router = inject(Router);
+
   private _elements: Array<T> = [];
   public get elements() { return this._elements; }
   public set elements(i: Array<T>) { this._elements = i; }
@@ -36,12 +43,49 @@ export abstract class ListComponent<T = Listable> implements OnInit {
     this._sampleSize = s;
     this.getList();
   }
+  
+  private _sizeOptions: Array<number> = Object.values(SampleSize).filter(v => typeof v == 'number');
+  public get sizeOptions() { return this._sizeOptions }
 
-  constructor(protected searchService: SearchService) { }
+  protected _subs: Array<Subscription> = [];
+
+  constructor() {
+    this._subs.push(
+      // Verifica se possui paginação
+      this.route.queryParams.subscribe(params => {
+        const page = parseInt(params['page']);
+        const size = parseInt(params['size']);
+
+        if (page && size) {
+          this._page = page;
+          this.sampleSize = size;
+        }
+      }),
+      // Verifica se alterou a paginação, pois não altera instancia um novo ao mudar de rota
+      this.router.events.subscribe(ev => {
+        if (ev instanceof NavigationEnd)
+          this.getList();
+      })
+    );
+  }
 
   ngOnInit(): void {
     this.getList();
   }
 
   protected abstract getList(): void;
+  
+  public pageChanged(ev: PageEvent): void {
+    if (ev.pageIndex != this.page)
+      this.page = ev.pageIndex;
+
+    if (ev.pageSize != this.sampleSize)
+      this.sampleSize = ev.pageSize;
+  }
+
+  ngOnDestroy(): void {
+    this._subs.forEach(sub => {
+      sub?.unsubscribe();
+    });
+  }
 }

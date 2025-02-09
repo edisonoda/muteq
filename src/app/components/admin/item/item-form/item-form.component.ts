@@ -68,13 +68,13 @@ export class ItemFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchService.getCategories().subscribe(res => {
-      if (res.status == 200)
-        this.categories = res.data ?? [];
+      if (res.status == 200 && res.data)
+        this.categories = res.data.elements;
     });
 
     this.searchService.getSections().subscribe(res => {
-      if (res.status == 200)
-        this.sections = res.data ?? [];
+      if (res.status == 200 && res.data)
+        this.sections = res.data.elements;
     });
   }
 

@@ -1,31 +1,29 @@
-import { Component, inject, Inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
-import { SearchService } from 'src/app/services/search.service';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdmService } from 'src/app/services/adm.service';
 import { Section } from 'src/app/interfaces/section';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaginatorComponent } from '../../lists/paginator/paginator';
 
 @Component({
   selector: 'app-section-adm',
   imports: [
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    CommonModule
+    CommonModule,
+    PaginatorComponent
   ],
   templateUrl: './section-adm.component.html',
   styleUrls: ['../list.css'],
@@ -57,24 +55,21 @@ export class SectionAdmComponent extends ListComponent<Section> {
   private readonly _dialog = inject(MatDialog);
   private readonly _snackBar = inject(MatSnackBar);
 
-  constructor(
-    @Inject(SearchService) searchService: SearchService,
-    private admService: AdmService,
-    private router: Router
-  ) {
-    super(searchService);
+  constructor(private admService: AdmService) {
+    super();
   }
 
   protected override getList(): void {
     this.sortedData = [];
 
     this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200) {
-        this.elements = res.data ?? [];
+      if (res.status == 200 && res.data) {
+        this.elements = res.data.elements;
         this.sortedData = this.elements;
+        this.count = res.data.count;
       }
 
-      this.table.renderRows();
+      this.table?.renderRows();
     });
   }
 

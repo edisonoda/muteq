@@ -1,15 +1,12 @@
-import { Component, inject, Inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ListComponent } from './list.component';
 import { Item } from 'src/app/interfaces/item';
-import { SearchService } from 'src/app/services/search.service';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { ListElementComponent } from './list-element/list-element.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Params } from '@angular/router';
+import { PaginatorComponent } from './paginator/paginator';
 
 enum ItemGroup {
   NONE,
@@ -24,11 +21,11 @@ interface ListFilters {
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule, MatCardModule, MatButtonModule, ListElementComponent],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent],
   templateUrl: './item-list.component.html',
   styleUrls: ['./list.component.css'],
 })
-export class ItemListComponent extends ListComponent<Item> implements OnDestroy {
+export class ItemListComponent extends ListComponent<Item> {
   private _filters: ListFilters = { type: ItemGroup.NONE, group: -1 };
   public get filters() { return this._filters; }
   public set filters(f: ListFilters) { this._filters = f; }
@@ -38,24 +35,14 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
   public set title(t: string) { this._title = t; }
 
   private readonly _dialog = inject(MatDialog);
-  private _subs: Array<Subscription> = [];
 
-  constructor(
-    @Inject(SearchService) searchService: SearchService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    super(searchService);
+  constructor() {
+    super();
 
     this._subs.push(
       // Verifica se possui algum filtro (por categoria ou seção)
       this.route.queryParams.subscribe(params => {
         this.changeFilters(params);
-      }),
-      // Verifica se alterou os filtros, pois não altera instancia um novo ao mudar de rota
-      this.router.events.subscribe(ev => {
-        if (ev instanceof NavigationEnd)
-          this.getList();
       })
     );
   }
@@ -64,10 +51,12 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
     switch (this.filters.type) {
       case ItemGroup.NONE:
         this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200) {
-            this.elements = res.data ?? [];
-            this.title = 'Itens';
+          if (res.status == 200 && res.data) {
+            this.elements = res.data.elements;
+            this.count = res.data.count;
           }
+
+          this.title = 'Itens';
         });
         break;
       case ItemGroup.SECTION:
@@ -120,12 +109,6 @@ export class ItemListComponent extends ListComponent<Item> implements OnDestroy 
   public previewItem(id: number): void {
     const dialogRef = this._dialog.open(ItemComponent, {
       data: id
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._subs.forEach(sub => {
-      sub?.unsubscribe();
     });
   }
 }

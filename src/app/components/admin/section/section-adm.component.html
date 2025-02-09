@@ -5,6 +5,8 @@
     </button>
 </div>
 
+<app-paginator [list]="this"></app-paginator>
+
 <div class="adm-responsive">
     <table mat-table [dataSource]="sortedData" multiTemplateDataRows matSort (matSortChange)="sortData($event)"
         class="adm-table">
@@ -74,3 +76,7 @@
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
 </div>
+
+@if (sampleSize > 20 && count > 20) {
+    <app-paginator [list]="this"></app-paginator>
+}

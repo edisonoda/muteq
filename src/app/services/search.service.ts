@@ -166,6 +166,11 @@ const categories: Array<Category> = [
   },
 ];
 
+interface PaginatedList<T = any> extends DefaultResponse<{
+  elements: Array<T>,
+  count: number
+}> { }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -174,24 +179,24 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  public getItems(page?: number, size?: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items });
+  public getItems(page?: number, size?: number): Observable<PaginatedList<Item>> {
+    return of({ status: 200, data: { elements: items, count: items.length }});
   }
 
   public getItem(id: number): Observable<DefaultResponse<Item>> {
     return of({ status: 200, data: items.find(v => v.id == id) ?? null});
   }
 
-  public getSections(page?: number, size?: number): Observable<DefaultResponse<Array<Section>>> {
-    return of({ status: 200, data: sections });
+  public getSections(page?: number, size?: number): Observable<PaginatedList<Section>> {
+    return of({ status: 200, data: { elements: sections, count: sections.length }});
   }
 
   public getSection(id: number): Observable<DefaultResponse<Section>> {
     return of({ status: 200, data: sections.find(v => v.id == id) ?? null});
   }
 
-  public getCategories(page?: number, size?: number): Observable<DefaultResponse<Array<Category>>> {
-    return of({ status: 200, data: categories });
+  public getCategories(page?: number, size?: number): Observable<PaginatedList<Category>> {
+    return of({ status: 200, data: { elements: categories, count: categories.length }});
   }
 
   public getCategory(id: number): Observable<DefaultResponse<Category>> {
@@ -212,15 +217,18 @@ export class SearchService {
     }});
   }
 
-  public getItemsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Item>>> {
-    return of({ status: 200, data: items.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
+  public getItemsByName(name: string, page: number, size: number): Observable<PaginatedList<Item>> {
+    const elements = items.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    return of({ status: 200, data: { elements, count: elements.length }});
   }
 
-  public getSectionsByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Section>>> {
-    return of({ status: 200, data: sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
+  public getSectionsByName(name: string, page: number, size: number): Observable<PaginatedList<Section>> {
+    const elements = sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    return of({ status: 200, data: { elements, count: elements.length }});
   }
 
-  public getCategoriesByName(name: string, page: number, size: number): Observable<DefaultResponse<Array<Category>>> {
-    return of({ status: 200, data: categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase())) });
+  public getCategoriesByName(name: string, page: number, size: number): Observable<PaginatedList<Category>> {
+    const elements = categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    return of({ status: 200, data: { elements, count: elements.length }});
   }
 }

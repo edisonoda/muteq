@@ -62,8 +62,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchService.getItems().subscribe(res => {
-      if (res.status == 200)
-        this.items = res.data ?? [];
+      if (res.status == 200 && res.data)
+        this.items = res.data.elements;
     });
   }
 
