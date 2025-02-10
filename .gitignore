@@ -1,4 +1,7 @@
 .angular/
+.firebase/
+.github/
+dist
 
 *.log
 node_modules/

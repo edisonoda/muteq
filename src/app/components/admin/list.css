@@ -1,5 +1,5 @@
-.adm-title {
-    margin-bottom: var(--content-padding);
+.adm-table-header {
+    margin: var(--content-padding) 0;
 
     display: flex;
     align-items: center;
@@ -8,10 +8,19 @@
     width: 100%;
 }
 
-.adm-title button {
+.adm-table-header button {
     background-color: yellowgreen;
     color: white;
     box-shadow: none;
+}
+
+::ng-deep .adm-table-header .mat-mdc-form-field {
+    margin-right: var(--content-padding);
+    width: 100%;
+}
+
+::ng-deep .adm-table-header .mat-mdc-form-field .mat-mdc-form-field-subscript-wrapper {
+    display: none;
 }
 
 .adm-responsive {
@@ -79,4 +88,8 @@
 .adm-table .element-detail .img-frame img {
     max-width: 100%;
     height: auto;
+}
+
+::ng-deep .adm-table .no-results {
+    padding: var(--content-padding);
 }

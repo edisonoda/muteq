@@ -1,13 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, Observable, of, Subject } from 'rxjs';
-import { DefaultResponse } from './default-response';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly api: string = "";
+  private readonly api: string = "http://localhost:8080/";
 
   private _authChangedSource: Subject<void> = new Subject<void>();
   public authChanged$: Observable<void> = this._authChangedSource.asObservable();
@@ -18,13 +17,15 @@ export class AuthService {
     this._authChangedSource.next();
   }
 
-  public login(email: string, password: string): Observable<DefaultResponse<boolean>> {
-    return of({ status: 200, data: true });
+  public login(email: string, password: string): Observable<HttpResponse<{ token: string }>> {
+    return this.http.post<{ token: string }>(`${this.api}login`, { username: email, password }, {
+      observe: 'response',
+    });
   }
 
-  public logout(): Observable<DefaultResponse<boolean>> {
-    localStorage.removeItem('token');
+  public logout(): void {
+    localStorage.removeItem('muteq-token');
     this.changeAuth();
-    return of({ status: 200, data: true });
+    location.reload();
   }
 }

@@ -1,31 +1,35 @@
-import { Component, inject, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { ListComponent } from '../../lists/list.component';
-import { SearchService } from 'src/app/services/search.service';
-import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { AdmService } from 'src/app/services/adm.service';
 import { Section } from 'src/app/interfaces/section';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaginatorComponent } from '../../lists/paginator/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { Category } from 'src/app/interfaces/category';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-section-adm',
   imports: [
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    CommonModule
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    PaginatorComponent
   ],
   templateUrl: './section-adm.component.html',
   styleUrls: ['../list.css'],
@@ -37,12 +41,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ]),
   ],
 })
-export class SectionAdmComponent extends ListComponent<Section> {
-  @ViewChild(MatTable) table!: MatTable<Section>;
+export class SectionAdmComponent extends ListComponent<Section> implements AfterViewInit {
+  @ViewChild(MatTable) table!: MatTable<Category>;
+  @ViewChild(PaginatorComponent) paginator!: PaginatorComponent;
 
-  private _sortedData: Array<Section> = [];
-  public get sortedData() { return this._sortedData; }
-  public set sortedData(i: Array<Section>) { this._sortedData = i; }
+  private _dataSource: MatTableDataSource<Category> = new MatTableDataSource();
+  public get dataSource() { return this._dataSource; }
 
   private _columnsToDisplay: Array<string> = ['id', 'name', 'items'];
   public get columnsToDisplay() { return this._columnsToDisplay }
@@ -57,24 +61,25 @@ export class SectionAdmComponent extends ListComponent<Section> {
   private readonly _dialog = inject(MatDialog);
   private readonly _snackBar = inject(MatSnackBar);
 
-  constructor(
-    @Inject(SearchService) searchService: SearchService,
-    private admService: AdmService,
-    private router: Router
-  ) {
-    super(searchService);
+  constructor(private admService: AdmService) {
+    super();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator.paginator;
   }
 
   protected override getList(): void {
-    this.sortedData = [];
+    this.dataSource.data = [];
 
     this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200) {
-        this.elements = res.data ?? [];
-        this.sortedData = this.elements;
+      if (res) {
+        this.elements = res.elements;
+        this.dataSource.data = this.elements;
+        this.count = res.count;
       }
 
-      this.table.renderRows();
+      this.table?.renderRows();
     });
   }
 
@@ -82,11 +87,11 @@ export class SectionAdmComponent extends ListComponent<Section> {
     const data = this.elements.slice();
 
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.dataSource.data = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'id':
@@ -99,6 +104,28 @@ export class SectionAdmComponent extends ListComponent<Section> {
           return 0;
       }
     });
+
+    this.dataSource.paginator?.firstPage();
+  }
+
+  public search(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    this.dataSource.paginator?.firstPage();
+  }
+
+  public override pageChanged(ev: PageEvent): void {
+    if (ev.pageIndex != this.page)
+      this.page = ev.pageIndex;
+
+    if (ev.pageSize != this.sampleSize)
+      this.sampleSize = ev.pageSize;
+
+    setTimeout(() => window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    }));
   }
 
   public createSection(): void {
@@ -117,7 +144,7 @@ export class SectionAdmComponent extends ListComponent<Section> {
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteSection(id).subscribe(res => {
-          if (res.status == 200 && res.data)
+          if (res)
             this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
               duration: 3000
             });

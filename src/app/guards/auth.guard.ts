@@ -5,7 +5,7 @@ import { CanActivateFn, Router } from '@angular/router';
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const snackBar = inject(MatSnackBar);
-  const loggedIn = localStorage.getItem('token') !== null;
+  const loggedIn = localStorage.getItem('muteq-token') !== null;
 
   if (!loggedIn) {
     snackBar.open('Você deve estar autenticado para acessar essa página!', 'Fechar', { duration: 3000 });

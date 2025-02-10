@@ -122,14 +122,14 @@ export class SearchComponent {
       this.searchService.getCategoriesByName(string, 1, this._elementsLimit + 1),
       this.searchService.getSectionsByName(string, 1, this._elementsLimit + 1),
     ]).pipe(tap(([itemRes, categoryRes, sectionRes]) => {
-      if (itemRes.status == 200)
-        this.items = itemRes.data ?? [];
+      if (itemRes)
+        this.items = itemRes.elements;
 
-      if (categoryRes.status == 200)
-        this.categories = categoryRes.data ?? [];
+      if (categoryRes)
+        this.categories = categoryRes.elements;
 
-      if (sectionRes.status == 200)
-        this.sections = sectionRes.data ?? [];
+      if (sectionRes)
+        this.sections = sectionRes.elements;
     }));
   }
 

@@ -1,29 +1,28 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ListComponent } from './list.component';
-import { SearchService } from 'src/app/services/search.service';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { Section } from 'src/app/interfaces/section';
-import { Router } from '@angular/router';
 import { ListElementComponent } from './list-element/list-element.component';
+import { PaginatorComponent } from './paginator/paginator';
 
 
 @Component({
   selector: 'app-sections',
-  imports: [CommonModule, MatCardModule, MatButtonModule, ListElementComponent],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent],
   templateUrl: './section-list.component.html',
   styleUrls: ['./list.component.css'],
 })
 export class SectionListComponent extends ListComponent<Section> {
-  constructor(@Inject(SearchService) searchService: SearchService,  private router: Router) {
-    super(searchService);
+  constructor() {
+    super();
   }
 
   protected override getList(): void {
     this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200)
-        this.elements = res.data ?? [];
+      if (res) {
+        this.elements = res.elements;
+        this.count = res.count;
+      }
     });
   }
   

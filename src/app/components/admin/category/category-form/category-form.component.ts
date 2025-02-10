@@ -62,8 +62,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchService.getItems().subscribe(res => {
-      if (res.status == 200)
-        this.items = res.data ?? [];
+      if (res)
+        this.items = res.elements;
     });
   }
 
@@ -80,8 +80,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   private getCategory(): void {
     this.searchService.getCategory(this.form.get('id')?.value).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        Object.entries(res.data).forEach(([k, v]) => {
+      if (res) {
+        Object.entries(res).forEach(([k, v]) => {
           this.form.get(k)?.setValue(v);
         });
       }
@@ -96,14 +96,14 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     } else {
       if (this.form.get('id')?.value)
         this.admService.editCategory(this.form.get('id')?.value, this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Categoria editada com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'categories']);
           }
         });
       else
         this.admService.createCategory(this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Categoria criada com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'categories']);
           }

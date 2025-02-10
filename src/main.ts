@@ -4,8 +4,8 @@
  */
 import {bootstrapApplication, provideProtractorTestingSupport} from '@angular/platform-browser';
 import {AppComponent} from './app/app.component';
-import { provideRouter } from '@angular/router';
-import routeConfig from './app/routes';
+import { provideRouter, TitleStrategy } from '@angular/router';
+import routeConfig, { BaseTitleStrategy } from './app/routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headerInterceptor } from './app/interceptors/header.interceptor';
@@ -14,6 +14,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideProtractorTestingSupport(),
     provideRouter(routeConfig),
+    { provide: TitleStrategy, useClass: BaseTitleStrategy },
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
       headerInterceptor

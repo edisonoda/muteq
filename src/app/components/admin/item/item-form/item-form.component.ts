@@ -68,13 +68,13 @@ export class ItemFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchService.getCategories().subscribe(res => {
-      if (res.status == 200)
-        this.categories = res.data ?? [];
+      if (res)
+        this.categories = res.elements;
     });
 
     this.searchService.getSections().subscribe(res => {
-      if (res.status == 200)
-        this.sections = res.data ?? [];
+      if (res)
+        this.sections = res.elements;
     });
   }
 
@@ -95,13 +95,13 @@ export class ItemFormComponent implements OnInit, OnDestroy {
 
   private getItem(): void {
     this.searchService.getItem(this.form.get('id')?.value).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        Object.entries(res.data).forEach(([k, v]) => {
+      if (res) {
+        Object.entries(res).forEach(([k, v]) => {
           this.form.get(k)?.setValue(v);
         });
 
-        this.form.get('category')?.setValue(res.data.category?.id ?? null);
-        this.form.get('section')?.setValue(res.data.section?.id ?? null);
+        this.form.get('category')?.setValue(res.category?.id ?? null);
+        this.form.get('section')?.setValue(res.section?.id ?? null);
       }
     });
   }
@@ -114,14 +114,14 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     } else {
       if (this.form.get('id')?.value)
         this.admService.editItem(this.form.get('id')?.value, this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Item editado com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'items']);
           }
         });
       else
         this.admService.createItem(this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Item criado com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'items']);
           }
