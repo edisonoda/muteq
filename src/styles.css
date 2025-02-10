@@ -47,3 +47,9 @@ button.primary {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.content {
+  margin: auto;
+  max-width: var(--page-max-width);
+  padding: var(--content-padding);
+}

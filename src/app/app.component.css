@@ -1,9 +1,3 @@
-.content {
-  margin: auto;
-  max-width: var(--page-max-width);
-  padding: var(--content-padding);
-}
-
 main {
   background-color: var(--mat-sys-background);
   margin-top: var(--header-size);

@@ -21,10 +21,6 @@ p{
     text-align: justify;
 }
 
-.mutec-home img {
-    display: none;
-}
-
 .mutec-topics{
     margin-bottom: 30px;
 }
@@ -33,12 +29,13 @@ p{
     margin-top: 13px;
 }
 
-@media (min-width: 768px) {
-    .mutec-home img {
-        display: block;
-        float: right;
-        padding-bottom: var(--content-padding);
-        padding-left: var(--content-padding);
-        width: 450px;
-    }
+.home-img {
+    width: 100%;
+}
+
+.home {
+    background-color: var(--mat-sys-background);
+    position: relative;
+    padding-top: var(--content-padding);
+    margin-top: -350px;
 }
