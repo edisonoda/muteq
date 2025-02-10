@@ -35,24 +35,28 @@ export class LoginComponent {
     } else {
       this.authService.login(this._loginForm.get('email')?.value, this._loginForm.get('password')?.value).subscribe(res => {
         if (res.status == 200) {
-          if (res.data) {
+          if (res.body?.token) {
             this._snackBar.open('Login realizado com sucesso', 'Fechar', {
               duration: 3000
             });
-            localStorage.setItem('token', 'adm');
+            localStorage.setItem('muteq-token', res.body?.token);
             this.authService.changeAuth();
             
             this.router.navigate(['']);
-          } else {
-            this._snackBar.open('Email ou senha incorretos!', 'Fechar', {
-              duration: 3000
-            });
           }
+        } else if(res.status == 403) {
+          this._snackBar.open('Email ou senha incorretos!', 'Fechar', {
+            duration: 3000
+          });
         } else {
           this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
             duration: 3000
           });
         }
+      }, error => {
+        this._snackBar.open('Ocorreu um erro ao realizar o login', 'Fechar', {
+          duration: 3000
+        });
       });
     }
   }

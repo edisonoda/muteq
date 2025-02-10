@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { Item } from '../interfaces/item';
-import { DefaultResponse } from './default-response';
+import { DefaultResponse } from './default-requests';
 import { Section } from '../interfaces/section';
 import { Category } from '../interfaces/category';
 
@@ -175,7 +175,7 @@ interface PaginatedList<T = any> extends DefaultResponse<{
   providedIn: 'root'
 })
 export class SearchService {
-  private readonly api: string = "";
+  private readonly api: string = "http://localhost:8080/";
 
   constructor(private http: HttpClient) { }
 

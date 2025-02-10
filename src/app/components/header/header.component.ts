@@ -42,9 +42,9 @@ export class HeaderComponent implements OnDestroy {
   private _authSub: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
-    this._loggedIn = localStorage.getItem('token') !== null;
+    this._loggedIn = localStorage.getItem('muteq-token') !== null;
     this._authSub = this.authService.authChanged$.subscribe(() => {
-      this._loggedIn = localStorage.getItem('token') !== null;
+      this._loggedIn = localStorage.getItem('muteq-token') !== null;
     });
   }
 
@@ -53,10 +53,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   public logout(): void {
-    this.authService.logout().subscribe(res => {
-      if (res.status == 200 && res.data)
-        location.reload();
-    });
+    this.authService.logout();
   }
 
   ngOnDestroy(): void {
