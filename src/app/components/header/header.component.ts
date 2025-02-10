@@ -19,11 +19,13 @@ import { Subscription } from 'rxjs';
         </a>
         <div class="actions">
           @if (!loggedIn) {
-            <button mat-icon-button (click)="login()" style="color: var(--mat-sys-primary)">
+            <button mat-icon-button (click)="login()" style="color: var(--mat-sys-primary)"
+              matTooltip="Login">
               <mat-icon>login</mat-icon>
             </button>
           } @else {
-            <button mat-icon-button (click)="logout()" style="color: var(--mat-sys-error)">
+            <button mat-icon-button (click)="logout()" style="color: var(--mat-sys-error)"
+              matTooltip="Logout">
               <mat-icon>logout</mat-icon>
             </button>
           }

@@ -47,7 +47,7 @@ export class SectionAdmComponent extends ListComponent<Section> {
   private _columnsToDisplay: Array<string> = ['id', 'name', 'items'];
   public get columnsToDisplay() { return this._columnsToDisplay }
 
-  private _columnsToDisplayWithActions: Array<string> = [ ...this.columnsToDisplay, 'actions' ];
+  private _columnsToDisplayWithActions: Array<string> = [ 'expand', ...this.columnsToDisplay, 'actions' ];
   public get columnsToDisplayWithActions() { return this._columnsToDisplayWithActions }
 
   private _expandedElement: Section | null = null;
