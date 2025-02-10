@@ -42,7 +42,7 @@ h1 {
     box-sizing: border-box;
     padding: var(--content-padding);
 
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75));
     color: #faf9fd;
     height: 100%;
     width: 100%;
@@ -58,6 +58,10 @@ h1 {
 
 ::ng-deep .list__element:hover .element-card__details {
     bottom: 0;
+}
+
+::ng-deep .list__element .element-card__details {
+    backdrop-filter: blur(5px);
 }
 
 .element-card__title {
