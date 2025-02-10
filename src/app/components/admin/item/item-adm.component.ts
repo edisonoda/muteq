@@ -83,10 +83,10 @@ export class ItemAdmComponent extends ListComponent<Item> implements AfterViewIn
     this.dataSource.data = [];
 
     this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        this.elements = res.data.elements;
+      if (res) {
+        this.elements = res.elements;
         this.dataSource.data = this.elements;
-        this.count = res.data.count;
+        this.count = res.count;
       }
 
       this.table?.renderRows();
@@ -179,7 +179,7 @@ export class ItemAdmComponent extends ListComponent<Item> implements AfterViewIn
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteItem(id).subscribe(res => {
-          if (res.status == 200 && res.data)
+          if (res)
             this._snackBar.open('Item excluído com sucesso', 'Fechar', {
               duration: 3000
             });

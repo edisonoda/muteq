@@ -1,7 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { DefaultResponse } from './default-requests';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

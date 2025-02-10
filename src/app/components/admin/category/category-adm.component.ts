@@ -60,10 +60,10 @@ export class CategoryAdmComponent extends ListComponent<Category> implements Aft
     this.dataSource.data = [];
 
     this.searchService.getCategories(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        this.elements = res.data.elements;
+      if (res) {
+        this.elements = res.elements;
         this.dataSource.data = this.elements;
-        this.count = res.data.count;
+        this.count = res.count;
       }
 
       this.table?.renderRows();
@@ -131,7 +131,7 @@ export class CategoryAdmComponent extends ListComponent<Category> implements Aft
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteCategory(id).subscribe(res => {
-          if (res.status == 200 && res.data)
+          if (res)
             this._snackBar.open('Categoria excluída com sucesso', 'Fechar', {
               duration: 3000
             });

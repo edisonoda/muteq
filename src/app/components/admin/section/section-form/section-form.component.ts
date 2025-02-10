@@ -62,8 +62,8 @@ export class SectionFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchService.getItems().subscribe(res => {
-      if (res.status == 200 && res.data)
-        this.items = res.data.elements;
+      if (res)
+        this.items = res.elements;
     });
   }
 
@@ -81,8 +81,8 @@ export class SectionFormComponent implements OnInit, OnDestroy {
 
   private getSection(): void {
     this.searchService.getSection(this.form.get('id')?.value).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        Object.entries(res.data).forEach(([k, v]) => {
+      if (res) {
+        Object.entries(res).forEach(([k, v]) => {
           this.form.get(k)?.setValue(v);
         });
       }
@@ -97,14 +97,14 @@ export class SectionFormComponent implements OnInit, OnDestroy {
     } else {
       if (this.form.get('id')?.value)
         this.admService.editSection(this.form.get('id')?.value, this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Seção editada com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'sections']);
           }
         });
       else
         this.admService.createSection(this.form.value).subscribe(res => {
-          if (res.status == 200) {
+          if (res) {
             this._snackBar.open('Seção criada com sucesso!', 'Fechar', { duration: 3000 });
             this.router.navigate(['adm', 'sections']);
           }

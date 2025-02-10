@@ -73,10 +73,10 @@ export class SectionAdmComponent extends ListComponent<Section> implements After
     this.dataSource.data = [];
 
     this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        this.elements = res.data.elements;
+      if (res) {
+        this.elements = res.elements;
         this.dataSource.data = this.elements;
-        this.count = res.data.count;
+        this.count = res.count;
       }
 
       this.table?.renderRows();
@@ -144,7 +144,7 @@ export class SectionAdmComponent extends ListComponent<Section> implements After
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteSection(id).subscribe(res => {
-          if (res.status == 200 && res.data)
+          if (res)
             this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
               duration: 3000
             });

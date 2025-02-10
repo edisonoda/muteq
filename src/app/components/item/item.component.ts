@@ -23,8 +23,8 @@ export class ItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchService.getItem(this._data).subscribe(res => {
-      if (res.status == 200 && res.data)
-        this.item = res.data;
+      if (res)
+        this.item = res;
     });
   }
 

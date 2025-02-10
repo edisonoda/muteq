@@ -19,9 +19,9 @@ export class CategoryListComponent extends ListComponent<Category> {
 
   protected override getList(): void {
     this.searchService.getCategories(this.page, this.sampleSize).subscribe(res => {
-      if (res.status == 200 && res.data) {
-        this.elements = res.data.elements;
-        this.count = res.data.count;
+      if (res) {
+        this.elements = res.elements;
+        this.count = res.count;
       }
     });
   }

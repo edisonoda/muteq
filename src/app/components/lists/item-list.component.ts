@@ -51,9 +51,9 @@ export class ItemListComponent extends ListComponent<Item> {
     switch (this.filters.type) {
       case ItemGroup.NONE:
         this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200 && res.data) {
-            this.elements = res.data.elements;
-            this.count = res.data.count;
+          if (res) {
+            this.elements = res.elements;
+            this.count = res.count;
           }
 
           this.title = 'Itens';
@@ -61,17 +61,17 @@ export class ItemListComponent extends ListComponent<Item> {
         break;
       case ItemGroup.SECTION:
         this.searchService.getItemsBySection(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200) {
-            this.elements = res.data?.items ?? [];
-            this.title = res.data?.section + ' / Itens';
+          if (res) {
+            this.elements = res.items ?? [];
+            this.title = res.section + ' / Itens';
           }
         });
         break;
       case ItemGroup.CATEGORY:
         this.searchService.getItemsByCategory(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res.status == 200) {
-            this.elements = res.data?.items ?? [];
-            this.title = res.data?.category + ' / Itens';
+          if (res) {
+            this.elements = res.items ?? [];
+            this.title = res.category + ' / Itens';
           }
         });
         break;
