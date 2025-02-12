@@ -179,7 +179,7 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   public getHomeItems(): Observable<PaginatedList<Item>> {
-    return of({ elements: items.slice(0, 5), count: items.length });
+    return of({ elements: items.slice(0, 10), count: items.length });
   }
 
   public getItems(page?: number, size?: number): Observable<PaginatedList<Item>> {

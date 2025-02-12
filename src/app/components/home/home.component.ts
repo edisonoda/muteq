@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { HeaderComponent } from 'src/app/core/header/header.component';
+import { FooterComponent } from 'src/app/core/footer/footer.component';
+import { HomeTitleComponent } from './home-title/home-title.component';
+import { HomeService } from 'src/app/services/home.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselComponent],
+  imports: [CarouselComponent, HeaderComponent, FooterComponent, HomeTitleComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -23,7 +27,11 @@ export class HomeComponent {
     return this._description;
   }
 
-  constructor() {
+  constructor(private homeService: HomeService) {
     
+  }
+
+  public onScroll(ev: Event): void {
+    this.homeService.scroll(ev);
   }
 }

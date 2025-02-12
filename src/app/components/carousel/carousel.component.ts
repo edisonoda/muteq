@@ -5,6 +5,13 @@ import { Item } from 'src/app/interfaces/item';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
 
+export interface CarouselResponsivity {
+  
+}
+
+export interface CarouselSettings {
+
+}
 
 @Component({
   selector: 'app-carousel',

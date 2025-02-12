@@ -1,41 +1,112 @@
-.mutec-title{
-    padding-top: 15px;
-    padding-bottom: 40px;
+.home {
+    perspective: 1px;
+    transform-style: preserve-3d;
+
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.mutec-title p{
+/* Header */
+::ng-deep .home .home-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+}
+
+::ng-deep .home .home-header header {
+    position: relative;
+}
+
+.mutec-title {
+    transform-style: preserve-3d;
+    position: relative;
+
+    height: calc(100% - var(--header-size));
+    max-height: 500px;
+    width: 100%;
+
+    z-index: 0;
+}
+
+.mutec-title::before {
+    content: "";
+    position: absolute;
+
+    background-image: url('/assets/img/mutec_photo.png');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    transform: translateZ(-1px) scale(2.2);
+    filter: blur(2px);
+}
+
+.mutec-title::after {
+    content: "";
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.mutec-title>.mutec-title__text {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.mutec-title>.mutec-title__text>* {
+    color: var(--mat-sys-background);
+    text-shadow: 0 0 25px rgba(0, 0, 0, 0.75);
+    text-align: center;
+}
+
+.mutec-title p {
     font-size: 27px;
 }
 
-h1{
+h1 {
     font-size: 80px;
 }
 
-h2{
-    font-size: 27px;
-    margin-bottom: 5px;
-}
-
-p{
+p {
     font-size: 18px;
     text-align: justify;
 }
 
-.mutec-topics{
-    margin-bottom: 30px;
+.mutec-home {
+    background-color: var(--mat-sys-background);
+    position: relative;
+    z-index: 1;
+
+    transform: translateZ(0);
 }
 
-.mutec-topics p{
+.mutec-topics {
+    padding: 30px var(--content-padding);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.mutec-topics p {
     margin-top: 13px;
 }
 
-.home-img {
-    width: 100%;
-}
-
 .home {
-    background-color: var(--mat-sys-background);
     position: relative;
-    padding-top: var(--content-padding);
-    margin-top: -350px;
+    /* margin-top: -350px; */
 }

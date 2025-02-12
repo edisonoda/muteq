@@ -3,7 +3,7 @@ footer {
     width: 100%;
     box-sizing: border-box;
     padding-top: 17px;
-    background-color: var(--footer-color);
+    background-color: var(--pastel-color);
     align-items: center;
 }
 
@@ -79,7 +79,7 @@ img {
 }
 
 .footer-copyright {
-    background-color: #161615;
+    background-color: var(--default-dark);
     padding-top: 1.5%;
     padding-bottom: 1.5%;
     text-align: center;

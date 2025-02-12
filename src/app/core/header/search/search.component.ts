@@ -11,10 +11,10 @@ import { Item } from 'src/app/interfaces/item';
 import { Category } from 'src/app/interfaces/category';
 import { Section } from 'src/app/interfaces/section';
 import { SearchService } from 'src/app/services/search.service';
-import { debounce, delayWhen, forkJoin, interval, map, Observable, of, pairwise, repeat, shareReplay, skipUntil, skipWhile, startWith, Subject, Subscription, switchMap, tap, timeInterval, timer } from 'rxjs';
+import { debounce, delayWhen, forkJoin, interval, map, Observable, of, tap } from 'rxjs';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ItemComponent } from '../../item/item.component';
+import { ItemComponent } from '../../../components/item/item.component';
 
 interface SearchGroup {
   type: string;
