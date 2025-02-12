@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListComponent } from '../lists/list.component';
 import { Item } from 'src/app/interfaces/item';
@@ -11,11 +11,17 @@ export interface CarouselResponsivity {
   minWidth: number;
 }
 
+export enum CarouselOrientation {
+  HORIZONTAL,
+  VERTICAL
+}
+
 export interface CarouselSettings {
   responsivity: Array<CarouselResponsivity>;
   slideCount: number;
-  pagination: boolean;
-  navigation: boolean;
+  pagination?: boolean;
+  navigation?: boolean;
+  orientation?: CarouselOrientation;
 }
 
 @Component({
@@ -23,28 +29,69 @@ export interface CarouselSettings {
   imports: [CommonModule, ListElementComponent],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css', '../lists/list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarouselComponent extends ListComponent<Item> {
+export class CarouselComponent extends ListComponent<Item> implements AfterViewInit {
   private readonly _dialog = inject(MatDialog);
+  private _windowWidth: number = window.innerWidth;
+  public get windowWidth() { return this._windowWidth; }
 
-  private readonly carouselSettings: CarouselSettings = {
-    navigation: true,
-    pagination: true,
+  private _carouselSettings: CarouselSettings = {
+    orientation: CarouselOrientation.HORIZONTAL,
+    navigation: false,
+    pagination: false,
     slideCount: 1,
     responsivity: [
       {
-        slideCount: 3,
-        minWidth: 576
+        slideCount: 4,
+        minWidth: 1200
       },
       {
         slideCount: 5,
         minWidth: 992
+      },
+      {
+        slideCount: 2,
+        minWidth: 768
       }
     ]
   };
+  public get carouselSettings() { return this._carouselSettings; }
+  @Input()
+  public set carouselSettings(s: CarouselSettings) {
+    s.responsivity.sort((a, b) => b.minWidth - a.minWidth);
+    this._carouselSettings = s;
+    this.refreshSlideCount();
+  }
 
-  constructor() {
+  private _slideCount: number = this._carouselSettings.slideCount;
+  public get slideCount() { return this._slideCount; }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(ev: Event): void {
+    this._windowWidth = window.innerWidth;
+    this.refreshSlideCount();
+  }
+
+  constructor(private cdf: ChangeDetectorRef) {
     super();
+  }
+
+  ngAfterViewInit(): void {
+    this.refreshSlideCount();
+  }
+
+  private refreshSlideCount(): void {
+    this.carouselSettings.responsivity.some(r => {
+      if (this.windowWidth > r.minWidth) {
+        this._slideCount = r.slideCount;
+        return true;
+      }
+
+      return false;
+    }) ? null : this._slideCount = this.carouselSettings.slideCount;
+
+    this.cdf.detectChanges();
   }
 
   protected override getList(): void {
@@ -52,8 +99,17 @@ export class CarouselComponent extends ListComponent<Item> {
       if (res) {
         this.elements = res.elements;
         this.count = res.count;
+
+        this.cdf.detectChanges();
       }
     });
+  }
+
+  public calcSlideWidth(): number {
+    if (this.elements.length <= this.slideCount)
+      return 100 / this.slideCount;
+
+    return 95 / this.slideCount;
   }
 
   public previewItem(id: number): void {

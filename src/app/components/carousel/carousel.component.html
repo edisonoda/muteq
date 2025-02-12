@@ -1,6 +1,7 @@
-<div class="carousel">
+<div class="carousel" [attr.orientation]="carouselSettings.orientation">
     <div class="carousel-wrapper">
-        <div class="carousel-slide" *ngFor="let el of elements">
+        <div class="carousel-slide" *ngFor="let el of elements"
+            [ngStyle]="{'min-width': calcSlideWidth() + '%'}">
             <li (click)="previewItem(el.id)" class="list__element"
                 [attr.aria-labelledby]="'title-element-' + el.id">
                 <app-list-element [element]="el"></app-list-element>
@@ -8,8 +9,8 @@
         </div>
     </div>
 
-    <div class="carousel-pagination"></div>
+    <div *ngIf="carouselSettings.pagination" class="carousel-pagination"></div>
 
-    <div class="carousel-button-prev"></div>
-    <div class="carousel-button-next"></div>
+    <div *ngIf="carouselSettings.navigation" class="carousel-button-prev"></div>
+    <div *ngIf="carouselSettings.navigation" class="carousel-button-next"></div>
 </div>
