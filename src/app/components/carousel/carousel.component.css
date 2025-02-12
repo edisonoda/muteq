@@ -3,6 +3,9 @@
 }
 
 .carousel-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+
     overflow-x: hidden;
     width: 100%;
 }
