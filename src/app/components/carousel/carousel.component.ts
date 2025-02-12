@@ -5,6 +5,8 @@ import { Item } from 'src/app/interfaces/item';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
 import { ListElementComponent } from '../lists/list-element/list-element.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface CarouselResponsivity {
   slideCount: number;
@@ -26,7 +28,7 @@ export interface CarouselSettings {
 
 @Component({
   selector: 'app-carousel',
-  imports: [CommonModule, ListElementComponent],
+  imports: [CommonModule, ListElementComponent, MatButtonModule, MatIconModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css', '../lists/list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,8 +40,8 @@ export class CarouselComponent extends ListComponent<Item> implements AfterViewI
 
   private _carouselSettings: CarouselSettings = {
     orientation: CarouselOrientation.HORIZONTAL,
-    navigation: false,
-    pagination: false,
+    navigation: true,
+    pagination: true,
     slideCount: 1,
     responsivity: [
       {

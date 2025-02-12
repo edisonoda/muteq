@@ -1,4 +1,9 @@
 .carousel {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-container {
     overflow-x: hidden;
     width: 100%;
 }
@@ -8,9 +13,35 @@
     flex-wrap: nowrap;
 
     overflow-x: auto;
+    /* scrollbar-width: none; */
     width: 100%;
 }
 
 .carousel .carousel-wrapper .list__element {
     max-width: unset;
+}
+
+/* Navigation */
+.carousel-navigation {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.carousel.paginated .carousel-navigation {
+    top: calc(50% - var(--content-padding));
+}
+
+.carousel-button-prev {
+    left: -40px;
+}
+
+.carousel-button-next {
+    right: -40px;
+}
+
+/* Pagination */
+.carousel-pagination {
+    padding: var(--content-padding);
 }

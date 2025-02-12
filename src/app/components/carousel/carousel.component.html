@@ -1,16 +1,25 @@
-<div class="carousel" [attr.orientation]="carouselSettings.orientation">
-    <div class="carousel-wrapper">
-        <div class="carousel-slide" *ngFor="let el of elements"
-            [ngStyle]="{'min-width': calcSlideWidth() + '%'}">
-            <li (click)="previewItem(el.id)" class="list__element"
-                [attr.aria-labelledby]="'title-element-' + el.id">
-                <app-list-element [element]="el"></app-list-element>
-            </li>
+<div class="carousel" [attr.orientation]="carouselSettings.orientation"
+    [ngClass]="{'paginated': carouselSettings.pagination}">
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-slide" *ngFor="let el of elements"
+                [ngStyle]="{'min-width': calcSlideWidth() + '%'}">
+                <li (click)="previewItem(el.id)" class="list__element"
+                    [attr.aria-labelledby]="'title-element-' + el.id">
+                    <app-list-element [element]="el"></app-list-element>
+                </li>
+            </div>
         </div>
     </div>
 
     <div *ngIf="carouselSettings.pagination" class="carousel-pagination"></div>
 
-    <div *ngIf="carouselSettings.navigation" class="carousel-button-prev"></div>
-    <div *ngIf="carouselSettings.navigation" class="carousel-button-next"></div>
+    <button *ngIf="carouselSettings.navigation" mat-icon-button
+        class="carousel-navigation carousel-button-prev">
+        <mat-icon>arrow_back_ios_new</mat-icon>
+    </button>
+    <button *ngIf="carouselSettings.navigation" mat-icon-button
+        class="carousel-navigation carousel-button-next">
+        <mat-icon>arrow_forward_ios_new</mat-icon>
+    </button>
 </div>
