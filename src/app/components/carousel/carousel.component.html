@@ -1,8 +1,10 @@
 <div class="carousel">
     <div class="carousel-wrapper">
-        <div class="carousel-slide" *ngFor="let el of elements" (click)="previewItem(el.id)">
-            <div class="carousel-slide__title">${{el.name}}</div>
-            <img [src]="el.img" alt="Imagem de {{el.name}}" class="carousel-slide-img">
+        <div class="carousel-slide" *ngFor="let el of elements">
+            <li (click)="previewItem(el.id)" class="list__element"
+                [attr.aria-labelledby]="'title-element-' + el.id">
+                <app-list-element [element]="el"></app-list-element>
+            </li>
         </div>
     </div>
 
@@ -10,6 +12,4 @@
 
     <div class="carousel-button-prev"></div>
     <div class="carousel-button-next"></div>
-
-    <div class="carousel-scrollbar"></div>
 </div>
