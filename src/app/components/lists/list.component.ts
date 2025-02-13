@@ -39,7 +39,7 @@ export abstract class ListComponent<T = Listable> implements OnInit, OnDestroy {
   private _sampleSize: SampleSize = SampleSize.M;
   public get sampleSize() { return this._sampleSize; }
   public set sampleSize(s: SampleSize) {
-    this.page = parseInt((this.page * this.sampleSize / s).toFixed(0));
+    this._page = parseInt((this.page * this.sampleSize / s).toFixed(0));
     this._sampleSize = s;
     this.getList();
   }
@@ -60,11 +60,6 @@ export abstract class ListComponent<T = Listable> implements OnInit, OnDestroy {
           this._page = page;
           this.sampleSize = size;
         }
-      }),
-      // Verifica se alterou a paginação, pois não altera instancia um novo ao mudar de rota
-      this.router.events.subscribe(ev => {
-        if (ev instanceof NavigationEnd)
-          this.getList();
       })
     );
   }
