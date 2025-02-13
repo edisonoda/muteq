@@ -165,7 +165,7 @@ const categories: Array<Category> = [
   },
 ];
 
-interface PaginatedList<T = any> {
+export interface PaginatedList<T = any> {
   elements: Array<T>,
   count: number
 }

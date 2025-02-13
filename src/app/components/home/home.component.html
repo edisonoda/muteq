@@ -18,7 +18,7 @@
         <section class="mutec-topics content py-0">
             <app-home-title text="EXPLORE"></app-home-title>
             <div class="mb-2" role="separator"></div>
-            <app-carousel></app-carousel>
+            <app-carousel [getListRequest]="homeItemsRequest" (slideClicked)="previewItem($event)"></app-carousel>
         </section>
 
         <section class="mutec-topics content">
