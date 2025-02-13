@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { PaginatedList } from 'src/app/services/search.service';
 import { Listable } from 'src/app/interfaces/listable';
+import { ScrollDraggableDirective } from 'src/app/utils/directives/scroll-draggable.directive';
 
 export interface CarouselResponsivity {
   slideCount: number;
@@ -29,7 +30,7 @@ export interface CarouselSettings {
 
 @Component({
   selector: 'app-carousel',
-  imports: [CommonModule, ListElementComponent, MatButtonModule, MatIconModule],
+  imports: [CommonModule, ListElementComponent, ScrollDraggableDirective, MatButtonModule, MatIconModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css', '../lists/list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -128,15 +129,19 @@ export class CarouselComponent<T extends Listable> extends ListComponent<T> impl
         this.elements = res.elements;
         this.count = res.count;
 
-        this.cdf.detectChanges();
+        this.calcSlideWidth();
       }
     });
   }
 
   public onScroll(ev: Event): void {
     const target = ev.target as HTMLElement;
-    this._scrollProgress = target.scrollLeft / target.scrollWidth;
-    console.log(this._scrollProgress);
+    this._scrollProgress = target.scrollLeft + target.offsetWidth / 2;
+  }
+
+  public updateSlideScale(slide: HTMLElement): number {
+    const dist = Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - this._scrollProgress);
+    return (dist > 150 ? 0 : 1 - (dist / 150)) / 10;
   }
 
   public slideClick(id: number): void {

@@ -12,16 +12,22 @@
     display: flex;
     flex-wrap: nowrap;
 
-    overflow-x: auto;
-    /* scrollbar-width: none; */
-    scroll-snap-type: both mandatory;
+    overflow: auto;
+    scrollbar-width: none;
     width: 100%;
+}
+
+.carousel-wrapper.dragging {
+    user-select: none;
+}
+
+.carousel-wrapper.moving > * {
+    pointer-events: none;
 }
 
 .carousel .carousel-wrapper .list__element.carousel-slide {
     max-width: unset;
     scroll-snap-align: center;
-    scale: 0.9;
 }
 
 /* Navigation */

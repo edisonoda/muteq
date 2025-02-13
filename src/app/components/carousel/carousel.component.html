@@ -1,14 +1,16 @@
 <div class="carousel" [attr.orientation]="carouselSettings.orientation"
     [ngClass]="{'paginated': carouselSettings.pagination}">
     <div class="carousel-container">
-        <ul class="carousel-wrapper" (scroll)="onScroll($event)">
-            <div *ngIf="carouselSettings.gutters" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
-            <li *ngFor="let el of elements" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"
-                (click)="slideClick(el.id)" class="carousel-slide list__element"
-                [attr.aria-labelledby]="'title-element-' + el.id">
+        <ul scrollDraggable class="carousel-wrapper" (scroll)="onScroll($event)">
+            <div *ngIf="carouselSettings.gutters && slideCount > 1" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
+            <li #slide *ngFor="let el of elements" (click)="slideClick(el.id)" class="carousel-slide list__element"
+                [attr.aria-labelledby]="'title-element-' + el.id" [ngStyle]="{
+                    'flex': '0 0 ' + slideWidth + '%',
+                    'scale': 0.9 + updateSlideScale(slide)
+                }">
                 <app-list-element [element]="el"></app-list-element>
             </li>
-            <div *ngIf="carouselSettings.gutters" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
+            <div *ngIf="carouselSettings.gutters && slideCount > 1" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
         </ul>
     </div>
 
