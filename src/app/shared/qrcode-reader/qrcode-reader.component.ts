@@ -4,7 +4,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MatIconModule } from '@angular/material/icon';
 import jsQR from 'jsqr';
 import { Subscription } from 'rxjs';
-import { ItemComponent } from '../item/item.component';
+import { ItemComponent } from '../../components/item/item.component';
 
 enum QRCodeReaderStatus {
   STAND_BY,

@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { QRCodeReaderButtonComponent } from '../components/qrcode-reader/qrcode-reader-button.component';
+import { QRCodeReaderButtonComponent } from '../shared/qrcode-reader/qrcode-reader-button.component';
 
 @Component({
   selector: 'app-core',

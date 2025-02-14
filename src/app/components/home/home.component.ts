@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CarouselComponent } from '../carousel/carousel.component';
+import { CarouselComponent } from '../../shared/carousel/carousel.component';
 import { HeaderComponent } from 'src/app/core/header/header.component';
 import { FooterComponent } from 'src/app/core/footer/footer.component';
 import { HomeTitleComponent } from './home-title/home-title.component';
@@ -8,9 +8,9 @@ import { SearchService } from 'src/app/services/search.service';
 import { Item } from 'src/app/interfaces/item';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
-import { QRCodeReaderButtonComponent } from '../qrcode-reader/qrcode-reader-button.component';
+import { QRCodeReaderButtonComponent } from '../../shared/qrcode-reader/qrcode-reader-button.component';
 import { ListElementComponent } from '../lists/list-element/list-element.component';
-import { LoaderComponent } from '../loader/loader.component';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

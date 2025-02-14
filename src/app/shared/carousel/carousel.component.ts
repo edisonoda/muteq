@@ -1,10 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListElementComponent } from '../lists/list-element/list-element.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
-import { PaginatedList } from 'src/app/services/search.service';
 import { ScrollDraggableDirective } from 'src/app/utils/directives/scroll-draggable.directive';
 
 
@@ -31,7 +28,7 @@ export interface CarouselSettings {
   selector: 'app-carousel',
   imports: [CommonModule, ScrollDraggableDirective, MatButtonModule, MatIconModule],
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css', '../lists/list.component.css'],
+  styleUrls: ['./carousel.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements AfterViewInit {
