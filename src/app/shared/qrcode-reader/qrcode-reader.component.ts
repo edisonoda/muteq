@@ -5,9 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import jsQR from 'jsqr';
 import { Subscription } from 'rxjs';
 import { ItemComponent } from '../../components/item/item.component';
+import { LoaderComponent } from '../loader/loader.component';
+import { CommonModule } from '@angular/common';
 
 enum QRCodeReaderStatus {
   STAND_BY,
+  STARTING,
   PROCESSING,
   FINISHED,
   ERROR
@@ -15,7 +18,7 @@ enum QRCodeReaderStatus {
 
 @Component({
   selector: 'app-qrcode-reader',
-  imports: [MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, LoaderComponent],
   templateUrl: './qrcode-reader.component.html',
   styleUrls: ['./qrcode-reader.component.css'],
 })
@@ -30,6 +33,8 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly _dialog = inject(MatDialog);
 
   private _closeSub!: Subscription;
+
+  public get loading() { return this._status === QRCodeReaderStatus.STARTING; }
 
   constructor() { }
 
@@ -81,11 +86,22 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private startReading(): void {
+    this._status = QRCodeReaderStatus.STARTING;
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
       this._stream = stream;
       this._video.srcObject = this._stream;
-      this._video.play();
-      requestAnimationFrame(() => this.tickCamera());
+      const promise = this._video.play();
+
+      promise.then(
+        () => {
+          this._status = QRCodeReaderStatus.PROCESSING;
+          requestAnimationFrame(() => this.tickCamera());
+        },
+        error => {
+          console.error("Erro ao iniciar vídeo: ", error);
+          this._status = QRCodeReaderStatus.ERROR;
+        }
+      );
     }).catch(error => {
       console.error("Erro ao acessar câmera: ", error);
       this._status = QRCodeReaderStatus.ERROR;

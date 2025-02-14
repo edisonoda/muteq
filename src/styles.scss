@@ -28,6 +28,7 @@ body {
   /* Z-index layers */
   --z-header: 10;
 
+  // Loader
   @include mat.progress-spinner-overrides((
     size: 50px,
     active-indicator-width: 50px,
