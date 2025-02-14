@@ -1,0 +1,8 @@
+<div *ngIf="loading; else container" class="loader">
+    <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+
+<ng-template #container>
+    <!-- [@expand]="!loading" -->
+    <ng-container *ngTemplateOutlet="template"></ng-container>
+</ng-template>

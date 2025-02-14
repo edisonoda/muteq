@@ -57,8 +57,7 @@ export class CarouselComponent implements AfterViewInit {
     this._elements = e;
 
     this.calcSlideWidth();
-    this.scrollTo(0);
-    this.cdf.detectChanges();
+    setTimeout(() => this.scrollTo(0));
   }
 
   private _carouselSettings: CarouselSettings = {
@@ -112,6 +111,7 @@ export class CarouselComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.refreshSlideCount();
+    setTimeout(() => this.scrollTo(0));
   }
 
   private refreshSlideCount(): void {

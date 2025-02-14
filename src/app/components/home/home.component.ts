@@ -10,16 +10,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
 import { QRCodeReaderButtonComponent } from '../qrcode-reader/qrcode-reader-button.component';
 import { ListElementComponent } from '../lists/list-element/list-element.component';
+import { LoaderComponent } from '../loader/loader.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   imports: [
+    CommonModule,
     CarouselComponent,
     ListElementComponent,
     HeaderComponent,
     FooterComponent,
     HomeTitleComponent,
-    QRCodeReaderButtonComponent
+    QRCodeReaderButtonComponent,
+    LoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
@@ -43,6 +47,9 @@ export class HomeComponent implements OnInit {
   private _elements: Array<Item> = [];
   public get elements() { return this._elements; }
 
+  private _loading: boolean = true;
+  public get loading() { return this._loading; }
+
   private readonly _dialog = inject(MatDialog);
 
   constructor(private homeService: HomeService, private searchService: SearchService) { }
@@ -52,9 +59,12 @@ export class HomeComponent implements OnInit {
   }
 
   private getHomeItems(): void {
+    this._loading = true;
     this.searchService.getHomeItems().subscribe(res => {
       if (res)
         this._elements = res.elements;
+
+      this._loading = false;
     });
   }
 

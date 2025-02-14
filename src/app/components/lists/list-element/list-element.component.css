@@ -1,14 +1,18 @@
 .element-card {
-    background-image: url('/assets/img/mutec_logo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-
     height: 200px;
     border-radius: 10px;
-    box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+}
+
+.element-card img {
+    display: block;
+    object-fit: cover;
+    max-height: 200px;
+    width: 100%;
+
+    z-index: -1;
 }
 
 .element-card__details {

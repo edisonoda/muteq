@@ -18,11 +18,14 @@
         <section class="mutec-topics content py-0">
             <app-home-title text="EXPLORE"></app-home-title>
             <div class="mb-2" role="separator"></div>
-            <app-carousel [template]="slide" [elements]="elements" (slideClicked)="previewItem($event)">
-                <ng-template #slide let-el>
-                    <app-list-element [element]="el"></app-list-element>
-                </ng-template>
-            </app-carousel>
+            <app-loader [loading]="loading" [template]="carousel"></app-loader>
+            <ng-template #carousel>
+                <app-carousel [template]="slide" [elements]="elements" (slideClicked)="previewItem($event)">
+                    <ng-template #slide let-el>
+                        <app-list-element [element]="el"></app-list-element>
+                    </ng-template>
+                </app-carousel>
+            </ng-template>
         </section>
 
         <section class="mutec-topics content">
