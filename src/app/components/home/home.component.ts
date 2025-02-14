@@ -9,10 +9,11 @@ import { Observable } from 'rxjs';
 import { Item } from 'src/app/interfaces/item';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
+import { QRCodeReaderButtonComponent } from '../qrcode-reader/qrcode-reader-button.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselComponent, HeaderComponent, FooterComponent, HomeTitleComponent],
+  imports: [CarouselComponent, HeaderComponent, FooterComponent, HomeTitleComponent, QRCodeReaderButtonComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
