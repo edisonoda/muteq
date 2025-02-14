@@ -1,12 +1,11 @@
 <div class="carousel" [attr.orientation]="carouselSettings.orientation"
     [ngClass]="{'paginated': carouselSettings.pagination}">
     <div class="carousel-container">
-        <ul scrollDraggable class="carousel-wrapper" (scroll)="onScroll($event)">
+        <ul #wrapper scrollDraggable class="carousel-wrapper" (scroll)="onScroll($event)">
             <div *ngIf="carouselSettings.gutters && slideCount > 1" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
             <li #slide *ngFor="let el of elements" (click)="slideClick(el.id)" class="carousel-slide list__element"
                 [attr.aria-labelledby]="'title-element-' + el.id" [ngStyle]="{
-                    'flex': '0 0 ' + slideWidth + '%',
-                    'scale': 0.9 + updateSlideScale(slide)
+                    'flex': '0 0 ' + slideWidth + '%'
                 }">
                 <app-list-element [element]="el"></app-list-element>
             </li>
@@ -14,14 +13,18 @@
         </ul>
     </div>
 
-    <div *ngIf="carouselSettings.pagination" class="carousel-pagination"></div>
+    <div *ngIf="carouselSettings.pagination" class="carousel-pagination">
+        <button *ngFor="let el of elements; index as i" [disabled]="activeSlide == i"
+            (click)="scrollTo(i)" [ngClass]="{'active': activeSlide == i}">
+        </button>
+    </div>
 
-    <button *ngIf="carouselSettings.navigation && windowWidth >= 768" mat-icon-button
-        class="carousel-navigation carousel-button-prev">
+    <button *ngIf="carouselSettings.navigation" mat-icon-button [disabled]="activeSlide == 0"
+        (click)="scrollTo(activeSlide - 1)" class="carousel-navigation carousel-button-prev">
         <mat-icon>arrow_back_ios_new</mat-icon>
     </button>
-    <button *ngIf="carouselSettings.navigation && windowWidth >= 768" mat-icon-button
-        class="carousel-navigation carousel-button-next">
+    <button *ngIf="carouselSettings.navigation" mat-icon-button [disabled]="activeSlide == elements.length - 1"
+        (click)="scrollTo(activeSlide + 1)" class="carousel-navigation carousel-button-next">
         <mat-icon>arrow_forward_ios_new</mat-icon>
     </button>
 </div>

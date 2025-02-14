@@ -1,9 +1,9 @@
-import { Directive, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[scrollDraggable]',
 })
-export class ScrollDraggableDirective {
+export class ScrollDraggableDirective implements AfterViewInit {
   private _element: HTMLElement;
   private _children: HTMLCollection;
 
@@ -18,15 +18,19 @@ export class ScrollDraggableDirective {
     this._children = this._element.children;
 
     this._element.addEventListener('mousedown', (ev) => this.startDragging(ev));
-    this._element.addEventListener('mouseup', (ev) => this.stopDragging(ev));
-    this._element.addEventListener('mouseleave', (ev) => this.stopDragging(ev));
-    this._element.addEventListener('mouseleave', (ev) => this.stopDragging(ev));
+    this._element.addEventListener('mouseup', (ev) => this.stopDragging());
+    this._element.addEventListener('mouseleave', (ev) => this.stopDragging());
+    this._element.addEventListener('mouseleave', (ev) => this.stopDragging());
     this._element.addEventListener('mousemove', (ev) => this.move(ev));
 
     this._element.addEventListener('touchstart', (ev) => this.startDragging(ev));
-    this._element.addEventListener('touchend', (ev) => this.stopDragging(ev));
-    this._element.addEventListener('touchcancel', (ev) => this.stopDragging(ev));
+    this._element.addEventListener('touchend', (ev) => this.stopDragging());
+    this._element.addEventListener('touchcancel', (ev) => this.stopDragging());
     this._element.addEventListener('touchmove', (ev) => this.move(ev));
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.stopDragging());
   }
 
   private startDragging(ev: MouseEvent | TouchEvent): void {
@@ -39,7 +43,7 @@ export class ScrollDraggableDirective {
     this._element.classList.add('dragging');
   }
 
-  private stopDragging(ev: MouseEvent | TouchEvent): void {
+  private stopDragging(): void {
     this._mouseDown = false;
     this._element.classList.remove('dragging');
     this._element.classList.remove('moving');
@@ -56,6 +60,7 @@ export class ScrollDraggableDirective {
     }
 
     const child = closest.el as HTMLElement;
+
     this._element.scroll({
       behavior: 'smooth',
       left: child.offsetLeft + child.offsetWidth / 2 - this._element.offsetWidth / 2,
