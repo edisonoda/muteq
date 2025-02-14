@@ -4,6 +4,12 @@
         aria-label="Pesquisar itens, categorias e seções">
     <mat-icon matIconPrefix>search</mat-icon>
     <mat-autocomplete #searchAutocomplete="matAutocomplete" (optionSelected)="navigate()" class="search-results">
+        @if (noResults && searchControl.value) {
+            <mat-option role="text">
+                Nenhum resultado para {{ searchControl.value }}
+            </mat-option>
+        }
+        
         @for (group of searchGroupsOptions | async; track group) {
         <mat-optgroup [label]="groupLabel(group)">
             @for (element of group.elements; track element) {

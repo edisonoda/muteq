@@ -84,30 +84,19 @@ export class SearchComponent {
 
   private _searchGroupsOptions: Observable<Array<SearchGroup>>;
   public get searchGroupsOptions() { return this._searchGroupsOptions; }
+
+  private _noResults: boolean = false;
+  public get noResults() { return this._noResults; }
   
-  private readonly _searchDelay: number = 1000;
-  private readonly _elementsLimit: number = 5;
-  private _typing: boolean = false;
+  private readonly SEARCH_DELAY: number = 1000;
+  private readonly ELEMENTS_LIMIT: number = 5;
 
   private _snackBar: MatSnackBar = inject(MatSnackBar);
   private readonly _dialog = inject(MatDialog);
 
   constructor(private searchService: SearchService, private router: Router) {
-    var timer: any;
-    var lastValue: string = '';
-
     this._searchGroupsOptions = this._searchControl.valueChanges.pipe(
-      debounce(() => interval(this._searchDelay)),
-      // tap(val => {
-      //   this._typing = true;
-      //   clearTimeout(timer);
-        
-      //   timer = setTimeout(() => {
-      //     this._typing = false;
-      //     lastValue = val;
-      //   }, this._searchDelay);
-      // }),
-      // skipWhile(() => this._typing),
+      debounce(() => interval(this.SEARCH_DELAY)),
       delayWhen(val => this.search(val)),
       map(() => this.searchGroups)
     );
@@ -118,9 +107,9 @@ export class SearchComponent {
       return of();
 
     return forkJoin([
-      this.searchService.getItemsByName(string, 1, this._elementsLimit + 1),
-      this.searchService.getCategoriesByName(string, 1, this._elementsLimit + 1),
-      this.searchService.getSectionsByName(string, 1, this._elementsLimit + 1),
+      this.searchService.getItemsByName(string, 1, this.ELEMENTS_LIMIT + 1),
+      this.searchService.getCategoriesByName(string, 1, this.ELEMENTS_LIMIT + 1),
+      this.searchService.getSectionsByName(string, 1, this.ELEMENTS_LIMIT + 1),
     ]).pipe(tap(([itemRes, categoryRes, sectionRes]) => {
       if (itemRes)
         this.items = itemRes.elements;
@@ -130,6 +119,8 @@ export class SearchComponent {
 
       if (sectionRes)
         this.sections = sectionRes.elements;
+
+      this._noResults = !this.items.length && !this.categories.length && !this.sections.length;
     }));
   }
 
@@ -163,7 +154,7 @@ export class SearchComponent {
   public groupLabel(group: SearchGroup): string {
     var label = group.name + ' (';
 
-    if (group.elements.length > this._elementsLimit)
+    if (group.elements.length > this.ELEMENTS_LIMIT)
       label += '5+';
     else if (!group.elements.length)
       label += '0';
