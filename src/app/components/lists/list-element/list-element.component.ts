@@ -8,7 +8,7 @@ import { Listable } from 'src/app/interfaces/listable';
   selector: 'app-list-element',
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './list-element.component.html',
-  styleUrls: ['../list.component.css'],
+  styleUrls: ['./list-element.component.css'],
 })
 export class ListElementComponent {
   private _element: Listable = { id: -1, name: "", description: "" };

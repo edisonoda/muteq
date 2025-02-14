@@ -3,11 +3,9 @@
     <div class="carousel-container">
         <ul #wrapper scrollDraggable class="carousel-wrapper" (scroll)="onScroll($event)">
             <div *ngIf="carouselSettings.gutters && slideCount > 1" class="gutter"></div>
-            <li #slide *ngFor="let el of elements" (click)="slideClick(el.id)" class="carousel-slide list__element"
-                [attr.aria-labelledby]="'title-element-' + el.id" [ngStyle]="{
-                    'flex': '0 0 ' + slideWidth + '%'
-                }">
-                <app-list-element [element]="el"></app-list-element>
+            <li #slide *ngFor="let el of elements; index as i" (click)="slideClick(el.id)" class="carousel-slide"
+                [ngStyle]="{ 'flex': '0 0 ' + slideWidth + '%' }">
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: el, index: i }"></ng-container>
             </li>
             <div *ngIf="carouselSettings.gutters && slideCount > 1" class="gutter"></div>
         </ul>

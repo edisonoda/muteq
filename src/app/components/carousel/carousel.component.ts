@@ -1,13 +1,12 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListComponent } from '../lists/list.component';
 import { ListElementComponent } from '../lists/list-element/list-element.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { PaginatedList } from 'src/app/services/search.service';
-import { Listable } from 'src/app/interfaces/listable';
 import { ScrollDraggableDirective } from 'src/app/utils/directives/scroll-draggable.directive';
+
 
 export interface CarouselResponsivity {
   slideCount: number;
@@ -30,12 +29,12 @@ export interface CarouselSettings {
 
 @Component({
   selector: 'app-carousel',
-  imports: [CommonModule, ListElementComponent, ScrollDraggableDirective, MatButtonModule, MatIconModule],
+  imports: [CommonModule, ScrollDraggableDirective, MatButtonModule, MatIconModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css', '../lists/list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarouselComponent<T extends Listable> extends ListComponent<T> implements AfterViewInit {
+export class CarouselComponent implements AfterViewInit {
   @ViewChildren("slide")
   private slides!: QueryList<ElementRef>;
   
@@ -45,11 +44,21 @@ export class CarouselComponent<T extends Listable> extends ListComponent<T> impl
   @Output()
   public slideClicked: EventEmitter<number> = new EventEmitter<number>();
 
-  private _getListRequest!: Observable<PaginatedList<T>>;
-  public get getListRequest() { return this._getListRequest; }
+  private _template!: TemplateRef<any>;
+  public get template() { return this._template; }
   @Input()
-  public set getListRequest(get: Observable<PaginatedList<T>>) {
-    this._getListRequest = get;
+  public set template(t: TemplateRef<any>) { this._template = t; }
+
+
+  private _elements: Array<any> = [];
+  public get elements() { return this._elements; }
+  @Input()
+  public set elements(e: Array<any>) {
+    this._elements = e;
+
+    this.calcSlideWidth();
+    this.scrollTo(0);
+    this.cdf.detectChanges();
   }
 
   private _carouselSettings: CarouselSettings = {
@@ -99,9 +108,7 @@ export class CarouselComponent<T extends Listable> extends ListComponent<T> impl
     this.refreshSlideCount();
   }
 
-  constructor(private cdf: ChangeDetectorRef) {
-    super();
-  }
+  constructor(private cdf: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.refreshSlideCount();
@@ -127,18 +134,6 @@ export class CarouselComponent<T extends Listable> extends ListComponent<T> impl
       this._slideWidth = 95 / this.slideCount;
 
     this.cdf.detectChanges();
-  }
-
-  protected override getList(): void {
-    this.getListRequest.subscribe(res => {
-      if (res) {
-        this.elements = res.elements;
-        this.count = res.count;
-
-        this.calcSlideWidth();
-        this.scrollTo(0);
-      }
-    });
   }
 
   private scrollFn: (ev: Event) => number = this.horizontalScroll;

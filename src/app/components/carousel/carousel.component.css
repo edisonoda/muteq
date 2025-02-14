@@ -33,8 +33,9 @@
     pointer-events: none;
 }
 
-.carousel .carousel-wrapper .list__element.carousel-slide {
-    max-width: unset;
+.carousel .carousel-wrapper .carousel-slide {
+    display: block;
+    box-sizing: border-box;
     scroll-snap-align: center;
 }
 
