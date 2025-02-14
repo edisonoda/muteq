@@ -49,7 +49,7 @@ export class CarouselComponent implements AfterViewInit {
     this._elements = e;
 
     this.calcSlideWidth();
-    setTimeout(() => this.scrollTo(0));
+    this.startCarousel();
   }
 
   private _carouselSettings: CarouselSettings = {
@@ -102,7 +102,16 @@ export class CarouselComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.refreshCurrentSettings();
-    setTimeout(() => this.scrollTo(0));
+    this.startCarousel();
+  }
+
+  private startCarousel(): void {
+    setTimeout(() => {
+      if (this.slideCount == 1 || !this.activeSettings.gutters)
+        this.onScroll();
+
+      this.scrollTo(0);
+    });
   }
 
   private refreshCurrentSettings(): void {
@@ -130,8 +139,8 @@ export class CarouselComponent implements AfterViewInit {
     this.cdf.detectChanges();
   }
 
-  public onScroll(ev: Event): void {
-    const target = ev.target as HTMLElement;
+  public onScroll(ev: Event | null = null): void {
+    const target = ev?.target as HTMLElement || this.wrapper?.nativeElement;
     const scroll = target.scrollLeft + target.offsetWidth / 2;
 
     let active = { index: 0, dist: Infinity };
