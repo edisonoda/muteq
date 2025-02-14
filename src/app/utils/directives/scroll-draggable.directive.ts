@@ -1,9 +1,9 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[scrollDraggable]',
 })
-export class ScrollDraggableDirective implements AfterViewInit {
+export class ScrollDraggableDirective {
   private _element: HTMLElement;
   private _children: HTMLCollection;
 
@@ -27,10 +27,6 @@ export class ScrollDraggableDirective implements AfterViewInit {
     this._element.addEventListener('touchend', (ev) => this.stopDragging());
     this._element.addEventListener('touchcancel', (ev) => this.stopDragging());
     this._element.addEventListener('touchmove', (ev) => this.move(ev));
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.stopDragging());
   }
 
   private startDragging(ev: MouseEvent | TouchEvent): void {

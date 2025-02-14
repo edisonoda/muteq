@@ -136,6 +136,7 @@ export class CarouselComponent<T extends Listable> extends ListComponent<T> impl
         this.count = res.count;
 
         this.calcSlideWidth();
+        this.scrollTo(0);
       }
     });
   }
