@@ -21,7 +21,8 @@ h2::after {
 
     margin: 3px 0;
 
-    background-color: var(--primary-color);
+    background: linear-gradient(to right, var(--pastel-color), var(--primary-color), var(--pastel-color));
+    border-radius: 20% / 50%;
     height: 3px;
     width: 50%;
 
@@ -29,5 +30,5 @@ h2::after {
 }
 
 h2.active::after {
-    width: 120%;
+    width: 150%;
 }
