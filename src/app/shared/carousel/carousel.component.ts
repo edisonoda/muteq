@@ -5,23 +5,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScrollDraggableDirective } from 'src/app/utils/directives/scroll-draggable.directive';
 
 
-export interface CarouselResponsivity {
-  slideCount: number;
-  minWidth: number;
-}
-
-export enum CarouselOrientation {
-  HORIZONTAL,
-  VERTICAL
-}
-
-export interface CarouselSettings {
-  responsivity: Array<CarouselResponsivity>;
+interface CarouselBaseSettings {
   slideCount: number;
   pagination?: boolean;
   navigation?: boolean;
   gutters?: boolean;
-  orientation?: CarouselOrientation;
+}
+
+export interface CarouselResponsivity extends CarouselBaseSettings {
+  minWidth: number;
+}
+
+export interface CarouselSettings extends CarouselBaseSettings {
+  responsivity: Array<CarouselResponsivity>;
 }
 
 @Component({
@@ -46,7 +42,6 @@ export class CarouselComponent implements AfterViewInit {
   @Input()
   public set template(t: TemplateRef<any>) { this._template = t; }
 
-
   private _elements: Array<any> = [];
   public get elements() { return this._elements; }
   @Input()
@@ -58,7 +53,6 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   private _carouselSettings: CarouselSettings = {
-    orientation: CarouselOrientation.HORIZONTAL,
     navigation: true,
     pagination: true,
     gutters: true,
@@ -84,11 +78,11 @@ export class CarouselComponent implements AfterViewInit {
     s.responsivity.sort((a, b) => b.minWidth - a.minWidth);
     this._carouselSettings = s;
 
-    this.scrollFn = this._carouselSettings.orientation === CarouselOrientation.HORIZONTAL ?
-      this.horizontalScroll : this.verticalScroll;
-
-    this.refreshSlideCount();
+    this.refreshCurrentSettings();
   }
+
+  private _activeSettings: CarouselBaseSettings = this._carouselSettings;
+  public get activeSettings() { return this._activeSettings; }
 
   private _slideCount: number = this._carouselSettings.slideCount;
   public get slideCount() { return this._slideCount; }
@@ -101,26 +95,29 @@ export class CarouselComponent implements AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(ev: Event): void {
-    this.refreshSlideCount();
+    this.refreshCurrentSettings();
   }
 
   constructor(private cdf: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
-    this.refreshSlideCount();
+    this.refreshCurrentSettings();
     setTimeout(() => this.scrollTo(0));
   }
 
-  private refreshSlideCount(): void {
+  private refreshCurrentSettings(): void {
+    this._activeSettings = { ...this._carouselSettings };
+
     this.carouselSettings.responsivity.some(r => {
       if (window.innerWidth > r.minWidth) {
-        this._slideCount = r.slideCount;
+        Object.assign(this._activeSettings, r);
         return true;
       }
 
       return false;
-    }) ? null : this._slideCount = this.carouselSettings.slideCount;
+    });
 
+    this._slideCount = this.activeSettings.slideCount;
     this.calcSlideWidth();
   }
 
@@ -133,8 +130,7 @@ export class CarouselComponent implements AfterViewInit {
     this.cdf.detectChanges();
   }
 
-  private scrollFn: (ev: Event) => number = this.horizontalScroll;
-  private horizontalScroll(ev: Event): number {
+  public onScroll(ev: Event): void {
     const target = ev.target as HTMLElement;
     const scroll = target.scrollLeft + target.offsetWidth / 2;
 
@@ -148,28 +144,7 @@ export class CarouselComponent implements AfterViewInit {
         active = { index, dist };
     });
 
-    return active.index;
-  }
-
-  private verticalScroll(ev: Event): number {
-    const target = ev.target as HTMLElement;
-    const scroll = target.scrollTop + target.offsetHeight / 2;
-
-    let active = { index: 0, dist: Infinity };
-    this.slides.forEach((s, index) => {
-      const slide = s.nativeElement as HTMLElement;
-      const dist = Math.abs(slide.offsetTop + slide.offsetHeight / 2 - scroll);
-      slide.style.scale = `${0.9 + (dist > 150 ? 0 : 1 - (dist / 150)) / 10}`;
-
-      if (active.dist > dist)
-        active = { index, dist };
-    });
-
-    return active.index;
-  }
-
-  public onScroll(ev: Event): void {
-    this._activeSlide = this.scrollFn(ev);
+    this._activeSlide = active.index;
   }
 
   public scrollTo(index: number): void {

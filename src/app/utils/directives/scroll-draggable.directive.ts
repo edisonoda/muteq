@@ -26,7 +26,7 @@ export class ScrollDraggableDirective {
     this._element.addEventListener('touchstart', (ev) => this.startDragging(ev), { passive: true });
     this._element.addEventListener('touchend', (ev) => this.stopDragging(), { passive: true });
     this._element.addEventListener('touchcancel', (ev) => this.stopDragging(), { passive: true });
-    this._element.addEventListener('touchmove', (ev) => this.move(ev), { passive: true });
+    this._element.addEventListener('touchmove', (ev) => this.move(ev));
   }
 
   private startDragging(ev: MouseEvent | TouchEvent): void {
