@@ -2,14 +2,14 @@
     [ngClass]="{'paginated': carouselSettings.pagination}">
     <div class="carousel-container">
         <ul #wrapper scrollDraggable class="carousel-wrapper" (scroll)="onScroll($event)">
-            <div *ngIf="carouselSettings.gutters && slideCount > 1" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
+            <div *ngIf="carouselSettings.gutters && slideCount > 1" class="gutter"></div>
             <li #slide *ngFor="let el of elements" (click)="slideClick(el.id)" class="carousel-slide list__element"
                 [attr.aria-labelledby]="'title-element-' + el.id" [ngStyle]="{
                     'flex': '0 0 ' + slideWidth + '%'
                 }">
                 <app-list-element [element]="el"></app-list-element>
             </li>
-            <div *ngIf="carouselSettings.gutters && slideCount > 1" [ngStyle]="{'flex': '0 0 ' + slideWidth + '%'}"></div>
+            <div *ngIf="carouselSettings.gutters && slideCount > 1" class="gutter"></div>
         </ul>
     </div>
 

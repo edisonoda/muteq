@@ -55,7 +55,7 @@ export class ScrollDraggableDirective implements AfterViewInit {
       const distY = child.offsetTop + child.offsetHeight / 2 - (this._element.scrollTop + this._element.offsetHeight / 2);
       const dist = Math.sqrt(distX*distX + distY*distY);
 
-      if (closest.dist > dist)
+      if (closest.dist > dist && !child.classList.contains('gutter'))
         closest = { el: child, dist: dist };
     }
 

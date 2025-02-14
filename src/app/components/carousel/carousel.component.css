@@ -38,6 +38,10 @@
     scroll-snap-align: center;
 }
 
+.carousel .gutter {
+    flex: 0 0 100%;
+}
+
 /* Navigation */
 .carousel-navigation {
     display: none;
