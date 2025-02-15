@@ -1,5 +1,5 @@
-<div *ngIf="loading; else container" @expand class="loader">
-    <mat-spinner [diameter]="40"></mat-spinner>
+<div *ngIf="loading; else container" @expand [@.disabled]="!animated" class="loader">
+    <mat-spinner [diameter]="size"></mat-spinner>
 </div>
 
 <ng-template #container>

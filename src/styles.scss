@@ -27,6 +27,7 @@ body {
 
   /* Z-index layers */
   --z-header: 10;
+  --z-loader: 3000;
 
   // Loader
   @include mat.progress-spinner-overrides((

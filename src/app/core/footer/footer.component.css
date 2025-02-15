@@ -30,6 +30,8 @@ footer {
     flex-direction: row;
     gap: 75px;
     align-items: center;
+
+    font-style: normal;
 }
 
 .footer-content>.info>.contact {

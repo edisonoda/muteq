@@ -4,3 +4,55 @@ main {
 
   min-height: 75vh;
 }
+
+.main-loader {
+  height: 100vh;
+  width: 100vw;
+  background-color: transparent;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: var(--z-loader);
+}
+
+.main-loader::before {
+  content: "";
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  /* background-color: rgba(0, 0, 0, 0.2); */
+  backdrop-filter: blur(3px);
+}
+
+.main-loader .loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--content-padding);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+
+  z-index: 1;
+}
+
+.main-loader p {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+}
+
+::ng-deep .main-loader .loader-container .loader .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+::ng-deep .main-loader .loader-container .loader .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: white;
+}

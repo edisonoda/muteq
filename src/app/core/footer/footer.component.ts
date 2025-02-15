@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
           <img class="logos__utfpr" src="assets/img/utfpr.png">
           <img class="logos__mutec" src="assets/img/mutec_logo.png">
         </div>
-        <div class ="info">
+        <address class ="info">
           <section class="location">
             <div class="location-main">
               <mat-icon aria-hidden="true" aria-label="Place icon" fontIcon="place"></mat-icon>
@@ -37,7 +37,7 @@ import { DatePipe } from '@angular/common';
               </a>
             </div>
           </section>
-        </div>
+        </address>
       </div>
       <div class="footer-copyright">
         <p> ©{{currentDate | date: 'yyyy'}} - MUTEC | Museu de Tecnologias da UTFPR </p>

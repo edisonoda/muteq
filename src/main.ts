@@ -9,6 +9,7 @@ import routeConfig, { BaseTitleStrategy } from './app/routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headerInterceptor } from './app/interceptors/header.interceptor';
+import { loaderInterceptor } from './app/interceptors/loader.interceptor';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 
 bootstrapApplication(AppComponent, {
@@ -24,7 +25,8 @@ bootstrapApplication(AppComponent, {
     }},
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
-      headerInterceptor
+      headerInterceptor,
+      loaderInterceptor
     ])),
   ]
 }).catch((err) => console.error(err));
