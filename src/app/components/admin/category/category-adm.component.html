@@ -48,9 +48,10 @@
         <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithActions;"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">
-                <div class="no-results">Nenhum resultado para "{{input.value}}"</div>
-            </td>
+            <div *ngIf="input.value; else noItem" class="no-results">Nenhum resultado para "{{input.value}}"</div>
+            <ng-template #noItem>
+                <div class="no-results">Nenhuma categoria encontrada</div>
+            </ng-template>
         </tr>
     </table>
 </div>
