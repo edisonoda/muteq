@@ -75,3 +75,9 @@
         <p>{{ item.description }}</p>
     </section>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-fab class="item-scan-other-button" matTooltip="Ler Novo Código QR" (click)="scanQRCode()">
+        <mat-icon>qr_code_scanner</mat-icon>
+    </button>
+</mat-dialog-actions>

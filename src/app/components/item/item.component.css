@@ -263,3 +263,17 @@
         margin-bottom: 5px;
     }
 }
+
+.item-scan-other-button {
+    flex-grow: 1;
+    box-shadow: none;
+
+    background-color: var(--primary-color);
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .item-scan-other-button {
+        flex-grow: 0;
+    }
+}

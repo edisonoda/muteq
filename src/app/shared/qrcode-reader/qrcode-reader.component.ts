@@ -91,11 +91,11 @@ export class QRCodeReaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this._stream = stream;
       this._video.srcObject = this._stream;
       const promise = this._video.play();
+      requestAnimationFrame(() => this.tickCamera());
 
       promise.then(
         () => {
           this._status = QRCodeReaderStatus.PROCESSING;
-          requestAnimationFrame(() => this.tickCamera());
         },
         error => {
           console.error("Erro ao iniciar vídeo: ", error);
