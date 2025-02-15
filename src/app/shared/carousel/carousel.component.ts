@@ -118,7 +118,7 @@ export class CarouselComponent implements AfterViewInit {
     this._activeSettings = { ...this._carouselSettings };
 
     this.carouselSettings.responsivity.some(r => {
-      if (window.innerWidth > r.minWidth) {
+      if (window.innerWidth >= r.minWidth) {
         Object.assign(this._activeSettings, r);
         return true;
       }

@@ -19,7 +19,8 @@ bootstrapApplication(AppComponent, {
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
       ... new MatDialogConfig(),
       maxWidth: "80vw",
-      maxHeight: "90vh"
+      maxHeight: "90vh",
+      ariaModal: true
     }},
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
