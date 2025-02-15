@@ -18,7 +18,7 @@ bootstrapApplication(AppComponent, {
     { provide: TitleStrategy, useClass: BaseTitleStrategy },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
       ... new MatDialogConfig(),
-      maxWidth: "80vw",
+      maxWidth: "800px",
       maxHeight: "90vh",
       ariaModal: true
     }},

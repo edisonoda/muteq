@@ -205,7 +205,7 @@
     }
 
     .item-content .item-details {
-        width: 200px;
+        width: 33%;
     }
 }
 
@@ -252,7 +252,7 @@
     .item-content .item-description::after {
         content: "";
         display: block;
-        padding-left: 80vw;
+        padding-left: 100vw;
     }
 
     .item-content .item-details .item-detail {
