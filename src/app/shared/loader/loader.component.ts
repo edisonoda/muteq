@@ -1,30 +1,17 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-
-// export const expandAnimation = trigger('expand', [
-//   transition('void <=> *', []),
-//   transition('* <=> *',[
-//     style({ height: '{{startHeight}}px', opacity: 0 }), 
-//     animate(1000, keyframes([
-//       style({ opacity: 0 }),
-//       style({ opacity: 1 }),
-//     ]))
-//   ],
-//     { params: { startHeight: 40 }}
-//   ),
-// ]);
+import { expandAnimation } from 'src/app/utils/animations/expand.animation';
 
 @Component({
   selector: 'app-loader',
   imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css'],
-  // animations: [expandAnimation]
+  animations: [expandAnimation]
 })
 export class LoaderComponent {
-  private _loading: boolean = false;
+  private _loading: boolean = true;
   public get loading() { return this._loading; }
   @Input()
   public set loading(l: boolean) { this._loading = l; }
