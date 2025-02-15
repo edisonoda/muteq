@@ -1,12 +1,12 @@
-import { Component, inject, OnDestroy } from '@angular/core';
-import { ListComponent } from './list.component';
+import { Component, inject } from '@angular/core';
+import { ListComponent } from '../list.component';
 import { Item } from 'src/app/interfaces/item';
 import { CommonModule } from '@angular/common';
-import { ListElementComponent } from './list-element/list-element.component';
+import { ListElementComponent } from '../list-element/list-element.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ItemComponent } from '../item/item.component';
+import { ItemComponent } from '../../item/item.component';
 import { Params } from '@angular/router';
-import { PaginatorComponent } from './paginator/paginator';
+import { PaginatorComponent } from '../paginator/paginator';
 
 enum ItemGroup {
   NONE,
@@ -23,7 +23,7 @@ interface ListFilters {
   selector: 'app-items',
   imports: [CommonModule, ListElementComponent, PaginatorComponent],
   templateUrl: './item-list.component.html',
-  styleUrls: ['./list.component.css'],
+  styleUrls: ['../list.component.css'],
 })
 export class ItemListComponent extends ListComponent<Item> {
   private _filters: ListFilters = { type: ItemGroup.NONE, group: -1 };

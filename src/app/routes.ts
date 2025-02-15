@@ -1,9 +1,9 @@
 import { RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ItemListComponent } from './components/lists/item-list.component';
+import { ItemListComponent } from './components/lists/item-list/item-list.component';
 import { LoginComponent } from './components/login/login.component';
-import { CategoryListComponent } from './components/lists/category-list.component';
-import { SectionListComponent } from './components/lists/section-list.component';
+import { CategoryListComponent } from './components/lists/category-list/category-list.component';
+import { SectionListComponent } from './components/lists/section-list/section-list.component';
 import { ItemFormComponent } from './components/admin/item/item-form/item-form.component';
 import { SectionFormComponent } from './components/admin/section/section-form/section-form.component';
 import { CategoryFormComponent } from './components/admin/category/category-form/category-form.component';

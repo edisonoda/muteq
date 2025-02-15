@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { ListComponent } from './list.component';
+import { ListComponent } from '../list.component';
 import { CommonModule } from '@angular/common';
 import { Category } from 'src/app/interfaces/category';
-import { ListElementComponent } from './list-element/list-element.component';
-import { PaginatorComponent } from './paginator/paginator';
+import { ListElementComponent } from '../list-element/list-element.component';
+import { PaginatorComponent } from '../paginator/paginator';
 
 
 @Component({
   selector: 'app-categories',
   imports: [CommonModule, ListElementComponent, PaginatorComponent],
   templateUrl: './category-list.component.html',
-  styleUrls: ['./list.component.css'],
+  styleUrls: ['../list.component.css'],
 })
 export class CategoryListComponent extends ListComponent<Category> {
   constructor() {
