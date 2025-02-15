@@ -6,13 +6,24 @@
     overflow: hidden;
 }
 
+.element-card::before {
+    content: "";
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+
+    z-index: 1;
+}
+
 .element-card img {
     display: block;
     object-fit: cover;
     max-height: 200px;
     width: 100%;
-
-    z-index: -1;
 }
 
 .element-card__details {
@@ -32,6 +43,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    z-index: 2;
 }
 
 .element-card:hover .element-card__details {
