@@ -98,7 +98,7 @@ export class CarouselComponent implements AfterViewInit {
     this.refreshCurrentSettings();
   }
 
-  constructor(private cdf: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.refreshCurrentSettings();
@@ -136,7 +136,7 @@ export class CarouselComponent implements AfterViewInit {
     else
       this._slideWidth = 95 / this.slideCount;
 
-    this.cdf.detectChanges();
+    this.cdr.detectChanges();
   }
 
   public onScroll(ev: Event | null = null): void {

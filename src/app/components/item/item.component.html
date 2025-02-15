@@ -5,13 +5,48 @@
     </button>
 </div>
 <mat-dialog-content class="item-content">
-    <img [src]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}">
-    <section>
-        <h4>Descrição</h4>
-        <p>{{ item.description }}</p>
-    </section>
+    <div class="item-image-viewer">
+        <div class="viewer-panels">
+            <button mat-icon-button role="button" aria-label="Imagem anterior" [disabled]="selected === 0"
+                (click)="previewImage(selected-1)" class="view-prev-tab">
+                <mat-icon>arrow_back_ios_new</mat-icon>
+            </button>
+            <div *ngFor="let img of item.images; index as i" id="item-{{item.id}}-panel-{{i}}" role="tabpanel"
+                attr.aria-labelledby="item-{{item.id}}-thumbnail-{{i}}" [attr.aria-hidden]="selected !== i"
+                class="viewer-panel">
+                <img [ngSrc]="img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
+            </div>
+            <div *ngIf="!item.images" id="item-{{item.id}}-panel" role="tabpanel"
+                attr.aria-labelledby="item-{{item.id}}-thumbnail" aria-hidden="false"
+                class="viewer-panel">
+                <img [ngSrc]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
+            </div>
+            <button mat-icon-button role="button" aria-label="Próxima imagem"
+                [disabled]="selected + 1 === item.images?.length || !item.images"
+                (click)="previewImage(selected+1)" class="view-next-tab">
+                <mat-icon>arrow_forward_ios_new</mat-icon>
+            </button>
+        </div>
+
+        <div role="tablist" class="viewer-tabs">
+            <button *ngFor="let img of item.images; index as i" id="item-{{item.id}}-thumbnail-{{i}}" role="tab"
+                [attr.aria-posinset]="i+1" [attr.aria-setsize]="item.images?.length" aria-disabled="false"
+                attr.aria-controls="item-{{item.id}}-panel-{{i}}" [attr.aria-selected]="selected === i"
+                class="viewer-tab">
+                <img [ngSrc]="img ?? '/assets/img/mutec_logo.png'" alt="Imagem de visualização de {{ item.name }}"
+                    fill (click)="previewImage(i)">
+            </button>
+            <button *ngIf="!item.images" id="item-{{item.id}}-thumbnail" role="tab"
+                aria-posinset="1" aria-setsize="1" aria-disabled="false"
+                attr.aria-controls="item-{{item.id}}-panel" aria-selected="true"
+                class="viewer-tab">
+                <img [ngSrc]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de visualização de {{ item.name }}"
+                    fill (click)="previewImage(0)">
+            </button>
+        </div>
+    </div>
     <section class="item-details">
-        <h4>Detalhes</h4>
+        <h4>DETALHES</h4>
         <div>
             <div>
                 <span>Fabricante:</span>
@@ -30,5 +65,10 @@
                 <p>{{ item.section?.name }}</p>
             </div>
         </div>
+    </section>
+    
+    <section>
+        <h4>DESCRIÇÃO</h4>
+        <p>{{ item.description }}</p>
     </section>
 </mat-dialog-content>

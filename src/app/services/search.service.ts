@@ -26,6 +26,11 @@ const items: Array<Item> = [
       description: "",
       items: [1, 2]
     },
+    images: [
+      "https://mutec.curitiba.br/wp-content/uploads/2023/11/acervo-105-1.png",
+      "https://mutec.curitiba.br/wp-content/uploads/2023/09/acervo-59-1.png",
+      "https://mutec.curitiba.br/wp-content/uploads/2023/11/920-150x150.jpg",
+    ]
   },
   {
     id: 2,
@@ -179,7 +184,7 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   public getHomeItems(): Observable<PaginatedList<Item>> {
-    return of({ elements: items.slice(0, 10), count: items.length }).pipe(delay(3000));
+    return of({ elements: items.slice(0, 10), count: items.length }).pipe(delay(50));
   }
 
   public getItems(page?: number, size?: number): Observable<PaginatedList<Item>> {

@@ -7,4 +7,5 @@ export interface Item extends Listable {
     year: number;
     section?: Section;
     category?: Category;
+    images?: Array<string>;
 }
