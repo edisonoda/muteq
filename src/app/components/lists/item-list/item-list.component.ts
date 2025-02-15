@@ -5,8 +5,9 @@ import { CommonModule } from '@angular/common';
 import { ListElementComponent } from '../list-element/list-element.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../../item/item.component';
-import { Params } from '@angular/router';
+import { Params, RouterModule } from '@angular/router';
 import { PaginatorComponent } from '../paginator/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 
 enum ItemGroup {
   NONE,
@@ -19,9 +20,14 @@ interface ListFilters {
   group: number;
 }
 
+interface BreadcrumbSlice {
+  routerLink: string;
+  title: string;
+}
+
 @Component({
   selector: 'app-items',
-  imports: [CommonModule, ListElementComponent, PaginatorComponent],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule],
   templateUrl: './item-list.component.html',
   styleUrls: ['../list.component.css'],
 })
@@ -30,10 +36,15 @@ export class ItemListComponent extends ListComponent<Item> {
   public get filters() { return this._filters; }
   public set filters(f: ListFilters) { this._filters = f; }
 
-  private _title: string = 'Itens';
+  private _title: string = '';
   public get title() { return this._title; }
   public set title(t: string) { this._title = t; }
 
+  private _breadcrumb: Array<BreadcrumbSlice> = [];
+  public get breadcrumb() { return this._breadcrumb; }
+  public set breadcrumb(t: Array<BreadcrumbSlice>) { this._breadcrumb = t; }
+
+  private _initialized: boolean = false;
   private readonly _dialog = inject(MatDialog);
 
   constructor() {
@@ -43,11 +54,17 @@ export class ItemListComponent extends ListComponent<Item> {
       // Verifica se possui algum filtro (por categoria ou seção)
       this.route.queryParams.subscribe(params => {
         this.changeFilters(params);
+        this.getList();
       })
     );
   }
 
   protected override getList(): void {
+    if (!this._initialized) {
+      this._initialized = true;
+      return;
+    }
+
     switch (this.filters.type) {
       case ItemGroup.NONE:
         this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
@@ -56,14 +73,16 @@ export class ItemListComponent extends ListComponent<Item> {
             this.count = res.count;
           }
 
-          this.title = 'Itens';
+          this.breadcrumb = [];
+          this.title = "Itens";
         });
         break;
       case ItemGroup.SECTION:
         this.searchService.getItemsBySection(this.filters.group, this.page, this.sampleSize).subscribe(res => {
           if (res) {
             this.elements = res.items ?? [];
-            this.title = res.section + ' / Itens';
+            this.breadcrumb = [{ routerLink: "/sections", title: "Seções" }];
+            this.title = res.section;
           }
         });
         break;
@@ -71,7 +90,8 @@ export class ItemListComponent extends ListComponent<Item> {
         this.searchService.getItemsByCategory(this.filters.group, this.page, this.sampleSize).subscribe(res => {
           if (res) {
             this.elements = res.items ?? [];
-            this.title = res.category + ' / Itens';
+            this.breadcrumb = [{ routerLink: "/categories", title: "Categorias" }];
+            this.title = res.category;
           }
         });
         break;

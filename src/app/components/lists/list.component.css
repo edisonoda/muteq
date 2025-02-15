@@ -1,6 +1,26 @@
 h1 {
+    width: fit-content;
+}
+
+h1::after {
+    content: "";
+    display: block;
+
+    margin: 3px 0;
+
+    background: var(--primary-color);
+    height: 3px;
+    width: 100%;
+}
+
+.breadcrumb {
     margin-bottom: var(--content-padding);
 }
+
+::ng-deep .breadcrumb .mat-mdc-chip,
+::ng-deep .breadcrumb .mat-mdc-chip .mdc-evolution-chip__action--presentational {
+    cursor: pointer;
+} 
 
 ::ng-deep .full-paginator .mat-mdc-paginator-container {
     justify-content: space-between;

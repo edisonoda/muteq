@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Category } from 'src/app/interfaces/category';
 import { ListElementComponent } from '../list-element/list-element.component';
 import { PaginatorComponent } from '../paginator/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-categories',
-  imports: [CommonModule, ListElementComponent, PaginatorComponent],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule],
   templateUrl: './category-list.component.html',
   styleUrls: ['../list.component.css'],
 })

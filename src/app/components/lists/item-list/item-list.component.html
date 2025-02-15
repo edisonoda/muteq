@@ -1,4 +1,17 @@
-<h1>{{ title }}</h1>
+<mat-chip-set aria-label="Migalhas" class="breadcrumb">
+    <mat-chip aria-label="Navega à página inicial" role="link" routerLink="">
+        Página Inicial
+    </mat-chip>
+    <mat-chip *ngFor="let slice of breadcrumb" [attr.aria-label]="'Navega a ' + slice.title" role="link"
+        [routerLink]="slice.routerLink">
+        {{ slice.title }}
+    </mat-chip>
+    <mat-chip disabled>{{ title }}</mat-chip>
+</mat-chip-set>
+
+<h1>
+    {{ title }}
+</h1>
 
 <app-paginator [list]="this"></app-paginator>
 
