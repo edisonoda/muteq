@@ -8,6 +8,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { QRCodeReaderComponent } from 'src/app/shared/qrcode-reader/qrcode-reader.component';
 import { LoaderComponent } from 'src/app/shared/loader/loader.component';
+import { ShareComponent } from 'src/app/shared/share/share.component';
 
 @Component({
   selector: 'app-item',
@@ -18,7 +19,8 @@ import { LoaderComponent } from 'src/app/shared/loader/loader.component';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    LoaderComponent
+    LoaderComponent,
+    ShareComponent,
   ],
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css'],

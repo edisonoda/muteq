@@ -4,6 +4,7 @@ import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoaderService } from './services/loader.service';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { SharedComponent } from './shared/share/shared.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -19,6 +20,7 @@ interface LoaderRequestItem {
     CommonModule,
     RouterOutlet,
     LoaderComponent,
+    SharedComponent,
     KeyValuePipe,
     MatIconModule,
     MatProgressSpinnerModule,
