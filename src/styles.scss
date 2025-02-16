@@ -35,6 +35,14 @@ body {
     active-indicator-width: 50px,
     active-indicator-color: var(--primary-color),
   ));
+
+  // Button
+  @include mat.button-overrides((
+    filled-container-color: var(--primary-color),
+    text-label-text-color: var(--default-dark),
+    text-ripple-color: #16161616,
+    text-state-layer-color: var(--default-dark),
+  ));
 }
 
 @media (min-width: 576px) {
