@@ -19,12 +19,14 @@ bootstrapApplication(AppComponent, {
     provideProtractorTestingSupport(),
     provideRouter(routeConfig),
     { provide: TitleStrategy, useClass: BaseTitleStrategy },
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
-      ... new MatDialogConfig(),
-      maxWidth: "800px",
-      maxHeight: "90vh",
-      ariaModal: true
-    }},
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {
+        ... new MatDialogConfig(),
+        maxWidth: "800px",
+        maxHeight: "90vh",
+        ariaModal: true
+      }
+    },
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
       headerInterceptor,

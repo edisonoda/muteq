@@ -47,16 +47,19 @@ const routeConfig: Routes = [
         path: 'items',
         component: ItemListComponent,
         title: 'Itens',
+        data: { routeIdx: '1' }
       },
       {
         path: 'categories',
         component: CategoryListComponent,
         title: 'Categorias',
+        data: { routeIdx: '0' }
       },
       {
         path: 'sections',
         component: SectionListComponent,
         title: 'Seções',
+        data: { routeIdx: '0' }
       },
       {
         path: 'adm',
