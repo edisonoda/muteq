@@ -8,6 +8,8 @@ import { ItemComponent } from '../../item/item.component';
 import { Params, RouterModule } from '@angular/router';
 import { PaginatorComponent } from '../paginator/paginator';
 import { MatChipsModule } from '@angular/material/chips';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
+import { listLoadAnimation } from 'src/app/utils/animations/list-load.animation';
 
 enum ItemGroup {
   NONE,
@@ -27,9 +29,10 @@ interface BreadcrumbSlice {
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule, LoaderComponent],
   templateUrl: './item-list.component.html',
   styleUrls: ['../list.component.css'],
+  animations: [listLoadAnimation]
 })
 export class ItemListComponent extends ListComponent<Item> {
   private _filters: ListFilters = { type: ItemGroup.NONE, group: -1 };
@@ -43,6 +46,9 @@ export class ItemListComponent extends ListComponent<Item> {
   private _breadcrumb: Array<BreadcrumbSlice> = [];
   public get breadcrumb() { return this._breadcrumb; }
   public set breadcrumb(t: Array<BreadcrumbSlice>) { this._breadcrumb = t; }
+
+  private _loading: boolean = true;
+  public get loading() { return this._loading; }
 
   private _initialized: boolean = false;
   private readonly _dialog = inject(MatDialog);
@@ -65,34 +71,50 @@ export class ItemListComponent extends ListComponent<Item> {
       return;
     }
 
+    this._loading = true;
     switch (this.filters.type) {
       case ItemGroup.NONE:
-        this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
-          if (res) {
-            this.elements = res.elements;
-            this.count = res.count;
-          }
+        this.breadcrumb = [];
+        this.title = "Itens";
+        
+        this.searchService.getItems(this.page, this.sampleSize).subscribe({
+          next: res => {
+            this._loading = false;
 
-          this.breadcrumb = [];
-          this.title = "Itens";
+            if (res) {
+              this.elements = res.elements;
+              this.count = res.count;
+            }
+          },
+          error: () => this._loading = false
         });
         break;
       case ItemGroup.SECTION:
-        this.searchService.getItemsBySection(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res) {
-            this.elements = res.items ?? [];
-            this.breadcrumb = [{ routerLink: "/sections", title: "Seções" }];
-            this.title = res.section;
-          }
+        this.searchService.getItemsBySection(this.filters.group, this.page, this.sampleSize).subscribe({
+          next: res => {
+            this._loading = false;
+
+            if (res) {
+              this.elements = res.items ?? [];
+              this.breadcrumb = [{ routerLink: "/sections", title: "Seções" }];
+              this.title = res.section;
+            }
+          },
+          error: () => this._loading = false
         });
         break;
       case ItemGroup.CATEGORY:
-        this.searchService.getItemsByCategory(this.filters.group, this.page, this.sampleSize).subscribe(res => {
-          if (res) {
-            this.elements = res.items ?? [];
-            this.breadcrumb = [{ routerLink: "/categories", title: "Categorias" }];
-            this.title = res.category;
-          }
+        this.searchService.getItemsByCategory(this.filters.group, this.page, this.sampleSize).subscribe({
+          next: res => {
+            this._loading = false;
+
+            if (res) {
+              this.elements = res.items ?? [];
+              this.breadcrumb = [{ routerLink: "/categories", title: "Categorias" }];
+              this.title = res.category;
+            }
+          },
+          error: () => this._loading = false
         });
         break;
     }

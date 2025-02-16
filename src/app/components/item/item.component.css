@@ -41,6 +41,10 @@
 .item-image-viewer .viewer-panel {
     height: 100%;
     width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     position: absolute;
     top: 0;
@@ -248,13 +252,13 @@
     margin-right: 5px;
 }
 
-@media (min-width: 992px) {
-    .item-content .item-description::after {
-        content: "";
-        display: block;
-        padding-left: 100vw;
-    }
+.item-content .item-description::after {
+    content: "";
+    display: block;
+    padding-left: 100vw;
+}
 
+@media (min-width: 992px) {
     .item-content .item-details .item-detail {
         flex-wrap: wrap;
     }

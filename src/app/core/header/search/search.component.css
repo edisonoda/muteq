@@ -40,3 +40,10 @@
 ::ng-deep .search-results .mat-mdc-optgroup-label:first-child {
     margin-top: 0;
 }
+::ng-deep .search-results .options-loader.mat-mdc-option {
+    min-height: 0;
+}
+
+::ng-deep .search-results .options-loader.mat-mdc-option .mdc-list-item__primary-text {
+    margin-left: auto;
+}

@@ -6,25 +6,37 @@ import { ListElementComponent } from '../list-element/list-element.component';
 import { PaginatorComponent } from '../paginator/paginator';
 import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
+import { listLoadAnimation } from 'src/app/utils/animations/list-load.animation';
 
 
 @Component({
   selector: 'app-sections',
-  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule],
+  imports: [CommonModule, ListElementComponent, PaginatorComponent, RouterModule, MatChipsModule, LoaderComponent],
   templateUrl: './section-list.component.html',
   styleUrls: ['../list.component.css'],
+  animations: [listLoadAnimation]
 })
 export class SectionListComponent extends ListComponent<Section> {
+  private _loading: boolean = true;
+  public get loading() { return this._loading; }
+
   constructor() {
     super();
   }
 
   protected override getList(): void {
-    this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
-      if (res) {
-        this.elements = res.elements;
-        this.count = res.count;
-      }
+    this._loading = true;
+    this.searchService.getSections(this.page, this.sampleSize).subscribe({
+      next: res => {
+        this._loading = false;
+
+        if (res) {
+          this.elements = res.elements;
+          this.count = res.count;
+        }
+      },
+      error: () => this._loading = false
     });
   }
   

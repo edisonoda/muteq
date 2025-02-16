@@ -82,7 +82,7 @@ export class ItemAdmComponent extends ListComponent<Item> implements AfterViewIn
   protected override getList(): void {
     this.dataSource.data = [];
 
-    this.searchService.getItems(this.page, this.sampleSize).subscribe(res => {
+    this.searchService.getItems(this.page, this.sampleSize, true).subscribe(res => {
       if (res) {
         this.elements = res.elements;
         this.dataSource.data = this.elements;

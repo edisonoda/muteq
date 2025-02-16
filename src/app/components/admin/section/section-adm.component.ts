@@ -72,7 +72,7 @@ export class SectionAdmComponent extends ListComponent<Section> implements After
   protected override getList(): void {
     this.dataSource.data = [];
 
-    this.searchService.getSections(this.page, this.sampleSize).subscribe(res => {
+    this.searchService.getSections(this.page, this.sampleSize, true).subscribe(res => {
       if (res) {
         this.elements = res.elements;
         this.dataSource.data = this.elements;

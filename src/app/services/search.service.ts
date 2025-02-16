@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { delay, Observable, of, tap } from 'rxjs';
 import { Item } from '../interfaces/item';
 import { Section } from '../interfaces/section';
 import { Category } from '../interfaces/category';
+import { LOADER } from '../interceptors/loader.interceptor';
+import { LoaderService } from './loader.service';
 
 // Temporário
 const items: Array<Item> = [
@@ -181,62 +183,133 @@ export interface PaginatedList<T = any> {
 export class SearchService {
   private readonly api: string = "http://localhost:8080/";
 
+  // TODO: temporário
+  private loaderService: LoaderService = inject(LoaderService);
+
   constructor(private http: HttpClient) { }
 
   public getHomeItems(): Observable<PaginatedList<Item>> {
     return of({ elements: items.slice(0, 10), count: items.length }).pipe(delay(50));
   }
 
-  public getItems(page?: number, size?: number): Observable<PaginatedList<Item>> {
-    return of({ elements: items, count: items.length });
+  public getItems(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Item>> {
+    // const context = loader ? new HttpContext().set(LOADER, "Buscando Itens") : new HttpContext();
+    // const params = new HttpParams();
+    // page ? params.append("page", page) : null;
+    // size ? params.append("size", size) : null;
+
+    // return this.http.get<PaginatedList<Item>>(`${this.api}item`, {
+    //   context: context,
+    //   params: params
+    // });
+
+    if (loader)
+      this.loaderService.request({ loading: true, url: "getItems", message: "Buscando Itens" });
+    
+    return of({ elements: items, count: items.length }).pipe(delay(3000), tap({
+      finalize: () => {
+        if (loader)
+          this.loaderService.request({ loading: false, url: "getItems" })
+      }
+    }));
   }
 
-  public getItem(id: number): Observable<Item | null> {
-    return of(items.find(v => v.id == id) ?? null);
+  public getItem(id: number, loader?: boolean): Observable<Item | null> {
+    // const context = loader ? new HttpContext().set(LOADER, "Buscando Informações do Item") : new HttpContext();
+
+    // return this.http.get<Item | null>(`${this.api}item/${id}`, {
+    //   context: context
+    // });
+
+    if (loader)
+      this.loaderService.request({ loading: true, url: "getItem", message: "Buscando Informações do Item" });
+    
+    return of(items.find(v => v.id == id) ?? null).pipe(delay(2000), tap({
+      finalize: () => {
+        if (loader)
+          this.loaderService.request({ loading: false, url: "getItem" })
+      }
+    }));
   }
 
-  public getSections(page?: number, size?: number): Observable<PaginatedList<Section>> {
-    return of({ elements: sections, count: sections.length });
+  public getSections(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Section>> {
+    // const context = loader ? new HttpContext().set(LOADER, "Buscando Seções") : new HttpContext();
+    // const params = new HttpParams();
+    // page ? params.append("page", page) : null;
+    // size ? params.append("size", size) : null;
+
+    // return this.http.get<PaginatedList<Section>>(`${this.api}section`, {
+    //   context: context,
+    //   params: params
+    // });
+
+    if (loader)
+      this.loaderService.request({ loading: true, url: "getSections", message: "Buscando Seções" });
+    
+    return of({ elements: sections, count: sections.length }).pipe(delay(3000), tap({
+      finalize: () => {
+        if (loader)
+          this.loaderService.request({ loading: false, url: "getSections" })
+      }
+    }));
   }
 
   public getSection(id: number): Observable<Section | null> {
-    return of(sections.find(v => v.id == id) ?? null);
+    return of(sections.find(v => v.id == id) ?? null).pipe(delay(3000));
   }
 
-  public getCategories(page?: number, size?: number): Observable<PaginatedList<Category>> {
-    return of({ elements: categories, count: categories.length });
+  public getCategories(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Category>> {
+    // const context = loader ? new HttpContext().set(LOADER, "Buscando Categorias") : new HttpContext();
+    // const params = new HttpParams();
+    // page ? params.append("page", page) : null;
+    // size ? params.append("size", size) : null;
+
+    // return this.http.get<PaginatedList<Category>>(`${this.api}category`, {
+    //   context: context,
+    //   params: params
+    // });
+
+    if (loader)
+      this.loaderService.request({ loading: true, url: "getCategories", message: "Buscando Categorias" });
+    
+    return of({ elements: categories, count: categories.length }).pipe(delay(4000), tap({
+      finalize: () => {
+        if (loader)
+          this.loaderService.request({ loading: false, url: "getCategories" })
+      }
+    }));
   }
 
   public getCategory(id: number): Observable<Category | null> {
-    return of(categories.find(i => i.id == id) ?? null);
+    return of(categories.find(i => i.id == id) ?? null).pipe(delay(3000));
   }
 
   public getItemsBySection(id: number, page: number, size: number): Observable<{ section: string, items: Array<Item> }> {
     return of({
       section: sections.find(s => s.id == id)?.name ?? '',
       items: items.filter(i => i.section?.id == id)
-    });
+    }).pipe(delay(3000));
   }
 
   public getItemsByCategory(id: number, page: number, size: number): Observable<{ category: string, items: Array<Item> }> {
     return of({
       category: categories.find(s => s.id == id)?.name ?? '',
       items: items.filter(i => i.category?.id == id)
-    });
+    }).pipe(delay(3000));
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<PaginatedList<Item>> {
     const elements = items.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length });
+    return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 
   public getSectionsByName(name: string, page: number, size: number): Observable<PaginatedList<Section>> {
     const elements = sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length });
+    return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 
   public getCategoriesByName(name: string, page: number, size: number): Observable<PaginatedList<Category>> {
     const elements = categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length });
+    return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 }

@@ -4,21 +4,27 @@
         aria-label="Pesquisar itens, categorias e seções">
     <mat-icon matIconPrefix>search</mat-icon>
     <mat-autocomplete #searchAutocomplete="matAutocomplete" (optionSelected)="navigate()" class="search-results">
-        @if (noResults && searchControl.value) {
-            <mat-option role="text">
-                Nenhum resultado para {{ searchControl.value }}
+        @if (loading) {
+            <mat-option [disabled]="true" class="options-loader">
+                <app-loader [loading]="loading"></app-loader>
             </mat-option>
         }
         
         @for (group of searchGroupsOptions | async; track group) {
-        <mat-optgroup [label]="groupLabel(group)">
-            @for (element of group.elements; track element) {
-            <mat-option [value]="group.type + '-' + element.id" role="link" aria-label="Acessar">
-                <img [src]="element.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ element.name }}" height="25" width="25">
-                {{element.name}}
+            <mat-optgroup [@listLoad]="group.elements" [label]="groupLabel(group)">
+                @for (element of group.elements; track element) {
+                <mat-option [value]="group.type + '-' + element.id" role="link" aria-label="Acessar">
+                    <img [src]="element.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ element.name }}" height="25" width="25">
+                    {{element.name}}
+                </mat-option>
+                }
+            </mat-optgroup>
+        }
+
+        @if (!loading && noResults && searchControl.value) {
+            <mat-option role="text">
+                Nenhum resultado para {{ searchControl.value }}
             </mat-option>
-            }
-        </mat-optgroup>
         }
     </mat-autocomplete>
 </mat-form-field>

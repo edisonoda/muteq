@@ -15,6 +15,8 @@ import { debounce, delayWhen, forkJoin, interval, map, Observable, of, tap } fro
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../../../components/item/item.component';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
+import { listLoadAnimation } from 'src/app/utils/animations/list-load.animation';
 
 interface SearchGroup {
   type: string;
@@ -33,12 +35,17 @@ interface SearchGroup {
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AsyncPipe
+    AsyncPipe,
+    LoaderComponent
   ],
   templateUrl: 'search.component.html',
-  styleUrl: 'search.component.css'
+  styleUrl: 'search.component.css',
+  animations: [listLoadAnimation]
 })
 export class SearchComponent {
+  private _loading: boolean = false;
+  public get loading() { return this._loading; }
+
   private _searchControl: FormControl = new FormControl('');
   public get searchControl() { return this._searchControl; }
 
@@ -106,11 +113,18 @@ export class SearchComponent {
     if (!string || typeof string != 'string')
       return of();
 
+    this._loading = true;
+    this.items = [];
+    this.categories = [];
+    this.sections = [];
+
     return forkJoin([
       this.searchService.getItemsByName(string, 1, this.ELEMENTS_LIMIT + 1),
       this.searchService.getCategoriesByName(string, 1, this.ELEMENTS_LIMIT + 1),
       this.searchService.getSectionsByName(string, 1, this.ELEMENTS_LIMIT + 1),
     ]).pipe(tap(([itemRes, categoryRes, sectionRes]) => {
+      this._loading = false;
+
       if (itemRes)
         this.items = itemRes.elements;
 

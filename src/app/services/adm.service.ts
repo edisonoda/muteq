@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { Item } from '../interfaces/item';
 import { Section } from '../interfaces/section';
 import { Category } from '../interfaces/category';
@@ -21,34 +21,34 @@ export class AdmService {
 
   // TODO: Continue
   public editItem(id: number, i: Item): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public deleteItem(id: number): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public createSection(i: Section): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public editSection(id: number, i: Section): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public deleteSection(id: number): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public createCategory(i: Category): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public editCategory(id: number, i: Category): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 
   public deleteCategory(id: number): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
 }

@@ -60,11 +60,14 @@ export class HomeComponent implements OnInit {
 
   private getHomeItems(): void {
     this._loading = true;
-    this.searchService.getHomeItems().subscribe(res => {
-      if (res)
-        this._elements = res.elements;
+    this.searchService.getHomeItems().subscribe({
+      next: res => {
+        if (res)
+          this._elements = res.elements;
 
-      this._loading = false;
+        this._loading = false;
+      },
+      error: () => this._loading = false
     });
   }
 

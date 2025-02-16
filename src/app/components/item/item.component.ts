@@ -7,6 +7,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { QRCodeReaderComponent } from 'src/app/shared/qrcode-reader/qrcode-reader.component';
+import { LoaderComponent } from 'src/app/shared/loader/loader.component';
 
 @Component({
   selector: 'app-item',
@@ -16,7 +17,8 @@ import { QRCodeReaderComponent } from 'src/app/shared/qrcode-reader/qrcode-reade
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    LoaderComponent
   ],
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css'],
@@ -30,6 +32,9 @@ export class ItemComponent implements OnInit {
   private _selected: number = 0;
   public get selected() { return this._selected; }
 
+  private _loading: boolean = true;
+  public get loading() { return this._loading; }
+
   private readonly _dialogRef = inject(MatDialogRef<ItemComponent>);
   private readonly _dialog = inject(MatDialog);
   
@@ -38,11 +43,17 @@ export class ItemComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef, private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.searchService.getItem(this._data).subscribe(res => {
-      if (res) {
-        this.item = res;
-        this.cdr.detectChanges();
-      }
+    this._loading = true;
+    this.searchService.getItem(this._data).subscribe({
+      next: res => {
+        this._loading = false;
+
+        if (res) {
+          this.item = res;
+          this.cdr.detectChanges();
+        }
+      },
+      error: () => this._loading = false
     });
   }
 

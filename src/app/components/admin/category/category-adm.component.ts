@@ -59,7 +59,7 @@ export class CategoryAdmComponent extends ListComponent<Category> implements Aft
   protected override getList(): void {
     this.dataSource.data = [];
 
-    this.searchService.getCategories(this.page, this.sampleSize).subscribe(res => {
+    this.searchService.getCategories(this.page, this.sampleSize, true).subscribe(res => {
       if (res) {
         this.elements = res.elements;
         this.dataSource.data = this.elements;

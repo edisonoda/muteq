@@ -17,10 +17,13 @@
                     class="viewer-panel">
                     <img [ngSrc]="img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
                 </div>
-                <div *ngIf="!item.images" id="item-{{item.id}}-panel" role="tabpanel"
+                <div *ngIf="!item.images && !loading" id="item-{{item.id}}-panel" role="tabpanel"
                     attr.aria-labelledby="item-{{item.id}}-thumbnail" aria-hidden="false"
                     class="viewer-panel">
                     <img [ngSrc]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
+                </div>
+                <div *ngIf="!item.images && loading" class="viewer-panel" aria-hidden="false">
+                    <app-loader></app-loader>
                 </div>
                 <button mat-icon-button role="button" aria-label="Próxima imagem"
                     [disabled]="selected + 1 === item.images?.length || !item.images"

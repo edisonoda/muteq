@@ -9,12 +9,15 @@
 
 <app-paginator [list]="this"></app-paginator>
 
-<ul class="list">
-    <li *ngFor="let el of elements" (click)="accessSection(el.id)" class="list__element"
-        [attr.aria-labelledby]="'title-element-' + el.id">
-        <app-list-element [element]="el"></app-list-element>
-    </li>
-</ul>
+<app-loader [loading]="loading" [template]="list"></app-loader>
+<ng-template #list>
+    <ul [@listLoad]="elements" class="list">
+        <li *ngFor="let el of elements" (click)="accessSection(el.id)" class="list__element"
+            [attr.aria-labelledby]="'title-element-' + el.id">
+            <app-list-element [element]="el"></app-list-element>
+        </li>
+    </ul>
+</ng-template>
 
 @if (sampleSize > 20 && count > 20) {
     <app-paginator [list]="this"></app-paginator>

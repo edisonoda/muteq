@@ -2,11 +2,11 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,14 @@ import { AdmService } from 'src/app/services/adm.service';
 
 @Component({
   selector: 'app-category-form',
-  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule, MatSelectModule],
+  imports: [
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './category-form.component.html',
   styleUrls: ['../../form.css']
 })
@@ -25,7 +32,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   public get title() { return this._title; }
   public set title(t: string) { this._title = t; }
 
-  private _form: FormGroup = this.blankForm();
+  private _form: FormGroup = this.setupForm();
   public get form() {
     return this._form;
   }
@@ -48,27 +55,27 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
         const id = parseInt(params['id']);
 
         if (!isNaN(id))
-          this._form = this.blankForm(id);
+          this._form = this.setupForm(id);
         else
-          this._form = this.blankForm();
-      }),
-      // Verifica se alterou os filtros, pois não altera instancia um novo ao mudar de rota
-      this.router.events.subscribe(ev => {
-        if (ev instanceof NavigationEnd && this.form.get('id')?.value)
-          this.getCategory();
+          this._form = this.setupForm();
       })
     );
   }
 
   ngOnInit(): void {
-    this.searchService.getItems().subscribe(res => {
+    this.searchService.getItems(undefined, undefined, true).subscribe(res => {
       if (res)
         this.items = res.elements;
     });
   }
 
-  private blankForm(id?: number): FormGroup {
-    this.title = id ? 'Editar Categoria' : 'Cadastrar Categoria';
+  private setupForm(id?: number): FormGroup {
+    if (id) {
+      this.getCategory(id);
+      this.title = 'Editar Categoria';
+    } else {
+      this.title = 'Cadastrar Categoria';
+    }
 
     return new FormGroup({
       id: new FormControl(id ?? null),
@@ -78,8 +85,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getCategory(): void {
-    this.searchService.getCategory(this.form.get('id')?.value).subscribe(res => {
+  private getCategory(id: number): void {
+    this.searchService.getCategory(id).subscribe(res => {
       if (res) {
         Object.entries(res).forEach(([k, v]) => {
           this.form.get(k)?.setValue(v);
