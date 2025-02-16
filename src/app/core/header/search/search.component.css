@@ -2,9 +2,9 @@
     width: 100%;
 }
 
-::ng-deep .search-bar .mat-mdc-form-field-icon-prefix>.mat-icon {
+/* ::ng-deep .search-bar .mat-mdc-form-field-icon-prefix>.mat-icon {
     padding: 0 5px;
-}
+} */
 
 ::ng-deep .search-bar .mdc-text-field--outlined .mat-mdc-form-field-infix {
     padding: 10px 0;
