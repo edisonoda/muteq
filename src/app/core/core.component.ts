@@ -44,8 +44,6 @@ export class CoreComponent {
   }
 
   onActivate() {
-    console.log(this.route);
     this._animationState = this.route.firstChild?.snapshot.data['routeIdx'] ?? 0;
-    console.log(this._animationState);
   }
 }

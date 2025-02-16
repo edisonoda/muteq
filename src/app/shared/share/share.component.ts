@@ -112,7 +112,6 @@ export class ShareComponent {
 
   public share(): void {
     try {
-      console.log(this._shareData);
       navigator.share(this._shareData).then(() => {
         this._snackBar.open('Item compartilhado com sucesso!', 'Fechar', {
           duration: 3000
