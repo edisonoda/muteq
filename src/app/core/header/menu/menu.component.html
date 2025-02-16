@@ -1,8 +1,9 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir navegação" style="background-color: #FFC30A;">
-  <mat-icon style="color: white;">menu</mat-icon>
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Abrir navegação" aria-controls="navigation-menu">
+  <mat-icon>menu</mat-icon>
 </button>
 
-<mat-menu #menu="matMenu" xPosition="before" class="header-menu-panel" role="menu">
+<mat-menu #menu="matMenu" id="navigation-menu" xPosition="before" class="header-menu-panel" role="menu">
+  <nav aria-label="Principal">
   @if (loggedIn) {
     <button mat-menu-item [matMenuTriggerFor]="admin">Admin</button>
     <button mat-menu-item [matMenuTriggerFor]="user">Visualização</button>
@@ -55,4 +56,5 @@
       <span>Categorias</span>
     </a>
   }
+  </nav>
 </mat-menu>
