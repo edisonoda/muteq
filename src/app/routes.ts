@@ -112,5 +112,10 @@ const routeConfig: Routes = [
       },
     ]
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
 ];
 export default routeConfig;
