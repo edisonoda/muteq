@@ -1,0 +1,33 @@
+<div class="dialog-title">
+    <h3 mat-dialog-title>Ajuda</h3>
+    <button mat-icon-button (click)="close()" aria-label="Fechar Modal de Ajuda">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content class="help-content">
+    <mat-accordion multi class="help-accordion">
+        <mat-expansion-panel class="help-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Como leio um Código QR?</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>Ao abrir o Leitor de Código QR (botão amarelo na parte direita inferior), o sistema irá pedir permissão para abrir a câmera. Conceda a permissão.</p>
+            <br>
+            <strong>Com a câmera aberta (no Leitor de Código QR), aponte para o Código QR do item na exposição do museu.</strong>
+            <br>
+            <br>
+            <p>Pronto! O sistema irá levá-lo às informações do item.</p>
+            <br>
+            <small>
+                <i>O leitor pode demorar alguns segundos para iniciar.</i>
+                <br>
+                <i>Tenha certeza que a câmera está limpa e bem posicionada.</i>
+            </small>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="help-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>...</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>...</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-dialog-content>

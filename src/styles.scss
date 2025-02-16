@@ -79,3 +79,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: var(--page-max-width);
   padding: var(--content-padding);
 }
+
+// Material Dialog
+.dialog-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 var(--content-padding);
+  padding-left: 0;
+}
+
+.dialog-title h3 {
+  flex-shrink: 1;
+}

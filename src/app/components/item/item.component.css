@@ -1,17 +1,3 @@
-/* Title */
-.dialog-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 var(--content-padding);
-    padding-left: 0;
-}
-
-.dialog-title h3 {
-    flex-shrink: 1;
-}
-
 ::ng-deep .mat-mdc-dialog-container .mat-mdc-dialog-content.item-content {
     padding-top: 0;
 }

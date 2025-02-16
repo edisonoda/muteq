@@ -1,12 +1,8 @@
 .qrcode-reader-button {
-    position: fixed;
-    right: 15px;
-    bottom: 15px;
-
     height: 75px;
     width: 75px;
 
-    background-color: #FFC30A;
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -14,15 +10,6 @@
     font-size: 40px;
     height: 40px;
     width: 40px;
-}
-
-.dialog-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 var(--content-padding);
-    padding-left: 0;
 }
 
 .qrcode-content {

@@ -3,12 +3,18 @@ import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { QRCodeReaderButtonComponent } from '../shared/qrcode-reader/qrcode-reader-button.component';
 import { incrementAnimation } from '../utils/animations/route.animation';
+import { FloatingButtonsComponent } from '../shared/floating-buttons/floating-buttons.component';
 
 @Component({
   selector: 'app-core',
-  imports: [CommonModule, HeaderComponent, FooterComponent, RouterOutlet, QRCodeReaderButtonComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    FooterComponent,
+    RouterOutlet,
+    FloatingButtonsComponent,
+  ],
   template: `
     <app-header></app-header>
     <main>
@@ -16,7 +22,7 @@ import { incrementAnimation } from '../utils/animations/route.animation';
         <div [@incrementAnimation]="animationState" [@.disabled]="animationDisable()">
           <router-outlet (activate)="onActivate()"></router-outlet>
         </div>
-        <app-qrcode-reader-button></app-qrcode-reader-button>
+        <app-floating-buttons></app-floating-buttons>
       </section>
     </main>
     <app-footer></app-footer>

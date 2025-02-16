@@ -1,0 +1,23 @@
+/* Help Button */
+.help-button {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+/* Help Dialog */
+.help-content {
+    padding-top: 0;
+}
+
+.help-accordion {
+    counter-reset: line-number;
+}
+
+.help-expansion-panel {
+    counter-increment: line-number;
+}
+
+.help-expansion-panel .mat-expansion-panel-header-title::before {
+    content: counter(line-number)" - ";
+    margin-right: 5px;
+}

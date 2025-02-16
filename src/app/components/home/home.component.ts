@@ -8,7 +8,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { Item } from 'src/app/interfaces/item';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemComponent } from '../item/item.component';
-import { QRCodeReaderButtonComponent } from '../../shared/qrcode-reader/qrcode-reader-button.component';
+import { FloatingButtonsComponent } from 'src/app/shared/floating-buttons/floating-buttons.component';
 import { ListElementComponent } from '../lists/list-element/list-element.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     FooterComponent,
     HomeTitleComponent,
-    QRCodeReaderButtonComponent,
+    FloatingButtonsComponent,
     LoaderComponent
   ],
   templateUrl: './home.component.html',
