@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'ngx-sharebuttons/themes/default';
 
 * {
   margin: 0;
@@ -28,6 +29,11 @@ body {
   /* Z-index layers */
   --z-header: 10;
   --z-loader: 3000;
+
+  // Share Buttons
+  --sb-icon-size: 20px;
+  --sb-height: 56px;
+  --sb-border-radius: 16px;
 
   // Loader
   @include mat.progress-spinner-overrides((

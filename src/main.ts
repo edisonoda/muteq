@@ -11,6 +11,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { headerInterceptor } from './app/interceptors/header.interceptor';
 import { loaderInterceptor } from './app/interceptors/loader.interceptor';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
+import { provideShareButtonsOptions } from 'ngx-sharebuttons';
+import { shareIcons } from 'ngx-sharebuttons/icons';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -28,5 +30,8 @@ bootstrapApplication(AppComponent, {
       headerInterceptor,
       loaderInterceptor
     ])),
+    provideShareButtonsOptions(
+      shareIcons()
+    )
   ]
 }).catch((err) => console.error(err));

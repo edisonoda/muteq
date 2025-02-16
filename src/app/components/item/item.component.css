@@ -1,3 +1,4 @@
+/* Title */
 .dialog-title {
     display: flex;
     align-items: center;
@@ -213,6 +214,7 @@
     }
 }
 
+/* Sections */
 .item-content section {
     margin-bottom: var(--content-padding);
 }
@@ -266,6 +268,11 @@
     .item-content .item-details .item-detail:has(~.item-detail) {
         margin-bottom: 5px;
     }
+}
+
+/* Actions */
+.item-actions {
+    justify-content: space-between;
 }
 
 .item-scan-other-button {

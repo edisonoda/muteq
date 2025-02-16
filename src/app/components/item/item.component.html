@@ -79,7 +79,7 @@
     </section>
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions class="item-actions">
     <app-share [item]="item" [ready]="!loading"></app-share>
     <button mat-fab class="item-scan-other-button" matTooltip="Ler Novo Código QR" (click)="scanQRCode()">
         <mat-icon>qr_code_scanner</mat-icon>
