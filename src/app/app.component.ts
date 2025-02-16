@@ -1,41 +1,73 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { LoaderComponent } from './shared/loader/loader.component';
-import { LoaderService } from './services/loader.service';
+import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { LoaderService } from './services/loader.service';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+interface LoaderRequestItem {
+  msg: string;
+  finished: boolean;
+  error?: boolean;
+}
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, LoaderComponent],
-  template: `
-    <dialog *ngIf="loading" class="main-loader">
-      <div class="loader-container">
-        <app-loader [animated]="false" [size]="60"></app-loader>
-        <p>{{loadingMessage}}</p>
-      </div>
-    </dialog>
-    <router-outlet></router-outlet>
-  `,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    LoaderComponent,
+    KeyValuePipe,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   private _loading: boolean = false;
   public get loading() { return this._loading; }
 
-  private _loadingMessage: string = "Carregando";
-  public get loadingMessage() { return this._loadingMessage; }
+  private _loaderRequests: Map<string, LoaderRequestItem> = new Map<string, LoaderRequestItem>();
+  public get loaderRequests() { return this._loaderRequests; }
 
-  private _sub: Subscription;
+  private _subs: Array<Subscription> = [];
 
   constructor(private loaderService: LoaderService) {
-    this._sub = this.loaderService.changed$.subscribe(res => {
-      this._loading = res.loading;
-      this._loadingMessage = res.message ?? "Carregando";
-    });
+    this._subs.push(
+      this.loaderService.requested$.subscribe(res => {
+        let req: LoaderRequestItem = { msg: "Finalizado", finished: true };
+
+        if (res.error) {
+          req = { msg: "Erro", finished: true, error: true };
+        } else if (res.loading) {
+          req = { msg: res.message ?? "Fazendo requisição", finished: false };
+          this._loading = true;
+        }
+
+        this._loaderRequests.set(res.url, req);
+  
+        // TODO: temporário
+        let finished = true;
+        this._loaderRequests.forEach(req => {
+          if (!req.finished)
+            finished = false;
+        });
+  
+        if (finished) {
+          this._loaderRequests.clear();
+          this.loaderService.finish();
+        }
+      }),
+      this.loaderService.finished$.subscribe(() => {
+        this._loading = false;
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this._sub.unsubscribe();
+    this._subs.forEach(sub => sub.unsubscribe());
   }
 }

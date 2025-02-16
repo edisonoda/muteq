@@ -3,19 +3,28 @@ import { Observable, Subject } from 'rxjs';
 
 export interface LoadingRequest {
   loading: boolean;
+  url: string;
   message?: string;
+  error?: boolean;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderService {
-  private _changedSource: Subject<LoadingRequest> = new Subject<LoadingRequest>();
-  public changed$: Observable<LoadingRequest> = this._changedSource.asObservable();
+  private _requestedSource: Subject<LoadingRequest> = new Subject<LoadingRequest>();
+  public requested$: Observable<LoadingRequest> = this._requestedSource.asObservable();
+
+  private _finishedSource: Subject<void> = new Subject<void>();
+  public finished$: Observable<void> = this._finishedSource.asObservable();
 
   constructor() { }
 
-  public change(loading: LoadingRequest): void {
-    this._changedSource.next(loading);
+  public request(loading: LoadingRequest): void {
+    this._requestedSource.next(loading);
+  }
+
+  public finish(): void {
+    this._finishedSource.next();
   }
 }

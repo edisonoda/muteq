@@ -1,0 +1,26 @@
+<dialog *ngIf="loading" class="main-loader">
+    <div class="loader-panel"></div>
+    <div class="loader-container">
+        <app-loader [animated]="false" [size]="60"></app-loader>
+        <div class="loading-requests">
+            <span *ngFor="let req of loaderRequests | keyvalue" class="loading-request" [ngClass]="{
+                    'finished': req.value.finished,
+                    'error': req.value.error
+                }">
+                <span class="d-flex align-items-center">
+                    @if (req.value.error) {
+                        <mat-icon>close</mat-icon>
+                    } @else if (req.value.finished) {
+                        <mat-icon>check</mat-icon>
+                    }
+                    {{req.value.msg}}
+                </span>
+
+                @if (!req.value.finished) {
+                    <mat-spinner [diameter]="15"></mat-spinner>
+                }
+            </span>
+        </div>
+    </div>
+</dialog>
+<router-outlet></router-outlet>

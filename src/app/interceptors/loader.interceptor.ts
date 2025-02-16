@@ -12,16 +12,22 @@ export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
   const message = req.context.get(LOADER);
 
   if (message) {
-    loaderService.change({ loading: true, message: message });
+    loaderService.request({ loading: true, url: req.urlWithParams, message: message });
     loaderRequests.add(req.urlWithParams);
   }
 
   return next(req).pipe(tap({
-    finalize: () => {
+    complete: () => {
       loaderRequests.delete(req.urlWithParams);
-
+      loaderService.request({ loading: false, url: req.urlWithParams });
+    },
+    error: () => {
+      loaderRequests.delete(req.urlWithParams);
+      loaderService.request({ loading: false, url: req.urlWithParams, error: true });
+    },
+    finalize: () => {
       if (!loaderRequests.size)
-        loaderService.change({ loading: false });
+        loaderService.finish();
     }
   }));
 };
