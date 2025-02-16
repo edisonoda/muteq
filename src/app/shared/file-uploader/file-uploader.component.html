@@ -1,0 +1,17 @@
+<h3>{{ multiple ? 'Imagens' : 'Imagem' }}</h3>
+<input hidden (change)="onFileSelected()" #fileInput type="file" accept="image/*">
+
+<div [@listLoad]="files" class="upload-container">
+    @for(file of files; track file; let i = $index) {
+        <div class="upload-img-wrapper">
+            <button type="button" mat-icon-button class="remove-image" (click)="removeImage(i)">
+                <mat-icon>close</mat-icon>
+            </button>
+            <img [src]="file">
+        </div>
+    }
+
+    <button type="button" mat-fab (click)="fileInput.click()" aria-label="Upload de Imagem" class="upload-button" [disabled]="!multiple && files.length > 0">
+        <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+</div>

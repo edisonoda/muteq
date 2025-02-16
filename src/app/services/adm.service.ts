@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { Item } from '../interfaces/item';
 import { Section } from '../interfaces/section';
 import { Category } from '../interfaces/category';
+import { LOADER } from '../interceptors/loader.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,18 @@ export class AdmService {
   private readonly api: string = "http://localhost:8080/";
 
   constructor(private http: HttpClient) { }
+
+  public uploadImage(image: Blob, path?: string): Observable<string> {
+    const form = new FormData();
+    form.append("image", image);
+
+    if (path)
+      form.append("path", path);
+
+    return this.http.post<string>(`${this.api}image`, form, {
+      context: new HttpContext().set(LOADER, "Enviando imagem"),
+    });
+  }
 
   public createItem(i: Item): Observable<any> {
     return this.http.post(`${this.api}item`, {

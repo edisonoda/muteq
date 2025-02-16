@@ -1,0 +1,38 @@
+.upload-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.upload-container .upload-img-wrapper {
+    border-radius: 10px;
+    height: 200px;
+    width: 200px;
+
+    position: relative;
+}
+.upload-container .upload-img-wrapper:has(~*) {
+    margin-right: 5px;
+}
+
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.upload-container .upload-img-wrapper img {
+    border-radius: 10px;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/* Upload button */
+.upload-button:not(:disabled) {
+    box-shadow: none;
+    background-color: var(--pastel-color);
+    color: var(--default-dark);
+}
