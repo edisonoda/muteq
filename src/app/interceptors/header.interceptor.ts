@@ -15,6 +15,9 @@ export const headerInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(xhr).pipe(tap({
     error: error => {
+      if (error?.status == 200)
+        return;
+
       console.error("Ocorreu um erro na requisição: ", error);
       snackBar.open('Ocorreu um erro inesperado', 'Fechar', {
         duration: 3000
