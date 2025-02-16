@@ -13,6 +13,7 @@ import { loaderInterceptor } from './app/interceptors/loader.interceptor';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 import { provideShareButtonsOptions } from 'ngx-sharebuttons';
 import { shareIcons } from 'ngx-sharebuttons/icons';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -26,6 +27,12 @@ bootstrapApplication(AppComponent, {
         maxHeight: "90vh",
         ariaModal: true
       }
+    },
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return `http://localhost:8080/image?name=${config.src}`;
+      },
     },
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
