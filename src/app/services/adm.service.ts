@@ -14,16 +14,20 @@ export class AdmService {
 
   constructor(private http: HttpClient) { }
 
-  public uploadImage(image: Blob, path?: string): Observable<string> {
+  public uploadImage(image: Blob, path?: string): Observable<{ image: string }> {
     const form = new FormData();
     form.append("image", image);
 
     if (path)
       form.append("path", path);
 
-    return this.http.post<string>(`${this.api}image`, form, {
+    return this.http.post<{ image: string }>(`${this.api}image`, form, {
       context: new HttpContext().set(LOADER, "Enviando imagem"),
     });
+  }
+
+  public fetchImage(name: string): Promise<Response> {
+    return fetch(`${this.api}image?name=${name}`);
   }
 
   public createItem(i: Item): Observable<any> {
@@ -32,7 +36,6 @@ export class AdmService {
     });
   }
 
-  // TODO: Continue
   public editItem(id: number, i: Item): Observable<boolean> {
     return of(true).pipe(delay(3000));
   }
@@ -41,11 +44,11 @@ export class AdmService {
     return of(true).pipe(delay(3000));
   }
 
-  public createSection(i: Section): Observable<boolean> {
+  public createSection(c: Section): Observable<boolean> {
     return of(true).pipe(delay(3000));
   }
 
-  public editSection(id: number, i: Section): Observable<boolean> {
+  public editSection(id: number, c: Section): Observable<boolean> {
     return of(true).pipe(delay(3000));
   }
 
@@ -53,15 +56,27 @@ export class AdmService {
     return of(true).pipe(delay(3000));
   }
 
-  public createCategory(i: Category): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+  public createCategory(c: Category): Observable<boolean> {
+    return this.http.post<boolean>(`${this.api}category`, c, {
+      context: new HttpContext().set(LOADER, "Criando categoria"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
-  public editCategory(id: number, i: Category): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+  public editCategory(id: number, c: Category): Observable<boolean> {
+    return this.http.put<boolean>(`${this.api}category/${id}`, c, {
+      context: new HttpContext().set(LOADER, "Atualizando categoria"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public deleteCategory(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.api}category/${id}`, {
+      context: new HttpContext().set(LOADER, "Excluindo categoria"),
+    });
+
     return of(true).pipe(delay(3000));
   }
 }

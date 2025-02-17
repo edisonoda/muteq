@@ -11,6 +11,7 @@ import { Item } from 'src/app/interfaces/item';
 import { SearchService } from 'src/app/services/search.service';
 import { Subscription } from 'rxjs';
 import { AdmService } from 'src/app/services/adm.service';
+import { FileUploaderComponent } from 'src/app/shared/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-category-form',
@@ -21,6 +22,7 @@ import { AdmService } from 'src/app/services/adm.service';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    FileUploaderComponent,
   ],
   templateUrl: './category-form.component.html',
   styleUrls: ['../../form.css']
@@ -40,6 +42,9 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   private _items: Array<Item> = [];
   public get items() { return this._items; }
   public set items(i: Array<Item>) { this._items = i; }
+
+  private _image: string = '';
+  public get image() { return this._image; }
 
   private _subs: Array<Subscription> = [];
 
@@ -80,7 +85,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     return new FormGroup({
       id: new FormControl(id ?? null),
       name: new FormControl('', [Validators.required]),
-      img: new FormControl('', [Validators.required]),
+      image: new FormControl(null, [Validators.required]),
       items: new FormControl([])
     });
   }
@@ -91,6 +96,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
         Object.entries(res).forEach(([k, v]) => {
           this.form.get(k)?.setValue(v);
         });
+
+        this._image = res.image ?? '';
       }
     });
   }

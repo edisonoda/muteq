@@ -131,14 +131,9 @@ export class CategoryAdmComponent extends ListComponent<Category> implements Aft
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteCategory(id).subscribe(res => {
-          if (res)
-            this._snackBar.open('Categoria excluída com sucesso', 'Fechar', {
-              duration: 3000
-            });
-          else
-            this._snackBar.open('Ocorreu um erro ao excluir categoria', 'Fechar', {
-              duration: 3000
-            });
+          this._snackBar.open('Categoria excluída com sucesso', 'Fechar', {
+            duration: 3000
+          });
         });
     });
   }

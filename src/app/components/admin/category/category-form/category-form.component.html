@@ -10,14 +10,6 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Foto</mat-label>
-    <input type="text" matInput formControlName="img"/>
-    @if (form.get('img')?.hasError('required')) {
-    <mat-error>Foto obrigatória</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
     <mat-label>Itens</mat-label>
     <mat-select [multiple]="true" formControlName="items">
       @for (item of items; track item) {
@@ -25,6 +17,8 @@
       }
     </mat-select>
   </mat-form-field>
+
+  <app-file-uploader [control]="form.get('image')" [uploadedFiles]="[image]" path="category"></app-file-uploader>
 
   <div class="d-flex flex-wrap justify-content-end">
     <button mat-flat-button (click)="onSubmit()" class="save-button">Salvar</button>
