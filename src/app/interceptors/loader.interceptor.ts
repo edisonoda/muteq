@@ -9,10 +9,9 @@ export const LOADER = new HttpContextToken<string>(() => "Carregando");
 
 export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
   const loaderService = inject(LoaderService);
-  const message = req.context.get(LOADER);
 
-  if (message) {
-    loaderService.request({ loading: true, url: req.urlWithParams, message: message });
+  if (req.context.has(LOADER)) {
+    loaderService.request({ loading: true, url: req.urlWithParams, message: req.context.get(LOADER) });
     loaderRequests.add(req.urlWithParams);
   }
 
