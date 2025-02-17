@@ -5,7 +5,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
@@ -29,7 +29,8 @@ import { PageEvent } from '@angular/material/paginator';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    PaginatorComponent
+    PaginatorComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './section-adm.component.html',
   styleUrls: ['../list.css'],
@@ -144,14 +145,9 @@ export class SectionAdmComponent extends ListComponent<Section> implements After
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteSection(id).subscribe(res => {
-          if (res)
-            this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
-              duration: 3000
-            });
-          else
-            this._snackBar.open('Ocorreu um erro ao excluir seção', 'Fechar', {
-              duration: 3000
-            });
+          this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
+            duration: 3000
+          });
         });
     });
   }

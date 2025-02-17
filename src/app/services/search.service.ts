@@ -255,7 +255,11 @@ export class SearchService {
   }
 
   public getSection(id: number): Observable<Section | null> {
-    return of(sections.find(v => v.id == id) ?? null).pipe(delay(3000));
+    return this.http.get<Category | null>(`${this.api}section/${id}`, {
+      context: new HttpContext().set(LOADER, "Buscando Informações da Seção")
+    });
+
+    // return of(sections.find(v => v.id == id) ?? null).pipe(delay(3000));
   }
 
   public getCategories(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Category>> {
@@ -282,7 +286,7 @@ export class SearchService {
 
   public getCategory(id: number): Observable<Category | null> {
     return this.http.get<Category | null>(`${this.api}category/${id}`, {
-      context: new HttpContext().set(LOADER, "Buscando Informações do Item")
+      context: new HttpContext().set(LOADER, "Buscando Informações da Categoria")
     });
 
     // return of(categories.find(i => i.id == id) ?? null).pipe(delay(3000));

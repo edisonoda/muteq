@@ -45,15 +45,27 @@ export class AdmService {
   }
 
   public createSection(c: Section): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+    return this.http.post<boolean>(`${this.api}section`, c, {
+      context: new HttpContext().set(LOADER, "Criando seção"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public editSection(id: number, c: Section): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+    return this.http.put<boolean>(`${this.api}section/${id}`, c, {
+      context: new HttpContext().set(LOADER, "Atualizando seção"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public deleteSection(id: number): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+    return this.http.delete<boolean>(`${this.api}section/${id}`, {
+      context: new HttpContext().set(LOADER, "Excluindo seção"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public createCategory(c: Category): Observable<boolean> {
@@ -77,6 +89,6 @@ export class AdmService {
       context: new HttpContext().set(LOADER, "Excluindo categoria"),
     });
 
-    return of(true).pipe(delay(3000));
+    // return of(true).pipe(delay(3000));
   }
 }

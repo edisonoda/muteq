@@ -62,8 +62,8 @@
                 <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
                     [class.expanded-detail]="expandedElement === element">
                     <div class="img-frame">
-                        <img loading="lazy" [src]="element.image ?? '/assets/img/mutec_logo.png'"
-                            alt="Imagem de {{ element.name }}">
+                        <img [ngSrc]="element.image ?? '/assets/img/mutec_logo.png'"
+                            alt="Imagem de {{ element.name }}" fill>
                     </div>
                     <div>{{element.description}}</div>
                 </div>
