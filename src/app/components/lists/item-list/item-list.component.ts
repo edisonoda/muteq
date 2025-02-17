@@ -82,7 +82,7 @@ export class ItemListComponent extends ListComponent<Item> {
             this._loading = false;
 
             if (res) {
-              this.elements = res.elements;
+              this.elements = res.elements ?? [];
               this.count = res.count;
             }
           },
@@ -96,6 +96,7 @@ export class ItemListComponent extends ListComponent<Item> {
 
             if (res) {
               this.elements = res.elements ?? [];
+              this.count = res.count;
               this.breadcrumb = [{ routerLink: "/sections", title: "Seções" }];
               this.title = res.name;
             }
@@ -110,6 +111,7 @@ export class ItemListComponent extends ListComponent<Item> {
 
             if (res) {
               this.elements = res.elements ?? [];
+              this.count = res.count;
               this.breadcrumb = [{ routerLink: "/categories", title: "Categorias" }];
               this.title = res.name;
             }
