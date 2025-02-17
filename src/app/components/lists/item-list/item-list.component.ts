@@ -95,9 +95,9 @@ export class ItemListComponent extends ListComponent<Item> {
             this._loading = false;
 
             if (res) {
-              this.elements = res.items ?? [];
+              this.elements = res.elements ?? [];
               this.breadcrumb = [{ routerLink: "/sections", title: "Seções" }];
-              this.title = res.section;
+              this.title = res.name;
             }
           },
           error: () => this._loading = false
@@ -109,9 +109,9 @@ export class ItemListComponent extends ListComponent<Item> {
             this._loading = false;
 
             if (res) {
-              this.elements = res.items ?? [];
+              this.elements = res.elements ?? [];
               this.breadcrumb = [{ routerLink: "/categories", title: "Categorias" }];
-              this.title = res.category;
+              this.title = res.name;
             }
           },
           error: () => this._loading = false

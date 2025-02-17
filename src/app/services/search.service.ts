@@ -177,6 +177,10 @@ export interface PaginatedList<T = any> {
   count: number
 }
 
+export interface GroupedItemsList extends PaginatedList<Item> {
+  name: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -194,9 +198,9 @@ export class SearchService {
 
   public getItems(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Item>> {
     const context = loader ? new HttpContext().set(LOADER, "Buscando Itens") : new HttpContext();
-    const params = new HttpParams();
-    page ? params.append("page", page) : null;
-    size ? params.append("size", size) : null;
+    let params = new HttpParams();
+    page ? params = params.set("page", page) : null;
+    size ? params = params.set("size", size) : null;
 
     return this.http.get<PaginatedList<Item>>(`${this.api}item`, {
       context: context,
@@ -234,9 +238,9 @@ export class SearchService {
 
   public getSections(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Section>> {
     const context = loader ? new HttpContext().set(LOADER, "Buscando Seções") : new HttpContext();
-    const params = new HttpParams();
-    page ? params.append("page", page) : null;
-    size ? params.append("size", size) : null;
+    let params = new HttpParams();
+    page ? params = params.set("page", page) : null;
+    size ? params = params.set("size", size) : null;
 
     return this.http.get<PaginatedList<Section>>(`${this.api}section`, {
       context: context,
@@ -264,9 +268,9 @@ export class SearchService {
 
   public getCategories(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Category>> {
     const context = loader ? new HttpContext().set(LOADER, "Buscando Categorias") : new HttpContext();
-    const params = new HttpParams();
-    page ? params.append("page", page) : null;
-    size ? params.append("size", size) : null;
+    let params = new HttpParams();
+    page ? params = params.set("page", page) : null;
+    size ? params = params.set("size", size) : null;
 
     return this.http.get<PaginatedList<Category>>(`${this.api}category`, {
       context: context,
@@ -292,18 +296,42 @@ export class SearchService {
     // return of(categories.find(i => i.id == id) ?? null).pipe(delay(3000));
   }
 
-  public getItemsBySection(id: number, page: number, size: number): Observable<{ section: string, items: Array<Item> }> {
-    return of({
-      section: sections.find(s => s.id == id)?.name ?? '',
-      items: items.filter(i => i.section?.id == id)
-    }).pipe(delay(3000));
+  public getItemsBySection(id: number, page: number, size: number): Observable<GroupedItemsList> {
+    console.log(id, page, size);
+
+    let params = new HttpParams();
+    params = params.set("section", id);
+    params = params.set("page", page);
+    params = params.set("size", size);
+
+    console.log(params.get("section"), params.get("page"), params.get("size"));
+
+    return this.http.get<GroupedItemsList>(`${this.api}item/section`, {
+      params: params
+    });
+
+    // return of({
+    //   name: sections.find(s => s.id == id)?.name ?? '',
+    //   elements: items.filter(i => i.category?.id == id),
+    //   count: items.filter(i => i.category?.id == id).length,
+    // }).pipe(delay(3000));
   }
 
-  public getItemsByCategory(id: number, page: number, size: number): Observable<{ category: string, items: Array<Item> }> {
-    return of({
-      category: categories.find(s => s.id == id)?.name ?? '',
-      items: items.filter(i => i.category?.id == id)
-    }).pipe(delay(3000));
+  public getItemsByCategory(id: number, page: number, size: number): Observable<GroupedItemsList> {
+    let params = new HttpParams();
+    params = params.set("category", id);
+    params = params.set("page", page);
+    params = params.set("size", size);
+    
+    return this.http.get<GroupedItemsList>(`${this.api}item/category`, {
+      params: params
+    });
+
+    // return of({
+    //   name: categories.find(s => s.id == id)?.name ?? '',
+    //   elements: items.filter(i => i.category?.id == id),
+    //   count: items.filter(i => i.category?.id == id).length,
+    // }).pipe(delay(3000));
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<PaginatedList<Item>> {
