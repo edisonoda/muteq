@@ -58,7 +58,7 @@ img {
     border-bottom: 10px solid var(--mat-menu-container-color, var(--mat-sys-surface-container));
 }
 
-@media (min-width: 576px) {
+@media (min-width: 650px) {
     .header-content {
         flex-wrap: nowrap;
     }
