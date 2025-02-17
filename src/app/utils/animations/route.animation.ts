@@ -2,7 +2,12 @@ import { animate, group, query, style, transition, trigger } from "@angular/anim
 
 export const incrementAnimation = trigger('incrementAnimation', [
     transition(':increment', [
-        query(':enter, :leave', style({ position: 'fixed', maxWidth: 'var(--page-max-width)', width: '100%' }), { optional: true }),
+        style({ minHeight: '100vh' }),
+        query(':enter, :leave', style({
+            position: 'fixed',
+            maxWidth: 'var(--page-max-width)',
+            width: 'calc(100vw - 3*var(--content-padding))'
+        }), { optional: true }),
         group([
             query(':enter', [
                 style({ transform: 'translateX(100vw)' }),
@@ -15,7 +20,12 @@ export const incrementAnimation = trigger('incrementAnimation', [
         ])
     ]),
     transition(':decrement', [
-        query(':enter, :leave', style({ position: 'fixed', maxWidth: 'var(--page-max-width)', width: '100%' }), { optional: true }),
+        style({ minHeight: '100vh' }),
+        query(':enter, :leave', style({
+            position: 'fixed',
+            maxWidth: 'var(--page-max-width)',
+            width: 'calc(100vw - 3*var(--content-padding))'
+        }), { optional: true }),
         group([
             query(':enter', [
                 style({ transform: 'translateX(-100vw)' }),
@@ -26,5 +36,5 @@ export const incrementAnimation = trigger('incrementAnimation', [
                 animate('1s ease-in-out', style({ transform: 'translateX(100vw)' }))
             ], { optional: true })
         ])
-    ])
+    ]),
 ]);

@@ -29,7 +29,7 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
         [length]="list.count"
         [pageSize]="list.sampleSize"
         [pageSizeOptions]="list.sizeOptions"
-        (page)="list.pageChanged($event)"
+        (page)="pageChanged(); list.pageChanged($event)"
         aria-label="Selecionar página">
     </mat-paginator>`,
   imports: [MatPaginatorModule],
@@ -43,4 +43,8 @@ export class PaginatorComponent {
   public list!: ListComponent;
 
   constructor() {}
+
+  public pageChanged(): void {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 }

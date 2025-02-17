@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoaderService } from './services/loader.service';
@@ -37,7 +37,7 @@ export class AppComponent {
 
   private _subs: Array<Subscription> = [];
 
-  constructor(private loaderService: LoaderService) {
+  constructor(private loaderService: LoaderService, private router: Router) {
     this._subs.push(
       this.loaderService.requested$.subscribe(res => {
         let req: LoaderRequestItem = { msg: "Finalizado", finished: true };
@@ -52,19 +52,23 @@ export class AppComponent {
         this._loaderRequests.set(res.url, req);
   
         // TODO: temporário
-        let finished = true;
-        this._loaderRequests.forEach(req => {
-          if (!req.finished)
-            finished = false;
-        });
+        // let finished = true;
+        // this._loaderRequests.forEach(req => {
+        //   if (!req.finished)
+        //     finished = false;
+        // });
   
-        if (finished) {
-          this._loaderRequests.clear();
-          this.loaderService.finish();
-        }
+        // if (finished) {
+        //   this._loaderRequests.clear();
+        //   this.loaderService.finish();
+        // }
       }),
       this.loaderService.finished$.subscribe(() => {
         this._loading = false;
+      }),
+      this.router.events.subscribe(ev => {
+        if (ev instanceof NavigationStart)
+          setTimeout(() => window.scroll({ top: 0, behavior: "smooth" }));
       })
     );
   }
