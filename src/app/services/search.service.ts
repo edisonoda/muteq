@@ -193,7 +193,15 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   public getHomeItems(): Observable<PaginatedList<Item>> {
-    return of({ elements: items.slice(0, 10), count: items.length }).pipe(delay(50));
+    let params = new HttpParams();
+    params = params.set("page", 0);
+    params = params.set("size", 10);
+
+    return this.http.get<PaginatedList<Item>>(`${this.api}item`, {
+      params: params
+    });
+
+    // return of({ elements: items.slice(0, 10), count: items.length }).pipe(delay(50));
   }
 
   public getItems(page?: number, size?: number, loader: boolean = false): Observable<PaginatedList<Item>> {
