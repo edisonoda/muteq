@@ -94,7 +94,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       year: new FormControl('', [Validators.required]),
       manufacturer: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      img: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
       section: new FormControl('', [Validators.required]),
     });

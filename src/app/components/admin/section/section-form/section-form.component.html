@@ -19,8 +19,8 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Foto</mat-label>
-    <input type="text" matInput formControlName="img"/>
-    @if (form.get('img')?.hasError('required')) {
+    <input type="text" matInput formControlName="image"/>
+    @if (form.get('image')?.hasError('required')) {
     <mat-error>Foto obrigatória</mat-error>
     }
   </mat-form-field>

@@ -81,7 +81,7 @@ export class SectionFormComponent implements OnInit, OnDestroy {
       id: new FormControl(id ?? null),
       description: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
-      img: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required]),
       items: new FormControl([])
     });
   }

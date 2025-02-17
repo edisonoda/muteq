@@ -20,7 +20,7 @@
                 <div *ngIf="!item.images && !loading" id="item-{{item.id}}-panel" role="tabpanel"
                     attr.aria-labelledby="item-{{item.id}}-thumbnail" aria-hidden="false"
                     class="viewer-panel">
-                    <img [ngSrc]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
+                    <img [ngSrc]="item.image ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ item.name }}" fill>
                 </div>
                 <div *ngIf="!item.images && loading" class="viewer-panel" aria-hidden="false">
                     <app-loader></app-loader>
@@ -44,7 +44,7 @@
                     aria-posinset="1" aria-setsize="1" aria-disabled="false"
                     attr.aria-controls="item-{{item.id}}-panel" aria-selected="true"
                     class="viewer-tab">
-                    <img [ngSrc]="item.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de visualização de {{ item.name }}"
+                    <img [ngSrc]="item.image ?? '/assets/img/mutec_logo.png'" alt="Imagem de visualização de {{ item.name }}"
                         fill (click)="previewImage(0)">
                 </button>
             </div>

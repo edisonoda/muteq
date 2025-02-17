@@ -81,7 +81,7 @@
                 <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
                     [class.expanded-detail]="expandedElement === element">
                     <div class="img-frame">
-                        <img loading="lazy" [src]="element.img ?? '/assets/img/mutec_logo.png'"
+                        <img loading="lazy" [src]="element.image ?? '/assets/img/mutec_logo.png'"
                             alt="Imagem de {{ element.name }}">
                     </div>
                     <div>{{element.description}}</div>

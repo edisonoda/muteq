@@ -14,7 +14,7 @@
             <mat-optgroup [@listLoad]="group.elements" [label]="groupLabel(group)">
                 @for (element of group.elements; track element) {
                 <mat-option [value]="group.type + '-' + element.id" role="link" aria-label="Acessar">
-                    <img [src]="element.img ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ element.name }}" height="25" width="25">
+                    <img [src]="element.image ?? '/assets/img/mutec_logo.png'" alt="Imagem de {{ element.name }}" height="25" width="25">
                     {{element.name}}
                 </mat-option>
                 }
