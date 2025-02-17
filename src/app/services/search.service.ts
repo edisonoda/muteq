@@ -307,8 +307,8 @@ export class SearchService {
   public getItemsBySection(id: number, page: number, size: number): Observable<GroupedItemsList> {
     let params = new HttpParams();
     params = params.set("section", id);
-    params = params.set("page", page);
-    params = params.set("size", size);
+    page ? params = params.set("page", page) : null;
+    size ? params = params.set("size", size) : null;
 
     return this.http.get<GroupedItemsList>(`${this.api}item/section`, {
       params: params
@@ -324,8 +324,8 @@ export class SearchService {
   public getItemsByCategory(id: number, page: number, size: number): Observable<GroupedItemsList> {
     let params = new HttpParams();
     params = params.set("category", id);
-    params = params.set("page", page);
-    params = params.set("size", size);
+    page ? params = params.set("page", page) : null;
+    size ? params = params.set("size", size) : null;
     
     return this.http.get<GroupedItemsList>(`${this.api}item/category`, {
       params: params
