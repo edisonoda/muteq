@@ -12,6 +12,7 @@
     width: 200px;
 
     position: relative;
+    margin-bottom: 5px;
 }
 .upload-container .upload-img-wrapper:has(~*) {
     margin-right: 5px;

@@ -21,6 +21,8 @@ import { QRCodeReaderButtonComponent } from "../qrcode-reader/qrcode-reader-butt
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            z-index: var(--z-fixed-buttons);
         }
 
         .floating-buttons > *:has(~*) {
