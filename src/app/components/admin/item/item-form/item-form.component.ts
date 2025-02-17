@@ -110,8 +110,8 @@ export class ItemFormComponent implements OnInit, OnDestroy {
           this.form.get(k)?.setValue(v);
         });
 
-        this.form.get('category')?.setValue(res.category ?? null);
-        this.form.get('section')?.setValue(res.section ?? null);
+        this.form.get('category')?.setValue(res.category?.id ?? null);
+        this.form.get('section')?.setValue(res.section?.id ?? null);
 
         this._image = res.image ?? '';
       }
