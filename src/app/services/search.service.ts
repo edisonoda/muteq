@@ -297,14 +297,10 @@ export class SearchService {
   }
 
   public getItemsBySection(id: number, page: number, size: number): Observable<GroupedItemsList> {
-    console.log(id, page, size);
-
     let params = new HttpParams();
     params = params.set("section", id);
     params = params.set("page", page);
     params = params.set("size", size);
-
-    console.log(params.get("section"), params.get("page"), params.get("size"));
 
     return this.http.get<GroupedItemsList>(`${this.api}item/section`, {
       params: params
@@ -335,17 +331,41 @@ export class SearchService {
   }
 
   public getItemsByName(name: string, page: number, size: number): Observable<PaginatedList<Item>> {
-    const elements = items.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length }).pipe(delay(3000));
+    let params = new HttpParams();
+    params = params.set("page", page);
+    params = params.set("size", size);
+    
+    return this.http.get<PaginatedList<Item>>(`${this.api}item/search/${name}`, {
+      params: params
+    });
+
+    // const elements = items.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    // return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 
   public getSectionsByName(name: string, page: number, size: number): Observable<PaginatedList<Section>> {
-    const elements = sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length }).pipe(delay(3000));
+    let params = new HttpParams();
+    params = params.set("page", page);
+    params = params.set("size", size);
+    
+    return this.http.get<PaginatedList<Section>>(`${this.api}section/search/${name}`, {
+      params: params
+    });
+
+    // const elements = sections.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    // return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 
   public getCategoriesByName(name: string, page: number, size: number): Observable<PaginatedList<Category>> {
-    const elements = categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
-    return of({ elements, count: elements.length }).pipe(delay(3000));
+    let params = new HttpParams();
+    params = params.set("page", page);
+    params = params.set("size", size);
+    
+    return this.http.get<PaginatedList<Category>>(`${this.api}category/search/${name}`, {
+      params: params
+    });
+
+    // const elements = categories.filter(i => i.name.toLowerCase().includes(name.toLowerCase()));
+    // return of({ elements, count: elements.length }).pipe(delay(3000));
   }
 }

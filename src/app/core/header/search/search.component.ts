@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { Listable } from 'src/app/interfaces/listable';
 import { Item } from 'src/app/interfaces/item';
 import { Category } from 'src/app/interfaces/category';
@@ -36,7 +36,8 @@ interface SearchGroup {
     ReactiveFormsModule,
     RouterModule,
     AsyncPipe,
-    LoaderComponent
+    LoaderComponent,
+    NgOptimizedImage,
   ],
   templateUrl: 'search.component.html',
   styleUrl: 'search.component.css',
@@ -119,9 +120,9 @@ export class SearchComponent {
     this.sections = [];
 
     return forkJoin([
-      this.searchService.getItemsByName(string, 1, this.ELEMENTS_LIMIT + 1),
-      this.searchService.getCategoriesByName(string, 1, this.ELEMENTS_LIMIT + 1),
-      this.searchService.getSectionsByName(string, 1, this.ELEMENTS_LIMIT + 1),
+      this.searchService.getItemsByName(string, 0, this.ELEMENTS_LIMIT + 1),
+      this.searchService.getCategoriesByName(string, 0, this.ELEMENTS_LIMIT + 1),
+      this.searchService.getSectionsByName(string, 0, this.ELEMENTS_LIMIT + 1),
     ]).pipe(tap(([itemRes, categoryRes, sectionRes]) => {
       this._loading = false;
 
