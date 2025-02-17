@@ -31,17 +31,27 @@ export class AdmService {
   }
 
   public createItem(i: Item): Observable<any> {
-    return this.http.post(`${this.api}item`, {
-      item: i
+    return this.http.post<boolean>(`${this.api}item`, i, {
+      context: new HttpContext().set(LOADER, "Criando item"),
     });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public editItem(id: number, i: Item): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+    return this.http.put<boolean>(`${this.api}item/${id}`, i, {
+      context: new HttpContext().set(LOADER, "Atualizando item"),
+    });
+
+    // return of(true).pipe(delay(3000));
   }
 
   public deleteItem(id: number): Observable<boolean> {
-    return of(true).pipe(delay(3000));
+    return this.http.delete<boolean>(`${this.api}item/${id}`, {
+      context: new HttpContext().set(LOADER, "Excluindo item"),
+    });
+    
+    // return of(true).pipe(delay(3000));
   }
 
   public createSection(c: Section): Observable<boolean> {

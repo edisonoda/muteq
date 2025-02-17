@@ -41,14 +41,6 @@
     }
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Foto</mat-label>
-    <input type="text" matInput formControlName="image"/>
-    @if (form.get('image')?.hasError('required')) {
-    <mat-error>Foto obrigatória</mat-error>
-    }
-  </mat-form-field>
-
   <!-- <button type="button" mat-raised-button (click)="imgInput.click()" role="button">Selecionar Foto</button>
   <input #imgInput hidden (change)="onFileSelected()" formControlName="img" type="file" accept="image/png, image/jpeg, image/jpg"> -->
 
@@ -57,7 +49,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Categoria</mat-label>
         <mat-select formControlName="category">
-          <mat-option value="None">Nenhuma</mat-option>
+          <mat-option [value]="null">Nenhuma</mat-option>
           @for (category of categories; track category) {
           <mat-option [value]="category.id">{{category.name}}</mat-option>
           }
@@ -69,7 +61,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Seção</mat-label>
         <mat-select formControlName="section">
-          <mat-option value="None">Nenhuma</mat-option>
+          <mat-option [value]="null">Nenhuma</mat-option>
           @for (section of sections; track section) {
           <mat-option [value]="section.id">{{section.name}}</mat-option>
           }
@@ -77,6 +69,8 @@
       </mat-form-field>
     </div>
   </div>
+
+  <app-file-uploader [control]="form.get('image')" [uploadedFiles]="[image]" path="item"></app-file-uploader>
 
   <div class="d-flex flex-wrap justify-content-end">
     <button mat-flat-button (click)="onSubmit()" class="save-button">Salvar</button>

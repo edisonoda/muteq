@@ -180,14 +180,9 @@ export class ItemAdmComponent extends ListComponent<Item> implements AfterViewIn
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm)
         this.admService.deleteItem(id).subscribe(res => {
-          if (res)
-            this._snackBar.open('Item excluído com sucesso', 'Fechar', {
-              duration: 3000
-            });
-          else
-            this._snackBar.open('Ocorreu um erro ao excluir item', 'Fechar', {
-              duration: 3000
-            });
+          this._snackBar.open('Item excluído com sucesso', 'Fechar', {
+            duration: 3000
+          });
         });
     });
   }

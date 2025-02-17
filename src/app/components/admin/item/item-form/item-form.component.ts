@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,7 @@ import { Section } from 'src/app/interfaces/section';
 import { SearchService } from 'src/app/services/search.service';
 import { Subscription } from 'rxjs';
 import { AdmService } from 'src/app/services/adm.service';
+import { FileUploaderComponent } from 'src/app/shared/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-item-form',
@@ -21,14 +22,13 @@ import { AdmService } from 'src/app/services/adm.service';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FileUploaderComponent,
   ],
   templateUrl: './item-form.component.html',
   styleUrls: ['../../form.css']
 })
 export class ItemFormComponent implements OnInit, OnDestroy {
-  // @ViewChild('imgInput') imgInput!: ElementRef<HTMLInputElement>;
-
   private _title: string = 'Cadastrar Item';
   public get title() { return this._title; }
   public set title(t: string) { this._title = t; }
@@ -45,6 +45,9 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   private _sections: Array<Section> = [];
   public get sections() { return this._sections };
   public set sections(s: Array<Section>) { this._sections = s };
+
+  private _image: string = '';
+  public get image() { return this._image; }
 
   private readonly _snackBar: MatSnackBar = inject(MatSnackBar);
   private _subs: Array<Subscription> = [];
@@ -94,7 +97,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       year: new FormControl('', [Validators.required]),
       manufacturer: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required]),
+      image: new FormControl(null, [Validators.required]),
       category: new FormControl('', [Validators.required]),
       section: new FormControl('', [Validators.required]),
     });
@@ -107,8 +110,10 @@ export class ItemFormComponent implements OnInit, OnDestroy {
           this.form.get(k)?.setValue(v);
         });
 
-        this.form.get('category')?.setValue(res.category?.id ?? null);
-        this.form.get('section')?.setValue(res.section?.id ?? null);
+        this.form.get('category')?.setValue(res.category ?? null);
+        this.form.get('section')?.setValue(res.section ?? null);
+
+        this._image = res.image ?? '';
       }
     });
   }
@@ -139,24 +144,6 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   public cancel(): void {
     this.router.navigate(['adm', 'items']);
   }
-
-  // public onFileSelected(): void {
-  //   if (typeof (FileReader) !== 'undefined') {
-  //     const reader = new FileReader();
-
-  //     reader.onload = (e: ProgressEvent<FileReader>) => {
-  //       console.log(e.target?.result);
-  //       this._createItemForm.get('img')?.setValue(e.target?.result);
-  //     };
-
-  //     if (this.imgInput.nativeElement.files?.length) {
-  //       const file = this.imgInput.nativeElement.files.item(0);
-
-  //       if (file)
-  //         reader.readAsArrayBuffer(file);
-  //     }
-  //   }
-  // }
 
   ngOnDestroy(): void {
     this._subs.forEach(sub => {
