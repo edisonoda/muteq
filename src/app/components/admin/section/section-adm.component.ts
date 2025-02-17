@@ -148,6 +148,8 @@ export class SectionAdmComponent extends ListComponent<Section> implements After
           this._snackBar.open('Seção excluída com sucesso', 'Fechar', {
             duration: 3000
           });
+
+          this.getList();
         });
     });
   }

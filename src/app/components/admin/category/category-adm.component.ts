@@ -134,6 +134,8 @@ export class CategoryAdmComponent extends ListComponent<Category> implements Aft
           this._snackBar.open('Categoria excluída com sucesso', 'Fechar', {
             duration: 3000
           });
+
+          this.getList();
         });
     });
   }

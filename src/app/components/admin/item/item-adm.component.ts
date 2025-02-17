@@ -183,6 +183,8 @@ export class ItemAdmComponent extends ListComponent<Item> implements AfterViewIn
           this._snackBar.open('Item excluído com sucesso', 'Fechar', {
             duration: 3000
           });
+
+          this.getList();
         });
     });
   }
