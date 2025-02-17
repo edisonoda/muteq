@@ -28,6 +28,10 @@
 }
 
 /* Results */
+::ng-deep .search-results .mat-mdc-optgroup .mat-mdc-option:last-child {
+    margin-bottom: var(--content-padding);
+}
+
 ::ng-deep .search-results .mat-mdc-optgroup .mat-mdc-option:not(.mat-mdc-option-multiple) {
     padding: 0 16px;
 }
