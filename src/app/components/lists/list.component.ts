@@ -29,7 +29,7 @@ export abstract class ListComponent<T = Listable> implements OnInit, OnDestroy {
   public get count() { return this._count; }
   public set count(c: number) { this._count = c; }
 
-  private _page: number = 1;
+  private _page: number = 0;
   public get page() { return this._page; }
   public set page(p: number) {
     this._page = p;
