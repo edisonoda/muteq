@@ -18,13 +18,37 @@ export class FileUploaderComponent implements OnDestroy, AfterViewInit {
   @ViewChild('fileInput')
   private _input!: ElementRef;
 
+  private _control: AbstractControl | null = new FormControl();
+  public get control() { return this._control; }
   @Input()
-  public control: AbstractControl | null = new FormControl();
+  public set control(c: AbstractControl | null) { this._control = c; }
 
   private _path: string | undefined;
   public get path() { return this._path; }
   @Input()
   public set path(p: string | undefined) { this._path = p; }
+
+  private _uploadedFiles: Array<string> = [];
+  public get uploadedFiles() { return this._uploadedFiles; }
+  @Input()
+  public set uploadedFiles(f: Array<string>) {
+    if (f instanceof Array) {
+      this._uploadedFiles = f;
+      this._files = [];
+
+      this._uploadedFiles.forEach(file => {
+        if (file)
+          this.admService.fetchImage(file).then(res => {
+            res.blob().then(v => {
+              this._files.push(URL.createObjectURL(v));
+              this.cdr.detectChanges();
+            });
+          });
+      });
+    }
+
+    this.cdr.detectChanges();
+  }
 
   private _multiple: boolean = false;
   public get multiple() { return this._multiple; }
@@ -33,9 +57,6 @@ export class FileUploaderComponent implements OnDestroy, AfterViewInit {
 
   private _files: Array<string> = [];
   public get files() { return this._files; }
-
-  private _uploadedFiles: Array<string> = [];
-  public get uploadedFiles() { return this._uploadedFiles; }
 
   private _sub: Subscription | undefined;
 
