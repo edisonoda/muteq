@@ -12,7 +12,8 @@
 
     <div *ngIf="activeSettings.pagination" class="carousel-pagination">
         <button *ngFor="let el of elements; index as i" [disabled]="activeSlide == i"
-            (click)="scrollTo(i)" [ngClass]="{'active': activeSlide == i}">
+            (click)="scrollTo(i)" [ngClass]="{'active': activeSlide == i}" role="button"
+            attr.aria-label="Navegar para item {{i}}" [attr.aria-pressed]="activeSlide === i">
         </button>
     </div>
 

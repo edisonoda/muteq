@@ -91,7 +91,7 @@ img {
 .footer-copyright p {
     font-family: Roboto;
     font-size: small;
-    color: var(--medium-gray);
+    color: var(--mat-sys-background);
     font-weight: 100;
 }
 

@@ -9,8 +9,8 @@ import { DatePipe } from '@angular/common';
     <footer>
       <div class="footer-content">
         <div class="logos">
-          <img class="logos__utfpr" src="assets/img/utfpr.png">
-          <img class="logos__mutec" src="assets/img/mutec_logo.png">
+          <img class="logos__utfpr" alt="Logo UTFPR" src="assets/img/utfpr.png">
+          <img class="logos__mutec" alt="Logo MUTEC" src="assets/img/mutec_logo.png">
         </div>
         <address class ="info">
           <section class="location">
