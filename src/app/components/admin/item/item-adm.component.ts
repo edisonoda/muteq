@@ -6,7 +6,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -31,7 +31,8 @@ import { PageEvent } from '@angular/material/paginator';
     MatInputModule,
     CommonModule,
     QRCodeComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './item-adm.component.html',
   styleUrls: ['../list.css'],
