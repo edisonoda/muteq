@@ -52,16 +52,16 @@ export class AppComponent {
         this._loaderRequests.set(res.url, req);
   
         // TODO: temporário
-        // let finished = true;
-        // this._loaderRequests.forEach(req => {
-        //   if (!req.finished)
-        //     finished = false;
-        // });
+        let finished = true;
+        this._loaderRequests.forEach(req => {
+          if (!req.finished)
+            finished = false;
+        });
   
-        // if (finished) {
-        //   this._loaderRequests.clear();
-        //   this.loaderService.finish();
-        // }
+        if (finished) {
+          this._loaderRequests.clear();
+          this.loaderService.finish();
+        }
       }),
       this.loaderService.finished$.subscribe(() => {
         this._loading = false;

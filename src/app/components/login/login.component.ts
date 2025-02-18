@@ -19,7 +19,7 @@ export class LoginComponent {
   private readonly _snackBar = inject(MatSnackBar);
 
   private _loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
   public get loginForm() {
@@ -30,7 +30,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this._snackBar.open('Email ou senha incorretos!', 'Fechar', {
+      this._snackBar.open('Preencha todos os campos do formulário de login!', 'Fechar', {
         duration: 3000
       });
     } else {
@@ -60,5 +60,9 @@ export class LoginComponent {
         });
       });
     }
+  }
+
+  public cancel(): void {
+    this.router.navigate(['']);
   }
 }
