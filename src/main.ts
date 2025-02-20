@@ -28,12 +28,12 @@ bootstrapApplication(AppComponent, {
         ariaModal: true
       }
     },
-    {
-      provide: IMAGE_LOADER,
-      useValue: (config: ImageLoaderConfig) => {
-        return `http://localhost:8080/image?name=${config.src}`;
-      },
-    },
+    // {
+    //   provide: IMAGE_LOADER,
+    //   useValue: (config: ImageLoaderConfig) => {
+    //     return `http://localhost:8080/image?name=${config.src}`;
+    //   },
+    // },
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([
       headerInterceptor,

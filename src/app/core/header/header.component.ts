@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
           <img class="logos__mutec" alt="Logo do MUTEC" src="assets/img/mutec_logo.png">
         </a>
         <div class="actions">
+          @if (false) {
           @if (!loggedIn) {
             <button mat-icon-button (click)="login()" style="color: var(--mat-sys-primary)"
               matTooltip="Login">
@@ -28,6 +29,7 @@ import { Subscription } from 'rxjs';
               matTooltip="Logout">
               <mat-icon>logout</mat-icon>
             </button>
+          }
           }
           <app-menu [loggedIn]="loggedIn"></app-menu>
         </div>
