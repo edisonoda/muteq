@@ -16,24 +16,31 @@ import { DatePipe } from '@angular/common';
           <section class="location">
             <div class="location-main">
               <mat-icon aria-hidden="true" aria-label="Place icon" fontIcon="place"></mat-icon>
-              <p aria-label="Endereço"> Rua Pedro Gusso, 2601 </p>
+              <p> Rua Pedro Gusso, 2601 </p>
             </div>
-            <p aria-label="CEP"> CEP: 81310-900   |   Neoville </p>
-            <p aria-label="Cidade"> Curitiba - Paraná </p>
+            <p> CEP: 81310-900   |   Neoville </p>
+            <p> Curitiba - Paraná </p>
           </section>
           <section class ="contact">
             <div class="contact-container">
-              <mat-icon aria-hidden="true" fontIcon="mail"></mat-icon>
-              <p aria-label="E-mail">pelisson&#64;utfpr.edu.br</p>
+              <a href="mailto:pelisson&#64;utfpr.edu.br" target=”_blank” aria-labelledby="email-footer">
+                <label id="email-footer" class="d-none">Mandar e-mail (abre nova janela)</label>
+                <mat-icon aria-hidden="true" fontIcon="mail"></mat-icon>
+                <p>pelisson&#64;utfpr.edu.br</p>
+              </a>
             </div>
             <div class="contact-container">
-              <mat-icon aria-hidden="true" fontIcon="local_phone"></mat-icon>
-              <p aria-label="Telefone">(41) 3310-4742</p>
+              <a href="tel:+554133104742" target=”_blank” aria-labelledby="phone-footer">
+                <label id="phone-footer" class="d-none">Ligar (abre nova janela)</label>
+                <mat-icon aria-hidden="true" fontIcon="local_phone"></mat-icon>
+                <p> (41) 99915-9395 </p>
+              </a>
             </div>
             <div class="contact-container">
-              <a href="https://wa.me/5541999159395" target=”_blank” aria-label="Whatsapp">
+              <a href="https://wa.me/5541999159395" target=”_blank” aria-labelledby="whatsapp-footer">
+                <label id="whatsapp-footer" class="d-none">Mandar uma mensagem no WhatsApp (abre nova janela)</label>
                 <mat-icon aria-hidden="true" fontIcon="sms"></mat-icon>
-                <p aria-label="Celular"> (41) 99915-9395 </p>
+                <p> (41) 99915-9395 </p>
               </a>
             </div>
           </section>

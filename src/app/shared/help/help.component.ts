@@ -32,8 +32,9 @@ export class HelpComponent {
   selector: 'app-help-button',
   imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule],
   template: `
-    <button mat-mini-fab (click)="openHelp()" matTooltip="Abrir Ajuda" matTooltipPosition="left" class="help-button"
-      aria-label="Abrir ajuda">
+    <button mat-mini-fab (click)="openHelp()" matTooltip="Abrir Ajuda" matTooltipPosition="left"
+      class="help-button" aria-labelledby="abrir_ajuda">
+      <label id="abrir_ajuda" class="d-none">Abrir ajuda</label>
       <mat-icon>help</mat-icon>
     </button>
   `,

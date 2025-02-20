@@ -82,6 +82,7 @@ img {
 
 .footer-copyright {
     background-color: var(--default-dark);
+    color: var(--mat-sys-background);
     padding-top: 1.5%;
     padding-bottom: 1.5%;
     text-align: center;
@@ -89,10 +90,9 @@ img {
 }
 
 .footer-copyright p {
+    color: var(--mat-sys-background);
     font-family: Roboto;
     font-size: small;
-    color: var(--mat-sys-background);
-    font-weight: 100;
 }
 
 
@@ -134,7 +134,6 @@ img {
     .footer-copyright {
         padding-top: 2%;
         padding-bottom: 2%;
-        ;
     }
 }
 
@@ -159,13 +158,6 @@ img {
 
     img {
         width: 250px;
-    }
-
-    .footer-copyright p {
-        font-family: Roboto;
-        font-size: x-small;
-        color: var(--medium-gray);
-        font-weight: 100;
     }
 
     .footer-content>.info>.contact {

@@ -6,10 +6,10 @@ import { QRCodeReaderButtonComponent } from "../qrcode-reader/qrcode-reader-butt
     selector: 'app-floating-buttons',
     imports: [HelpButtonComponent, QRCodeReaderButtonComponent],
     template: `
-        <div class="floating-buttons">
+        <section class="floating-buttons" aria-label="Help and QR Code">
             <app-help-button></app-help-button>
             <app-qrcode-reader-button></app-qrcode-reader-button>
-        </div>
+        </section>
     `,
     styles: `
         .floating-buttons {
